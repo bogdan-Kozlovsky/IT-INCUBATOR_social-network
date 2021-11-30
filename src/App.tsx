@@ -1,16 +1,22 @@
-import React from 'react';
-import './App.scss'
+import React, {FC} from 'react';
+import {Header} from "./component/Header/Header";
+import {Navigation} from "./component/Navigation/Navigation";
+import cn from 'classnames'
+import {Profile} from "./component/Profile/Profile";
 
-const App = () => {
 
+export const App: FC = () => {
     return (
         <div>
-           <h1 className="title">
-               Hello
-               <span>Ts</span>
-           </h1>
+            <Header/>
+
+            <div className="wrapper app">
+                <Navigation/>
+                <div className="app__box">
+                    <Profile/>
+                </div>
+            </div>
         </div>
     );
 };
 
-export default App;

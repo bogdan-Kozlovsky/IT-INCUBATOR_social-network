@@ -1,6 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {App} from './App'
+import reportWebVitals from './reportWebVitals'
+import './index.scss'
+import './normalize.scss'
 
-ReactDOM.render(<App/>, document.getElementById('root'));reportWebVitals();
+
+ReactDOM.render(<App/>, document.getElementById('root'))
+reportWebVitals()

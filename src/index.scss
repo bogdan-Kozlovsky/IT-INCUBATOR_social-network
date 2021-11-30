@@ -1,0 +1,25 @@
+body {
+  background-color: #212121;
+  color: #ff8f00;
+  font-family: Roboto;
+  font-weight: 400;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.app {
+  display: flex;
+
+  &__inner {
+
+  }
+
+  &__box {
+    flex: 0 1 100%;
+  }
+}
