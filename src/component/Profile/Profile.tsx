@@ -21,9 +21,9 @@ export const Profile = () => {
                             Age: <span>22</span></li>
                     </ul>
                 </div>
-
-
             </div>
+
+
             <MyPost/>
         </div>
     );

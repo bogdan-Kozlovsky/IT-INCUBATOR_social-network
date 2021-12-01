@@ -1,20 +1,21 @@
 import React, {FC} from 'react';
 import style from './navigation.module.scss'
 import cn from 'classnames'
+import { NavLink } from 'react-router-dom';
 
 export const Navigation: FC = () => {
     return (
         <div >
             <ul className={cn(style.navigation__items,style.navigation)}>
                 <li className={style.navigation__item}>
-                    <a className={style.navigation__link} href="#">
+                    <NavLink className={style.navigation__link} to="/profile">
                         Profile
-                    </a>
+                    </NavLink>
                 </li>
                 <li className={style.navigation__item}>
-                    <a className={style.navigation__link} href="#">
+                    <NavLink className={style.navigation__link} to="/dialogs">
                         Messages
-                    </a>
+                    </NavLink>
                 </li>
                 <li className={style.navigation__item}>
                     <a className={style.navigation__link} href="#">
