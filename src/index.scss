@@ -16,7 +16,7 @@ body {
   display: flex;
 
   &__inner {
-
+  transition: all 0.4s;
   }
 
   &__box {
@@ -24,3 +24,4 @@ body {
     margin-bottom: 50px;
   }
 }
+
