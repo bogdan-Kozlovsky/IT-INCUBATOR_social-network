@@ -1,3 +1,9 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: #212121;
   color: #ff8f00;
@@ -14,6 +20,7 @@ body {
 
 .app {
   display: flex;
+  min-height: 100vh;
 
   &__inner {
   transition: all 0.4s;

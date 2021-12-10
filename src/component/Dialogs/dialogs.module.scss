@@ -1,0 +1,72 @@
+.dialogs {
+
+  &__title {
+    margin-bottom: 25px;
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      border-right: 2px dashed #1565c0;
+      right: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 100%;
+    }
+  }
+
+  &__items {
+  }
+
+  &__item {
+    margin-bottom: 25px;
+  }
+
+  &__link {
+    position: relative;
+    padding-left: 10px;
+
+    &:hover {
+
+      &::before {
+        background-color: #ff8f00;
+      }
+    }
+
+    &::before {
+      transition: all 0.5s;
+      content: '';
+      width: 5px;
+      height: 5px;
+      background-color: #1565c0;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+
+  &__descr {
+    margin-bottom: 25px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      border-bottom: 1px dashed #1565c0;
+      width: 100%;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+
+}
