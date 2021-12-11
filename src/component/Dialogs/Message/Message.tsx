@@ -1,12 +1,11 @@
 import s from "../dialogs.module.scss";
 import React, {FC} from "react";
+import {DialogProps} from "../../../state/state";
 
-interface MessageProps {
-    descr:string
-}
 
-export const Message:FC<MessageProps> = ({descr}) => {
+
+export const Message:FC<DialogProps> = ({description}) => {
     return (
-        <p className={s.dialogs__descr}>{descr}</p>
+        <p className={s.dialogs__descr}>{description}</p>
     )
 }
