@@ -1,33 +1,25 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {dialog} from "../../state/state";
+import {DialogType, MessageType} from '../../redux/redux';
 
-const Dialogs = () => {
+type DialogsType = {
+    dialog:Array<DialogType>
+    message:Array<MessageType>
+}
 
-    let dialogs = dialog.map(({pathDialog, name, id}) => {
-        return (
-            <DialogsItem key={id} pathDialog={pathDialog} name={name}/>
-        )
-    })
-
-
-    let message = dialog.map(({id,description}) => {
-        return(
-            <Message key={id} description={description}/>
-        )
-    })
+const Dialogs:FC<DialogsType> = ({dialog, message}) => {
 
     return (
         <div className={s.dialogs}>
             <h2 className={s.dialogs__title}>Dialogs!</h2>
             <div className={s.dialogs__inner}>
                 <ul className={s.dialogs__items}>
-                    {dialogs}
+                    <DialogsItem dialog={dialog}/>
                 </ul>
                 <div className={s.dialogs__content}>
-                    {message}
+                    <Message />
                 </div>
             </div>
         </div>

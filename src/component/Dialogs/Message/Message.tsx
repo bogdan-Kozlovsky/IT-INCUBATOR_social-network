@@ -1,11 +1,14 @@
-import s from "../dialogs.module.scss";
-import React, {FC} from "react";
-import {DialogProps} from "../../../state/state";
+import s from '../dialogs.module.scss';
+import React, {FC} from 'react';
 
+// type MessageType = {
+//     message: Array<MessageType>
+// }
 
-
-export const Message:FC<DialogProps> = ({description}) => {
+export const Message = () => {
     return (
-        <p className={s.dialogs__descr}>{description}</p>
+        <div>
+            Hello
+        </div>
     )
 }

@@ -1,24 +1,27 @@
-import React, {FC} from "react";
-import s from "../dialogs.module.scss";
-import {NavLink} from "react-router-dom";
-import {DialogProps} from "../../../state/state";
+import React, {FC} from 'react';
+import s from '../dialogs.module.scss';
+import {NavLink} from 'react-router-dom';
+import {DialogType} from '../../../redux/redux';
 
-
-const activeStyle: any = {
-    color: '#1565c0',
-    transition: 'all 0.7s',
-    fontWeight: '600',
+type DialogsItemType = {
+    dialog: Array<DialogType>
 }
+export const DialogsItem: FC<DialogsItemType> = (props) => {
 
-
-export const DialogsItem: FC<DialogProps> = ({name, pathDialog}) => {
     return (
-        <li className={s.dialogs__item}>
-            <NavLink to={pathDialog!}
-                     style={({isActive}) => isActive ? activeStyle : undefined}
-                     className={s.dialogs__link}>
-                {name}
-            </NavLink>
-        </li>
+        <div>
+            {props.dialog.map(el => {
+                return (
+                    <div key={el.id}>
+                        <li className={s.dialogs__item}>
+                            <NavLink to={el.pathDialog}
+                                     className={({isActive}) => `${s.dialogs__link} ${isActive ? s.dialogs__active : ''}`}>
+                                {el.name}
+                            </NavLink>
+                        </li>
+                    </div>
+                )
+            })}
+        </div>
     )
 }
