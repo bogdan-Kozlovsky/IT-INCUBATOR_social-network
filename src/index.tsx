@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals'
 import './index.scss'
 import './normalize.scss'
 import {BrowserRouter} from "react-router-dom";
-import {state} from './redux/redux';
+import {state} from './redux/state';
 
 
 ReactDOM.render(

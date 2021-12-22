@@ -3,7 +3,7 @@ import s from './profile.module.scss'
 import banner from './../../img/banner.jpg'
 import {MyPost} from './MyPost/MyPost';
 
-import {PostsType} from '../../redux/redux';
+import {PostsType} from '../../redux/state';
 import {ProfileCard} from './ProfileCard';
 
 type ProfileType = {

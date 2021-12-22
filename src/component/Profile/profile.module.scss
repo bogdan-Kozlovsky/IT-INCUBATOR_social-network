@@ -60,4 +60,17 @@
     padding: 5px;
     margin-bottom: 15px;
   }
+
+  &__btn {
+    cursor: pointer;
+    color: #ff8f00;
+    background-color: transparent;
+    border: 1px solid #ff8f00;
+    padding: 5px 2px;
+    margin-bottom: 20px;
+    transition: all 0.5s;
+    &:hover{
+      color: aliceblue;
+    }
+  }
 }

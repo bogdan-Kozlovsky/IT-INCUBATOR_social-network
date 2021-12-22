@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import style from './profile.module.scss'
-import {PostsType} from '../../redux/redux';
+import {PostsType} from '../../redux/state';
 
 
 type ProfileCardType = {

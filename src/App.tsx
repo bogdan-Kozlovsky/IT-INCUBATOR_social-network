@@ -8,7 +8,7 @@ import {Route, Routes} from 'react-router-dom';
 import News from './component/News/News';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
-import {RootStateType} from './redux/redux';
+import {RootStateType} from './redux/state';
 
 type AppType = {
     state: RootStateType

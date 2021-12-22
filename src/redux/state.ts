@@ -17,6 +17,8 @@ export type MessageType = {
     description: string
 }
 
+
+
 export type ProfilePageType = {
     posts: Array<PostsType>
 }
@@ -77,7 +79,6 @@ export let state: RootStateType = {
             {id: 3, description: 'how is your health today'},
             {id: 4, description: 'Where had you been?'},
         ]
-
     }
 }
 /*

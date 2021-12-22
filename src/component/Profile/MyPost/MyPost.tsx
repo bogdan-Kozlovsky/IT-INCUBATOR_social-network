@@ -1,12 +1,25 @@
 import React from 'react';
-import style from "../profile.module.scss";
-import {Post} from "./Post/Post";
+import s from '../profile.module.scss';
+import {Post} from './Post/Post';
 
 export const MyPost = () => {
+
+    const addPost = () => {
+        let text = newPostElement.current?.value
+        console.log(text)
+    }
+
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
     return (
-        <div className={style.post}>
-            <h1 className={style.post__title}>My Post</h1>
-            <textarea className={style.post__textarea} placeholder='Введите свои записы'/>
+        <div className={s.post}>
+            <h1 className={s.post__title}>My Post</h1>
+            <textarea
+                ref={newPostElement}
+                className={s.post__textarea}
+                placeholder="Введите свои записы"
+            />
+            <button onClick={addPost} className={s.post__btn}>Add post</button>
             <Post
                 id={1} author={'Vasia'} descr={'Hello how are you'}
             />

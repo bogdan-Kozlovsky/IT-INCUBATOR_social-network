@@ -1,16 +1,16 @@
 import React, {FC} from 'react';
 import s from '../dialogs.module.scss';
 import {NavLink} from 'react-router-dom';
-import {DialogType} from '../../../redux/redux';
+import {DialogType} from '../../../redux/state';
 
 type DialogsItemType = {
     dialog: Array<DialogType>
 }
-export const DialogsItem: FC<DialogsItemType> = (props) => {
+export const DialogsItem: FC<DialogsItemType> = ({dialog}) => {
 
     return (
         <div>
-            {props.dialog.map(el => {
+            {dialog.map(el => {
                 return (
                     <div key={el.id}>
                         <li className={s.dialogs__item}>

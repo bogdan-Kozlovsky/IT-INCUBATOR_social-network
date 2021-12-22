@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import s from './dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from '../../redux/redux';
+import {DialogType, MessageType} from '../../redux/state';
 
 type DialogsType = {
     dialog:Array<DialogType>
@@ -19,7 +19,9 @@ const Dialogs:FC<DialogsType> = ({dialog, message}) => {
                     <DialogsItem dialog={dialog}/>
                 </ul>
                 <div className={s.dialogs__content}>
-                    <Message />
+
+                    <Message  messages={message}/>
+
                 </div>
             </div>
         </div>
