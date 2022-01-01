@@ -11,9 +11,9 @@ type ProfileCardType = {
 export const ProfileCard: FC<ProfileCardType> = (props) => {
     return (
         <div className={style.profile__descr}>
-            {props.posts.map(el => {
+            {props.posts.map((el, index) => {
                 return (
-                    <div className={style.profile__inner}>
+                    <div key={index} className={style.profile__inner}>
                         <img className={style.profile__avatar} src={el.ava} alt="avatar"/>
                         <div>
                             <h2 className={style.profile__name}>{el.name}</h2>

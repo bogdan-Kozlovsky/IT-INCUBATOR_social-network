@@ -8,13 +8,15 @@ import {Route, Routes} from 'react-router-dom';
 import News from './component/News/News';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
-import {RootStateType} from './redux/state';
+import {addPost, addPostPropsType, PostsType, RootStateType} from './redux/state';
 
 type AppType = {
     state: RootStateType
+    addPost: addPostPropsType
 }
 
 export const App: FC<AppType> = (props) => {
+
     return (
         <div>
             <Header/>
@@ -23,7 +25,8 @@ export const App: FC<AppType> = (props) => {
                 <Navigation/>
                 <div className="app__box">
                     <Routes>
-                        <Route path={'/'} element={<Profile posts={props.state.profilePage.posts}/>}/>
+                        <Route path={'/'}
+                               element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
                         <Route path={'/dialogs/*'} element={<Dialogs
                             dialog={props.state.dialogsPage.dialog} message={props.state.dialogsPage.message}/>}/>
                         <Route path={'/news'} element={<News/>}/>

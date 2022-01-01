@@ -8,9 +8,10 @@ import {ProfileCard} from './ProfileCard';
 
 type ProfileType = {
     posts: Array<PostsType>
+    addPost: (text: any) => void
 }
 
-export const Profile: FC<ProfileType> = ({posts}) => {
+export const Profile: FC<ProfileType> = ({posts, addPost}) => {
     return (
         <div className={s.profile}>
             <img className={s.profile__banner} src={banner} alt="banner"/>
@@ -19,7 +20,7 @@ export const Profile: FC<ProfileType> = ({posts}) => {
             </div>
 
 
-            <MyPost/>
+            <MyPost addPost={addPost}/>
         </div>
     );
 };

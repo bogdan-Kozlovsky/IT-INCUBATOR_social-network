@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from '../profile.module.scss';
 import {Post} from './Post/Post';
 
-export const MyPost = () => {
 
-    const addPost = () => {
+type MyPostPropsType = {
+    addPost: (text: any) => void
+}
+export const MyPost: FC<MyPostPropsType> = (props) => {
+
+
+    const addTaskPost = () => {
         let text = newPostElement.current?.value
+        props.addPost(text)
         console.log(text)
+        debugger
     }
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
@@ -19,7 +26,8 @@ export const MyPost = () => {
                 className={s.post__textarea}
                 placeholder="Введите свои записы"
             />
-            <button onClick={addPost} className={s.post__btn}>Add post</button>
+            <button className={s.post__btn} onClick={addTaskPost}>Add post
+            </button>
             <Post
                 id={1} author={'Vasia'} descr={'Hello how are you'}
             />
@@ -29,4 +37,9 @@ export const MyPost = () => {
         </div>
     );
 };
+
+
+
+
+
 

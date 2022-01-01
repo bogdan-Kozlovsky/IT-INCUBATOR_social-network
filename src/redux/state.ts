@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render';
+
 export type PostsType = {
     name: string
     country: string
@@ -18,7 +20,6 @@ export type MessageType = {
 }
 
 
-
 export type ProfilePageType = {
     posts: Array<PostsType>
 }
@@ -32,6 +33,7 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
+
 
 export let state: RootStateType = {
     profilePage: {
@@ -81,5 +83,22 @@ export let state: RootStateType = {
         ]
     }
 }
-/*
- */
+
+
+export type addPostPropsType = (text: string) => void
+
+
+export const addPost: addPostPropsType = (text) => {
+    let newPost: PostsType = {
+        name: text,
+        country: 'Ukraine',
+        city: 'Vinnytsia',
+        age: 22,
+        ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
+    }
+    state.profilePage.posts.push(newPost)
+    console.log(state.profilePage.posts)
+    rerenderEntireTree(state)
+
+}
+

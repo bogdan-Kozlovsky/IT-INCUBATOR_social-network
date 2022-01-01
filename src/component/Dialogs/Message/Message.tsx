@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {MessageType} from '../../../redux/state';
 
 type MessagePropsType = {
@@ -12,6 +12,7 @@ export const Message: FC<MessagePropsType> = ({messages}) => {
         let text = newMessage.current?.value
         console.log(text)
     }
+
     return (
         <div>
             {messages.map(el => <div>
