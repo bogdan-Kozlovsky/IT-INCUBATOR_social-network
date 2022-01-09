@@ -8,19 +8,21 @@ import {ProfileCard} from './ProfileCard';
 
 type ProfileType = {
     posts: Array<PostsType>
-    addPost: (text: any) => void
+    addPost: () => void
+    newPostText:string
+    updateNewPostText: (newPostText: string ) => void
 }
 
-export const Profile: FC<ProfileType> = ({posts, addPost}) => {
+export const Profile: FC<ProfileType> = ({posts, addPost,newPostText,...props}) => {
     return (
         <div className={s.profile}>
             <img className={s.profile__banner} src={banner} alt="banner"/>
             <div>
-                <ProfileCard posts={posts}/>
+                <ProfileCard posts={posts} />
             </div>
 
 
-            <MyPost addPost={addPost}/>
+            <MyPost addPost={addPost} newPostText={newPostText} updateNewPostText={props.updateNewPostText}/>
         </div>
     );
 };

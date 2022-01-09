@@ -4,24 +4,31 @@ import {Post} from './Post/Post';
 
 
 type MyPostPropsType = {
-    addPost: (text: any) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (newPostText: any) => void
 }
 export const MyPost: FC<MyPostPropsType> = (props) => {
 
 
     const addTaskPost = () => {
-        let text = newPostElement.current?.value
-        props.addPost(text)
-        console.log(text)
-        debugger
+        // let text = newPostElement.current?.value
+        // props.addPost(text)
+        props.addPost()
     }
 
+    const onPostChange = () => {
+        let text = newPostElement.current?.value
+        props.updateNewPostText(text)
+    }
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     return (
         <div className={s.post}>
             <h1 className={s.post__title}>My Post</h1>
             <textarea
+                onChange={onPostChange}
+                value={props.newPostText}
                 ref={newPostElement}
                 className={s.post__textarea}
                 placeholder="Введите свои записы"
@@ -37,6 +44,7 @@ export const MyPost: FC<MyPostPropsType> = (props) => {
         </div>
     );
 };
+
 
 
 

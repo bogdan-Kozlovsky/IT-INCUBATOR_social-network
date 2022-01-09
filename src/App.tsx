@@ -13,6 +13,7 @@ import {addPost, addPostPropsType, PostsType, RootStateType} from './redux/state
 type AppType = {
     state: RootStateType
     addPost: addPostPropsType
+    updateNewPostText: (newPostText: string ) => void
 }
 
 export const App: FC<AppType> = (props) => {
@@ -26,7 +27,12 @@ export const App: FC<AppType> = (props) => {
                 <div className="app__box">
                     <Routes>
                         <Route path={'/'}
-                               element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
+                               element={<Profile
+                                   posts={props.state.profilePage.posts}
+                                   newPostText={props.state.profilePage.newPostText}
+                                   addPost={props.addPost}
+                                   updateNewPostText={props.updateNewPostText}
+                               />}/>
                         <Route path={'/dialogs/*'} element={<Dialogs
                             dialog={props.state.dialogsPage.dialog} message={props.state.dialogsPage.message}/>}/>
                         <Route path={'/news'} element={<News/>}/>

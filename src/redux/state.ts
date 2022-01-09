@@ -2,9 +2,6 @@ import {rerenderEntireTree} from '../render';
 
 export type PostsType = {
     name: string
-    country: string
-    city: string
-    age: number
     ava: string
 }
 
@@ -22,6 +19,7 @@ export type MessageType = {
 
 export type ProfilePageType = {
     posts: Array<PostsType>
+    newPostText: string
 }
 
 export type DialogsPageType = {
@@ -40,33 +38,22 @@ export let state: RootStateType = {
         posts: [
             {
                 name: 'Bogdan Kozlovsky',
-                country: 'Ukraine',
-                city: 'Vinnytsia',
-                age: 22,
                 ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
             },
             {
                 name: 'Vasil Kozlovsky',
-                country: 'Ukraine',
-                city: 'Kiev',
-                age: 9,
                 ava: 'https://static.remove.bg/remove-bg-web/df171cdac51358b11159b8b90a70ad08d77ad675/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg\n'
             },
             {
                 name: 'Vlad ',
-                country: 'Ukraine',
-                city: 'Radovka',
-                age: 49,
                 ava: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnPEMT1O67rK1vm-LfTOAU28Xkwdb2Vx4Ekw&usqp=CAU\n'
             },
             {
                 name: 'Max',
-                country: 'Belarus',
-                city: 'Minsk',
-                age: 22,
                 ava: 'https://images.pexels.com/photos/1987301/pexels-photo-1987301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500\n'
             },
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
         dialog: [
@@ -85,20 +72,24 @@ export let state: RootStateType = {
 }
 
 
-export type addPostPropsType = (text: string) => void
+export type addPostPropsType = () => void
 
 
-export const addPost: addPostPropsType = (text) => {
+export const addPost: addPostPropsType = () => {
     let newPost: PostsType = {
-        name: text,
-        country: 'Ukraine',
-        city: 'Vinnytsia',
-        age: 22,
+        name: state.profilePage.newPostText,
         ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
     }
     state.profilePage.posts.push(newPost)
-    console.log(state.profilePage.posts)
+    state.profilePage.newPostText = ''
     rerenderEntireTree(state)
+}
 
+export type updateNewPostText = (newPostText: string) => void
+export const updateNewPostText: updateNewPostText = (newPostText) => {
+    console.log(newPostText)
+    state.profilePage.newPostText = newPostText
+    rerenderEntireTree(state)
+    console.log(state)
 }
 
