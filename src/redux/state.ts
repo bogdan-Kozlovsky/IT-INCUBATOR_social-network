@@ -1,5 +1,7 @@
-import {rerenderEntireTree} from '../render';
-
+// import {rerenderEntireTree} from "../index";
+let rerenderEntireTree = (state: RootStateType) => {
+    console.log(state)
+}
 export type PostsType = {
     name: string
     ava: string
@@ -93,3 +95,6 @@ export const updateNewPostText: updateNewPostText = (newPostText) => {
     console.log(state)
 }
 
+export const subscribe = (observer:any) => {
+    rerenderEntireTree = observer
+}
