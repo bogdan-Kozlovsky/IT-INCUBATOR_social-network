@@ -2,14 +2,15 @@ import React, {FC} from 'react';
 import s from './dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from '../../redux/state';
+import {DialogType, MessageType} from "../../redux/state";
 
-type DialogsType = {
+type DialogsPropsType = {
     dialog:Array<DialogType>
     message:Array<MessageType>
+
 }
 
-const Dialogs:FC<DialogsType> = ({dialog, message}) => {
+const Dialogs:FC<DialogsPropsType> = ({dialog, message}) => {
 
     return (
         <div className={s.dialogs}>

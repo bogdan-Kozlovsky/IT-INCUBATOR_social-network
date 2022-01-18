@@ -8,16 +8,17 @@ import {Route, Routes} from 'react-router-dom';
 import News from './component/News/News';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
-import {addPost, addPostPropsType, PostsType, RootStateType} from './redux/state';
+import {addPostPropsType, RootStateType, StoreType, updateNewPostText} from "./redux/state";
 
 type AppType = {
     state: RootStateType
     addPost: addPostPropsType
-    updateNewPostText: (newPostText: string ) => void
+    updateNewPostText:updateNewPostText
 }
 
-export const App: FC<AppType> = (props) => {
 
+export const App: FC<AppType> = (props) => {
+    const state = props.state
     return (
         <div>
             <Header/>
@@ -28,13 +29,14 @@ export const App: FC<AppType> = (props) => {
                     <Routes>
                         <Route path={'/'}
                                element={<Profile
-                                   posts={props.state.profilePage.posts}
-                                   newPostText={props.state.profilePage.newPostText}
+                                   posts={state.profilePage.posts}
+                                   newPostText={state.profilePage.newPostText}
                                    addPost={props.addPost}
                                    updateNewPostText={props.updateNewPostText}
                                />}/>
                         <Route path={'/dialogs/*'} element={<Dialogs
-                            dialog={props.state.dialogsPage.dialog} message={props.state.dialogsPage.message}/>}/>
+                            dialog={state.dialogsPage.dialog}
+                            message={state.dialogsPage.message}/>}/>
                         <Route path={'/news'} element={<News/>}/>
                         <Route path={'/music'} element={<Music/>}/>
                         <Route path={'/settings'} element={<Settings/>}/>
@@ -42,6 +44,6 @@ export const App: FC<AppType> = (props) => {
                 </div>
             </div>
         </div>
+
     );
 };
-

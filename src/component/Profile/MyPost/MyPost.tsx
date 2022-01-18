@@ -6,10 +6,10 @@ import {Post} from './Post/Post';
 type MyPostPropsType = {
     addPost: () => void
     newPostText: string
-    updateNewPostText: (newPostText: any) => void
+    updateNewPostText: (newPostText: string) => void
 }
 export const MyPost: FC<MyPostPropsType> = (props) => {
-
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addTaskPost = () => {
         // let text = newPostElement.current?.value
@@ -18,10 +18,12 @@ export const MyPost: FC<MyPostPropsType> = (props) => {
     }
 
     const onPostChange = () => {
-        let text = newPostElement.current?.value
+        let text:string = newPostElement.current?.value || ""
+        console.log(text)
         props.updateNewPostText(text)
     }
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
+    console.log(newPostElement)
+
 
     return (
         <div className={s.post}>
