@@ -36,11 +36,19 @@ export type RootStateType = {
 
 export type StoreType = {
     _state: RootStateType
-    addPost: addPostPropsType
-    updateNewPostText: updateNewPostText
     subscribe: (observer: any) => void
     getState: () => RootStateType
     rerenderEntireTree: (state: RootStateType) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+}
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
 }
 
 export let store: StoreType = {
@@ -85,26 +93,43 @@ export let store: StoreType = {
             ]
         }
     },
-    addPost() {
-        let newPost: PostsType = {
-            name: this._state.profilePage.newPostText,
-            ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this.rerenderEntireTree(this._state)
-    },
-    updateNewPostText(newPostText) {
-        this._state.profilePage.newPostText = newPostText
-        console.log(this._state.profilePage.newPostText )
-        this.rerenderEntireTree(this._state)
-    },
-    subscribe(observer: (state: RootStateType)=>void) {
+
+    // addPost() {
+    //     let newPost: PostsType = {
+    //         name: this._state.profilePage.newPostText,
+    //         ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
+    //     }
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = ''
+    //     this.rerenderEntireTree(this._state)
+    // },
+
+    // updateNewPostText(newPostText) {
+    //     this._state.profilePage.newPostText = newPostText
+    //     console.log(this._state.profilePage.newPostText )
+    //     this.rerenderEntireTree(this._state)
+    // },
+    subscribe(observer: (state: RootStateType) => void) {
         this.rerenderEntireTree = observer
     },
     getState() {
         return this._state
-    }
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostsType = {
+                name: this._state.profilePage.newPostText,
+                ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this.rerenderEntireTree(this._state)
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newPostText
+            console.log(this._state.profilePage.newPostText)
+            this.rerenderEntireTree(this._state)
+        }
+    },
 }
 
 

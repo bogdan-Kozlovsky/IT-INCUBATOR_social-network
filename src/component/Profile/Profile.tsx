@@ -3,17 +3,16 @@ import s from './profile.module.scss'
 import banner from './../../img/banner.jpg'
 import {MyPost} from './MyPost/MyPost';
 
-import {PostsType} from '../../redux/state';
+import {AddPostActionType, PostsType, UpdateNewPostActionType} from '../../redux/state';
 import {ProfileCard} from './ProfileCard';
 
 type ProfileType = {
     posts: Array<PostsType>
-    addPost: () => void
     newPostText:string
-    updateNewPostText: (newPostText: string ) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
-export const Profile: FC<ProfileType> = ({posts, addPost,newPostText,...props}) => {
+export const Profile: FC<ProfileType> = ({posts ,newPostText,...props}) => {
     return (
         <div className={s.profile}>
             <img className={s.profile__banner} src={banner} alt="banner"/>
@@ -22,7 +21,7 @@ export const Profile: FC<ProfileType> = ({posts, addPost,newPostText,...props}) 
             </div>
 
 
-            <MyPost addPost={addPost} newPostText={newPostText} updateNewPostText={props.updateNewPostText}/>
+            <MyPost  newPostText={newPostText} dispatch={props.dispatch}/>
         </div>
     );
 };

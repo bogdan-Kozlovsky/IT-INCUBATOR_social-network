@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import s from '../profile.module.scss';
 import {Post} from './Post/Post';
+import {AddPostActionType, UpdateNewPostActionType} from "../../../redux/state";
 
 
 type MyPostPropsType = {
-    addPost: () => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
     newPostText: string
-    updateNewPostText: (newPostText: string) => void
 }
 export const MyPost: FC<MyPostPropsType> = (props) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
@@ -14,13 +14,14 @@ export const MyPost: FC<MyPostPropsType> = (props) => {
     const addTaskPost = () => {
         // let text = newPostElement.current?.value
         // props.addPost(text)
-        props.addPost()
+        props.dispatch({type: 'ADD-POST'})
     }
 
     const onPostChange = () => {
-        let text:string = newPostElement.current?.value || ""
+        let text: string = newPostElement.current?.value || ""
         console.log(text)
-        props.updateNewPostText(text)
+        // props.updateNewPostText(text)
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newPostText: text})
     }
     console.log(newPostElement)
 
