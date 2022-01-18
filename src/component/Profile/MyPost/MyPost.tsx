@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import s from '../profile.module.scss';
 import {Post} from './Post/Post';
-import {AddPostActionType, UpdateNewPostActionType} from "../../../redux/state";
+import {addPostAC, AddPostActionType, updateNewPostAC, UpdateNewPostActionType} from "../../../redux/state";
 
 
 type MyPostPropsType = {
@@ -14,14 +14,14 @@ export const MyPost: FC<MyPostPropsType> = (props) => {
     const addTaskPost = () => {
         // let text = newPostElement.current?.value
         // props.addPost(text)
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostAC())
     }
 
     const onPostChange = () => {
         let text: string = newPostElement.current?.value || ""
         console.log(text)
         // props.updateNewPostText(text)
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newPostText: text})
+        props.dispatch(updateNewPostAC(text))
     }
     console.log(newPostElement)
 

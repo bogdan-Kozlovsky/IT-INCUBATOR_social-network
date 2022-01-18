@@ -51,6 +51,19 @@ export type UpdateNewPostActionType = {
     newPostText: string
 }
 
+export const addPostAC = ():AddPostActionType => {
+    return {
+        type:'ADD-POST'
+    }
+}
+
+export const updateNewPostAC = (newPostText:string):UpdateNewPostActionType => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newPostText: newPostText
+    }
+}
+
 export let store: StoreType = {
     rerenderEntireTree(state) {
         console.log("")
@@ -93,22 +106,6 @@ export let store: StoreType = {
             ]
         }
     },
-
-    // addPost() {
-    //     let newPost: PostsType = {
-    //         name: this._state.profilePage.newPostText,
-    //         ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
-    //     }
-    //     this._state.profilePage.posts.push(newPost)
-    //     this._state.profilePage.newPostText = ''
-    //     this.rerenderEntireTree(this._state)
-    // },
-
-    // updateNewPostText(newPostText) {
-    //     this._state.profilePage.newPostText = newPostText
-    //     console.log(this._state.profilePage.newPostText )
-    //     this.rerenderEntireTree(this._state)
-    // },
     subscribe(observer: (state: RootStateType) => void) {
         this.rerenderEntireTree = observer
     },
