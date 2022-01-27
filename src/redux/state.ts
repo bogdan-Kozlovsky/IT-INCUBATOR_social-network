@@ -23,9 +23,9 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialog: Array<DialogType>
     message: Array<MessageType>
+    newMessageText: string
 }
 
-export type addPostPropsType = () => void
 export type updateNewPostText = (newPostText: string) => void
 
 
@@ -39,30 +39,10 @@ export type StoreType = {
     subscribe: (observer: any) => void
     getState: () => RootStateType
     rerenderEntireTree: (state: RootStateType) => void
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType) => void
+
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-
-export type UpdateNewPostActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
-
-export const addPostAC = ():AddPostActionType => {
-    return {
-        type:'ADD-POST'
-    }
-}
-
-export const updateNewPostAC = (newPostText:string):UpdateNewPostActionType => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newPostText: newPostText
-    }
-}
 
 export let store: StoreType = {
     rerenderEntireTree(state) {
@@ -103,7 +83,8 @@ export let store: StoreType = {
                 {id: 2, description: 'I heard that you have problems'},
                 {id: 3, description: 'how is your health today'},
                 {id: 4, description: 'Where had you been?'},
-            ]
+            ],
+            newMessageText: ''
         }
     },
     subscribe(observer: (state: RootStateType) => void) {
@@ -112,21 +93,85 @@ export let store: StoreType = {
     getState() {
         return this._state
     },
+
+
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost: PostsType = {
-                name: this._state.profilePage.newPostText,
-                ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
+        switch (action.type) {
+            case'ADD-POST': {
+                let newPost: PostsType = {
+                    name: this._state.profilePage.newPostText,
+                    ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
+                }
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.newPostText = ''
+                this.rerenderEntireTree(this._state)
+                return {...store}
             }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this.rerenderEntireTree(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newPostText
-            console.log(this._state.profilePage.newPostText)
-            this.rerenderEntireTree(this._state)
+            case "UPDATE-NEW-POST-TEXT": {
+                this._state.profilePage.newPostText = action.newPostText
+                console.log(this._state.profilePage.newPostText)
+                this.rerenderEntireTree(this._state)
+                return {...store}
+            }
+            case "UPDATE-NEW-MESSAGE-BODY": {
+                this._state.dialogsPage.newMessageText = action.body
+                this.rerenderEntireTree(this._state)
+                return {...store}
+            }
+            case "SEND-MESSAGE": {
+                let body = this._state.dialogsPage.newMessageText
+                this._state.dialogsPage.newMessageText = ''
+                this._state.dialogsPage.message.push({id: 6, description: body})
+                this.rerenderEntireTree(this._state)
+            }
         }
     },
 }
+
+// export  type GenericType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+export const addPostAC = () => {
+    return {
+        type: 'ADD-POST'
+    }
+}
+
+export type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}
+
+export const updateNewPostAC = (newPostText: string):UpdateNewPostActionType => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newPostText: newPostText
+    }
+}
+
+
+export type UpdateNewMessageACType = {
+    type: 'UPDATE-NEW-MESSAGE-BODY'
+    body: string
+}
+// type updateNewMessageACType = ReturnType<typeof updateNewMessageAC>
+export const updateNewMessageAC = (body: string):UpdateNewMessageACType => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-BODY',
+        body: body
+    }
+}
+export type SendMessageACType = {
+    type: 'SEND-MESSAGE'
+}
+// export type sendMessageACType = ReturnType<typeof sendMessageAC>
+export const sendMessageAC = ():SendMessageACType => {
+    return {
+        type: 'SEND-MESSAGE'
+    }
+}
+
 
 

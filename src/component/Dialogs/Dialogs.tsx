@@ -2,15 +2,22 @@ import React, {FC} from 'react';
 import s from './dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {DialogType, MessageType} from "../../redux/state";
+import {
+    AddPostActionType,
+    DialogType,
+    MessageType, SendMessageACType,
+    UpdateNewMessageACType,
+    UpdateNewPostActionType
+} from "../../redux/state";
 
 type DialogsPropsType = {
     dialog:Array<DialogType>
     message:Array<MessageType>
-
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType) => void
+    newMessageText:string
 }
 
-const Dialogs:FC<DialogsPropsType> = ({dialog, message}) => {
+const Dialogs = ({dialog, message,...props}:DialogsPropsType) => {
 
     return (
         <div className={s.dialogs}>
@@ -21,7 +28,11 @@ const Dialogs:FC<DialogsPropsType> = ({dialog, message}) => {
                 </ul>
                 <div className={s.dialogs__content}>
 
-                    <Message  messages={message}/>
+                    <Message
+                        messages={message}
+                        dispatch={props.dispatch}
+                        newMessageText={props.newMessageText}
+                    />
 
                 </div>
             </div>

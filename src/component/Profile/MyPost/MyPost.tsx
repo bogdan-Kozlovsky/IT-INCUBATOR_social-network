@@ -8,7 +8,7 @@ type MyPostPropsType = {
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
     newPostText: string
 }
-export const MyPost: FC<MyPostPropsType> = (props) => {
+export const MyPost = ({...props}:MyPostPropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addTaskPost = () => {

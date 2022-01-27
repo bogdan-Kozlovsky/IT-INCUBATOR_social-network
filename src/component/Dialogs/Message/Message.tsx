@@ -1,17 +1,31 @@
 import React, {FC, useState} from 'react';
-import {MessageType} from '../../../redux/state';
+import {
+    AddPostActionType,
+    MessageType,
+    sendMessageAC, SendMessageACType,
+    updateNewMessageAC, UpdateNewMessageACType, UpdateNewPostActionType
+} from "../../../redux/state";
+
 
 type MessagePropsType = {
     messages: Array<MessageType>
+    dispatch: (action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType) => void
+    newMessageText: string
 }
 
-export const Message: FC<MessagePropsType> = ({messages}) => {
+export const Message = ({messages, ...props}: MessagePropsType) => {
 
     const newMessage = React.createRef<HTMLTextAreaElement>()
+
     const addMessage = () => {
-        let text = newMessage.current?.value
-        console.log(text)
+        // let text = newMessage.current?.value
+        props.dispatch(sendMessageAC())
     }
+    const onMessageChange = () => {
+        let text: string = newMessage.current?.value || ''
+        props.dispatch(updateNewMessageAC(text))
+    }
+
 
     return (
         <div>
@@ -20,7 +34,10 @@ export const Message: FC<MessagePropsType> = ({messages}) => {
                 <p>{el.description}</p>
             </div>)}
             <div>
-                <textarea ref={newMessage}/>
+                <textarea ref={newMessage}
+                          value={props.newMessageText}
+                          onChange={onMessageChange}
+                />
                 <button onClick={addMessage}>Add</button>
             </div>
         </div>

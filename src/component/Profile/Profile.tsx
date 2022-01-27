@@ -8,20 +8,20 @@ import {ProfileCard} from './ProfileCard';
 
 type ProfileType = {
     posts: Array<PostsType>
-    newPostText:string
+    newPostText: string
     dispatch: (action: AddPostActionType | UpdateNewPostActionType) => void
 }
 
-export const Profile: FC<ProfileType> = ({posts ,newPostText,...props}) => {
+export const Profile = ({posts, newPostText, ...props}: ProfileType) => {
     return (
         <div className={s.profile}>
             <img className={s.profile__banner} src={banner} alt="banner"/>
             <div>
-                <ProfileCard posts={posts} />
+                <ProfileCard posts={posts}/>
             </div>
 
 
-            <MyPost  newPostText={newPostText} dispatch={props.dispatch}/>
+            <MyPost newPostText={newPostText} dispatch={props.dispatch}/>
         </div>
     );
 };
