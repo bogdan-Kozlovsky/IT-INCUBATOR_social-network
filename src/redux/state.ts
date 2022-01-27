@@ -1,3 +1,6 @@
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+
 export type PostsType = {
     name: string
     ava: string
@@ -96,44 +99,18 @@ export let store: StoreType = {
 
 
     dispatch(action) {
-        switch (action.type) {
-            case'ADD-POST': {
-                let newPost: PostsType = {
-                    name: this._state.profilePage.newPostText,
-                    ava: 'https://assets-global.website-files.com/6005fac27a49a9cd477afb63/60576840e7d265198541a372_bavassano_homepage_gp.jpg\n'
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this.rerenderEntireTree(this._state)
-                return {...store}
-            }
-            case "UPDATE-NEW-POST-TEXT": {
-                this._state.profilePage.newPostText = action.newPostText
-                console.log(this._state.profilePage.newPostText)
-                this.rerenderEntireTree(this._state)
-                return {...store}
-            }
-            case "UPDATE-NEW-MESSAGE-BODY": {
-                this._state.dialogsPage.newMessageText = action.body
-                this.rerenderEntireTree(this._state)
-                return {...store}
-            }
-            case "SEND-MESSAGE": {
-                let body = this._state.dialogsPage.newMessageText
-                this._state.dialogsPage.newMessageText = ''
-                this._state.dialogsPage.message.push({id: 6, description: body})
-                this.rerenderEntireTree(this._state)
-            }
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this.rerenderEntireTree(this._state)
     },
 }
 
-// export  type GenericType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType
+export  type GenericType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType
 
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
-export const addPostAC = () => {
+export const addPostAC = (): AddPostActionType => {
     return {
         type: 'ADD-POST'
     }
@@ -144,7 +121,7 @@ export type UpdateNewPostActionType = {
     newPostText: string
 }
 
-export const updateNewPostAC = (newPostText: string):UpdateNewPostActionType => {
+export const updateNewPostAC = (newPostText: string): UpdateNewPostActionType => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         newPostText: newPostText
@@ -157,7 +134,7 @@ export type UpdateNewMessageACType = {
     body: string
 }
 // type updateNewMessageACType = ReturnType<typeof updateNewMessageAC>
-export const updateNewMessageAC = (body: string):UpdateNewMessageACType => {
+export const updateNewMessageAC = (body: string): UpdateNewMessageACType => {
     return {
         type: 'UPDATE-NEW-MESSAGE-BODY',
         body: body
@@ -167,7 +144,7 @@ export type SendMessageACType = {
     type: 'SEND-MESSAGE'
 }
 // export type sendMessageACType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = ():SendMessageACType => {
+export const sendMessageAC = (): SendMessageACType => {
     return {
         type: 'SEND-MESSAGE'
     }
