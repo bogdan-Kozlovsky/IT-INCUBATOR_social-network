@@ -4,7 +4,8 @@ import './normalize.scss'
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
-import {RootStateType, store, StoreType} from "./redux/state";
+import {store} from './redux/reduxStore'
+import {RootStateType,} from "./redux/state";
 
 export let rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
@@ -16,5 +17,8 @@ export let rerenderEntireTree = (state: RootStateType) => {
 }
 rerenderEntireTree(store.getState())
 
-store.subscribe(rerenderEntireTree)
+store.subscribe(() => {
+    let state = store.getState()
+    rerenderEntireTree(state)
+})
 

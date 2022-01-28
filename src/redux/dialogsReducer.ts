@@ -21,7 +21,23 @@ export const sendMessageAC = (): SendMessageACType => {
         type: 'SEND-MESSAGE'
     }
 }
-export const dialogsReducer = (state: DialogsPageType, action: GenericType) => {
+
+let initialState: DialogsPageType = {
+    dialog: [
+        {pathDialog: '/dialogs/1', name: 'Vasil', id: 1},
+        {pathDialog: '/dialogs/2', name: 'Vlad', id: 2},
+        {pathDialog: '/dialogs/3', name: 'Max', id: 3},
+        {pathDialog: '/dialogs/4', name: 'Bogdan', id: 4},
+    ],
+    message: [
+        {id: 1, description: 'Hi how are you doing'},
+        {id: 2, description: 'I heard that you have problems'},
+        {id: 3, description: 'how is your health today'},
+        {id: 4, description: 'Where had you been?'},
+    ],
+    newMessageText: ''
+}
+export const dialogsReducer = (state = initialState, action: GenericType) => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-BODY": {
             state.newMessageText = action.body
