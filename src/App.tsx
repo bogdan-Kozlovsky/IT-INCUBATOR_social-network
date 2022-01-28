@@ -9,16 +9,13 @@ import News from './component/News/News';
 import Music from './component/Music/Music';
 import Settings from './component/Settings/Settings';
 import {
-    AddPostActionType,
+    GenericType,
     RootStateType,
-    SendMessageACType,
-    UpdateNewMessageACType,
-    UpdateNewPostActionType,
 } from "./redux/state";
 
 type AppType = {
     state: RootStateType
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType) => void
+    dispatch: (action: GenericType) => void
 }
 
 

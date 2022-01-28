@@ -3,8 +3,9 @@ import s from './profile.module.scss'
 import banner from './../../img/banner.jpg'
 import {MyPost} from './MyPost/MyPost';
 
-import {AddPostActionType, PostsType, UpdateNewPostActionType} from '../../redux/state';
 import {ProfileCard} from './ProfileCard';
+import {PostsType} from "../../redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profileReducer";
 
 type ProfileType = {
     posts: Array<PostsType>

@@ -1,10 +1,14 @@
 import React, {FC, useState} from 'react';
 import {
-    AddPostActionType,
     MessageType,
-    sendMessageAC, SendMessageACType,
-    updateNewMessageAC, UpdateNewMessageACType, UpdateNewPostActionType
 } from "../../../redux/state";
+import {AddPostActionType, UpdateNewPostActionType} from "../../../redux/profileReducer";
+import {
+    sendMessageAC,
+    SendMessageACType,
+    updateNewMessageAC,
+    UpdateNewMessageACType
+} from "../../../redux/dialogsReducer";
 
 
 type MessagePropsType = {

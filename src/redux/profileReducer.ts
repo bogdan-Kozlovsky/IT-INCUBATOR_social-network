@@ -1,6 +1,25 @@
 import {GenericType, PostsType, ProfilePageType} from "./state";
 
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+export const addPostAC = (): AddPostActionType => {
+    return {
+        type: 'ADD-POST'
+    }
+}
 
+export type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}
+
+export const updateNewPostAC = (newPostText: string): UpdateNewPostActionType => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newPostText: newPostText
+    }
+}
 export const profileReducer = (state: ProfilePageType, action: GenericType) => {
     switch (action.type) {
         case'ADD-POST': {

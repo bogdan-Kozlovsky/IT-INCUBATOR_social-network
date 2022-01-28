@@ -1,5 +1,5 @@
-import {profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
+import {AddPostActionType, profileReducer, UpdateNewPostActionType} from "./profileReducer";
+import {dialogsReducer, SendMessageACType, UpdateNewMessageACType} from "./dialogsReducer";
 
 export type PostsType = {
     name: string
@@ -42,7 +42,7 @@ export type StoreType = {
     subscribe: (observer: any) => void
     getState: () => RootStateType
     rerenderEntireTree: (state: RootStateType) => void
-    dispatch: (action: AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType) => void
+    dispatch: (action: GenericType) => void
 
 }
 
@@ -107,48 +107,10 @@ export let store: StoreType = {
 
 export  type GenericType = AddPostActionType | UpdateNewPostActionType | UpdateNewMessageACType | SendMessageACType
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export const addPostAC = (): AddPostActionType => {
-    return {
-        type: 'ADD-POST'
-    }
-}
-
-export type UpdateNewPostActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
-
-export const updateNewPostAC = (newPostText: string): UpdateNewPostActionType => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newPostText: newPostText
-    }
-}
 
 
-export type UpdateNewMessageACType = {
-    type: 'UPDATE-NEW-MESSAGE-BODY'
-    body: string
-}
-// type updateNewMessageACType = ReturnType<typeof updateNewMessageAC>
-export const updateNewMessageAC = (body: string): UpdateNewMessageACType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: body
-    }
-}
-export type SendMessageACType = {
-    type: 'SEND-MESSAGE'
-}
-// export type sendMessageACType = ReturnType<typeof sendMessageAC>
-export const sendMessageAC = (): SendMessageACType => {
-    return {
-        type: 'SEND-MESSAGE'
-    }
-}
+
+
 
 
 

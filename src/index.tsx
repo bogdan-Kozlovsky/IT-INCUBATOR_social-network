@@ -17,3 +17,4 @@ export let rerenderEntireTree = (state: RootStateType) => {
 rerenderEntireTree(store.getState())
 
 store.subscribe(rerenderEntireTree)
+

@@ -2,13 +2,10 @@ import React, {FC} from 'react';
 import s from './dialogs.module.scss'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Message/Message";
-import {
-    AddPostActionType,
-    DialogType,
-    MessageType, SendMessageACType,
-    UpdateNewMessageACType,
-    UpdateNewPostActionType
-} from "../../redux/state";
+
+import {AddPostActionType, UpdateNewPostActionType} from "../../redux/profileReducer";
+import {SendMessageACType, UpdateNewMessageACType} from "../../redux/dialogsReducer";
+import {DialogType, MessageType} from "../../redux/state";
 
 type DialogsPropsType = {
     dialog:Array<DialogType>
