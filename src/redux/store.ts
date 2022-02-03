@@ -1,6 +1,5 @@
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer, GlobalReducerType} from "./dialogs-reducer";
-import {navbarReducer} from "./navbar-reducer";
 
 type RouteType = {
     likesCount: number
@@ -120,7 +119,6 @@ type NavBarType = {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.navBarPage = navbarReducer(this._state.navBarPage, action)
         this._callSubscriber()
     },
 }
