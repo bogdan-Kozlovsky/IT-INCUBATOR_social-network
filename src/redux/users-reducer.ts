@@ -1,8 +1,8 @@
 export type UserType = {
     id: number
-    photoUrl:string
+    photos: { small: string, large: string }
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: {
         city: string
@@ -48,7 +48,7 @@ export const usersReducer = (state: UsersType = initialState, action: GlobalRedu
         case "UNFOLLOW":
             return {...state, users: state.users.map(u => u.id === action.payload.userId ? {...u, followed: false} : u)}
         case "SET-USER":
-            return {...state,users:[...state.users,...action.payload.users]}
+            return {...state, users: [...state.users, ...action.payload.users]}
         default:
             return state
     }
