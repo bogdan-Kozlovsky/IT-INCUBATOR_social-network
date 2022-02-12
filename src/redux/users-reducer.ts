@@ -11,35 +11,15 @@ export type UserType = {
 }
 export type UsersType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 let initialState: UsersType = {
-    users: [
-        // {
-        //     id: 1,
-        //     photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9aUT1ZCEcuME13723bYJ9xnzn-XQ5zWGcUCnsLdjo2m4MEgOHl5BP1uXbklcmIZfpTx0&usqp=CAU',
-        //     followed: true,
-        //     fullName: 'Max',
-        //     status: 'I am a student',
-        //     location: {city: 'Kostroma', country: 'Russia'}
-        // },
-        // {
-        //     id: 2,
-        //     photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeQW7jGROV6Xf1_fDam4b7IYTZliTN6X8Rzw&usqp=CAU',
-        //     followed: true,
-        //     fullName: 'Bogdan',
-        //     status: 'I am a Boss for Maxim',
-        //     location: {city: 'Vinnitsa', country: 'Ukraine'}
-        // },
-        // {
-        //     id: 3,
-        //     photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeQW7jGROV6Xf1_fDam4b7IYTZliTN6X8Rzw&usqp=CAU',
-        //     followed: false,
-        //     fullName: 'Dimich',
-        //     status: 'I am a teacher for Bogdan and Max',
-        //     location: {city: 'Minsk', country: 'Belarus'}
-        // },
-
-    ]
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 3,
 }
 export const usersReducer = (state: UsersType = initialState, action: GlobalReducerType): UsersType => {
     switch (action.type) {
@@ -48,7 +28,11 @@ export const usersReducer = (state: UsersType = initialState, action: GlobalRedu
         case "UNFOLLOW":
             return {...state, users: state.users.map(u => u.id === action.payload.userId ? {...u, followed: false} : u)}
         case "SET-USER":
-            return {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: [...action.payload.users]}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.payload.currentPage}
+        case "SET-USERS-TOTAL-COUNT":
+            return {...state, totalUsersCount: action.payload.totalCount}
         default:
             return state
     }
@@ -56,6 +40,8 @@ export const usersReducer = (state: UsersType = initialState, action: GlobalRedu
 type GlobalReducerType = FollowACType
     | UnfollowACType
     | SetUsersACType
+    | SetCurrentPageAC
+    | SetUsersTotalCountACType
 
 type FollowACType = ReturnType<typeof followAC>
 export const followAC = (userId: number) => {
@@ -82,6 +68,26 @@ export const setUsersAC = (users: Array<UserType>) => {
         type: 'SET-USER',
         payload: {
             users
+        }
+    } as const
+}
+
+type SetCurrentPageAC = ReturnType<typeof setCurrentPageAC>
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: 'SET-CURRENT-PAGE',
+        payload: {
+            currentPage
+        }
+    } as const
+}
+
+type SetUsersTotalCountACType = ReturnType<typeof setUsersTotalCountAC>
+export const setUsersTotalCountAC = (totalCount: number) => {
+    return {
+        type: 'SET-USERS-TOTAL-COUNT',
+        payload: {
+            totalCount
         }
     } as const
 }

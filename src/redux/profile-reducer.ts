@@ -33,15 +33,6 @@ export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionTyp
 })
 
 
-// export type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
-// export const updateNewPostTextAC = (users: Array<UserType>) => {
-//     return {
-//         type: 'SET-USER',
-//         payload: {
-//             users
-//         }
-//     } as const
-// }
 
 let initialState: ProfileType = {
     posts: [
