@@ -1,4 +1,4 @@
-import {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
+import {AddPostActionType, SetUserProfileActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 
 
 export type UpdateNewMessageBodyActionType = {
@@ -22,6 +22,7 @@ export type GlobalReducerType =
     | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
+    | SetUserProfileActionType
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";

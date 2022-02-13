@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
-import {Profile} from "./components/Profile/Profile";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {Navigation} from "./components/Navigation/Navigation";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
-export type AppTypeProps = {}
 
-const App: React.FC<AppTypeProps> = (props) => {
+
+const App: React.FC = (props) => {
 
     return (
         <HashRouter>
@@ -18,9 +18,9 @@ const App: React.FC<AppTypeProps> = (props) => {
                 <Navigation/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='/' element={<Profile/>}/>
+                        <Route path='/*' element={<ProfileContainer/>}/>
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                        <Route path='/users' element={<UsersContainer/>}/>
+                        <Route path='/users/*' element={<UsersContainer/>}/>
                         <Route path='/news' element={<h2>News</h2>}/>
                         <Route path='/music' element={<h2>Music</h2>}/>
                         <Route path='/settings' element={<h2>Settings</h2>}/>
@@ -33,36 +33,3 @@ const App: React.FC<AppTypeProps> = (props) => {
 
 export default App;
 
-
-// export const App = ({...props}: AppType) => {
-//     const state = props.state
-//     return (
-//         <div>
-//             <Header/>
-//
-//             <div className="wrapper app">
-//                 <Navigation/>
-//                 <div className="app__box">
-//                     <Routes>
-//                         <Route path={'/'}
-//                                element={<Profile
-//                                    posts={state.profilePage.posts}
-//                                    newPostText={state.profilePage.newPostText}
-//                                    dispatch={props.dispatch}
-//                                />}/>
-//                         <Route path={'/dialogs/*'} element={<Dialogs
-//                             dialog={state.dialogsPage.dialog}
-//                             message={state.dialogsPage.message}
-//                             dispatch={props.dispatch}
-//                             newMessageText={props.state.dialogsPage.newMessageText}
-//                         />}/>
-//                         <Route path={'/news'} element={<News/>}/>
-//                         <Route path={'/music'} element={<Music/>}/>
-//                         <Route path={'/settings'} element={<Settings/>}/>
-//                     </Routes>
-//                 </div>
-//             </div>
-//         </div>
-//
-//     );
-// };

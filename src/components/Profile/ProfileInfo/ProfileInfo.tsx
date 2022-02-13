@@ -1,7 +1,13 @@
 import s from './ProfileInfo.module.css'
+import {Preloader} from "../../../preloader/Preloader";
 
-
-export const ProfileInfo = () => {
+type propsType = {
+    profile: any
+}
+export const ProfileInfo = ({...props}: propsType) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
     return (
         <div>
             <div>
