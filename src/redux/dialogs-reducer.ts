@@ -1,14 +1,3 @@
-import {AddPostActionType, SetUserProfileActionType, UpdateNewPostTextActionType} from "./profile-reducer";
-
-
-export type UpdateNewMessageBodyActionType = {
-    type: "UPDATE-NEW-MESSAGE-BODY"
-    body: string
-}
-export type SendMessageActionType = {
-    type: "SEND-MESSAGE"
-
-}
 type DialogType = {
     message: string
     id: number
@@ -17,24 +6,9 @@ type PostsType = {
     name: string
     id: number
 }
-export type GlobalReducerType =
-    AddPostActionType
-    | UpdateNewPostTextActionType
+type GlobalReducerType =
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
-    | SetUserProfileActionType
-
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_MESSAGE = "SEND-MESSAGE";
-
-export const updateNewMessageBodyAC = (newText: string): UpdateNewMessageBodyActionType => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: newText
-})
-export const sendMessageAC = (): SendMessageActionType => ({
-    type: SEND_MESSAGE
-
-})
 
 export type InitialStateType = {
     dialogs: Array<PostsType>
@@ -61,12 +35,12 @@ let initialState: InitialStateType = {
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: GlobalReducerType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
+        case "UPDATE-NEW-MESSAGE-BODY":
             return {
                 ...state,
                 newMessageBody: action.body
             }
-        case SEND_MESSAGE:
+        case  "SEND-MESSAGE":
             let body = state.newMessageBody
             return {
                 ...state,
@@ -76,4 +50,21 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: G
         default:
             return state
     }
+}
+
+
+type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyAC>
+export const updateNewMessageBodyAC = (newText: string) => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-BODY",
+        body: newText
+    } as const
+}
+
+type SendMessageActionType = ReturnType<typeof sendMessageAC>
+export const sendMessageAC = () => {
+    return {
+        type: "SEND-MESSAGE"
+    } as const
+
 }

@@ -3,21 +3,37 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfileAC} from "../../redux/profile-reducer";
 import {Profile} from "./Profile";
+import {AppStateType} from "../../redux/redux-store";
 
-// type ProfileTypeProps = {
-//     profile:any
-//     setUserProfile?: (profile:any) => void
-// }
+export type ContactsPropsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type PhotosPropsType = { large: string, small: string }
+export type ProfilePropsType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsPropsType
+    photos: PhotosPropsType
+}
+
 
 export type MapStatePropsType = {
-    profile: any
+    profile: ProfilePropsType
 }
 export type MapDispatchToPropsType = {
     setUserProfileAC: (profile: any) => void
 }
 export type ProfileContainerPropsType = MapStatePropsType & MapDispatchToPropsType
-
-
 
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -33,13 +49,13 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     render() {
         return (
             <div>
-               <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile}/>
             </div>
         )
     }
 }
 
-let mapStateToProps = (state: any) => ({
+let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile
 });
 

@@ -1,19 +1,3 @@
-import {GlobalReducerType} from "./dialogs-reducer";
-
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-
-export type UpdateNewPostTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    text: string
-}
-
-export type SetUserProfileActionType = {
-    type: "SET-USER-PROFILE"
-    profile: string
-}
-
 export type RouteType = {
     likesCount: number
     message: string
@@ -22,15 +6,18 @@ export type RouteType = {
 export type ProfileType = {
     posts: Array<RouteType>
     newPostText: string,
-    profile: string
+    profile: any
 }
 type NewPostType = {
     id: number
     message: string
     likesCount: number
 }
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
+type GlobalReducerType =
+    AddPostACType
+    | UpdateNewPostTextACType
+    | SetUserProfileACType
 
 
 let initialState: ProfileType = {
@@ -41,20 +28,20 @@ let initialState: ProfileType = {
         {id: 4, message: 'how are you', likesCount: 12}
     ],
     newPostText: '',
-    profile: ''
+    profile: null
 }
 
 export const profileReducer = (state: ProfileType = initialState, action: GlobalReducerType): ProfileType => {
 
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD-POST':
             let newPost: NewPostType = {id: 5, message: state.newPostText, likesCount: 0,}
             return {
                 ...state,
                 newPostText: '',
                 posts: [...state.posts, newPost]
             }
-        case UPDATE_NEW_POST_TEXT: {
+        case 'UPDATE-NEW-POST-TEXT': {
             return {
                 ...state,
                 newPostText: action.text
@@ -68,14 +55,26 @@ export const profileReducer = (state: ProfileType = initialState, action: Global
     }
 }
 
-export const addPostAC = (): AddPostActionType => ({type: ADD_POST})
-export const updateNewPostTextAC = (newText: string): UpdateNewPostTextActionType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    text: newText
-})
-export const setUserProfileAC = (profile: string): SetUserProfileActionType => {
+type AddPostACType = ReturnType<typeof addPostAC>
+export const addPostAC = () => {
     return {
-        type: "SET-USER-PROFILE",
-        profile,
-    }
+        type: 'ADD-POST',
+    } as const
+}
+
+type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
+export const updateNewPostTextAC = (newText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        text: newText
+    } as const
+}
+
+
+type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
+export const setUserProfileAC = (profile: null) => {
+    return {
+        type: 'SET-USER-PROFILE',
+        profile
+    } as const
 }
