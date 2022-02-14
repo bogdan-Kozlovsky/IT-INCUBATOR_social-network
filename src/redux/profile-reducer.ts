@@ -1,3 +1,5 @@
+import {ProfilePropsType} from "../components/Profile/ProfileContainer";
+
 export type RouteType = {
     likesCount: number
     message: string
@@ -6,7 +8,7 @@ export type RouteType = {
 export type ProfileType = {
     posts: Array<RouteType>
     newPostText: string,
-    profile: any
+    profile: ProfilePropsType | null
 }
 type NewPostType = {
     id: number
@@ -72,7 +74,7 @@ export const updateNewPostTextAC = (newText: string) => {
 
 
 type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
-export const setUserProfileAC = (profile: null) => {
+export const setUserProfileAC = (profile: ProfilePropsType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile

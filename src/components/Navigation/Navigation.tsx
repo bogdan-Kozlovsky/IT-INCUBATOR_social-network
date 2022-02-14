@@ -12,7 +12,7 @@ export const Navigation: FC = () => {
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/">
+                        to="/profile">
                         Profile
                     </NavLink>
                 </li>
