@@ -1,8 +1,10 @@
 .header {
-    grid-area: h;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: green;
     margin-bottom: 20px;
-
+    padding: 0 15px;
 }
 
 .header img {
