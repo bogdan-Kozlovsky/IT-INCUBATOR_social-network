@@ -21,8 +21,6 @@ export const Users = ({...props}: propsType) => {
         totalUsersCount,
         users,
         currentPage,
-        unfollow,
-        follow,
         onPageChanged,
     } = props
 
