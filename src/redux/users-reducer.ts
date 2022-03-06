@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 export type UserType = {
     id: number
     photos: { small: string, large: string }
@@ -43,9 +45,7 @@ export const usersReducer = (state: UsersType = initialState, action: GlobalRedu
             return {
                 ...state,
                 followingInProgress: action.payload.isFetching
-                    // ? [...state.followingInProgress, action.userId]
                     ? [...state.followingInProgress, action.payload.userId]
-                    // : state.followingInProgress.filter(id => id != action.userId)
                     : state.followingInProgress.filter(id => id != action.payload.userId)
             }
         default:
@@ -113,4 +113,46 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: any) =>
         type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
         payload: {isFetching, userId}
     } as const
+}
+type DispatchType = (action: GlobalReducerType) => void
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: DispatchType) => {
+        dispatch(toggleIsFetchingAC(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetchingAC(false))
+                dispatch(setUsersAC(data.items))
+                dispatch(setUsersTotalCountAC(data.totalCount))
+                // this.props.setTotalCount(data.totalCount)
+            })
+    }
+}
+
+export const follow = (userId: number) => {
+    debugger
+    return (dispatch: DispatchType) => {
+        dispatch(toggleIsFollowingProgressAC(true, userId))
+        usersAPI.followAC(userId)
+            .then(response => {
+                if (response.data.resultCode) {
+                    dispatch(followAC(userId))
+                }
+                dispatch(toggleIsFollowingProgressAC(false, userId))
+            })
+    }
+}
+
+export const unfollow = (userId: number) => {
+    debugger
+    return (dispatch: DispatchType) => {
+        dispatch(toggleIsFollowingProgressAC(true, userId))
+        usersAPI.followAC(userId)
+            .then(response => {
+                if (response.data.resultCode) {
+                    dispatch(unfollowAC(userId))
+                }
+                dispatch(toggleIsFollowingProgressAC(false, userId))
+            })
+    }
 }

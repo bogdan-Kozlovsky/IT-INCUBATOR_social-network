@@ -16,6 +16,11 @@ export const usersAPI = {
             .then(response => {
                 return response.data
             })
-    }
+    },
+    unfollowAC(userId: number) {
+        return instance.delete(`follow/${userId}`)
+    }, followAC(userId: number) {
+        return instance.post(`follow/${userId}`)
+    },
 }
 
