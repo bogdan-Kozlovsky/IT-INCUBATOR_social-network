@@ -130,7 +130,6 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 
 export const follow = (userId: number) => {
-    debugger
     return (dispatch: DispatchType) => {
         dispatch(toggleIsFollowingProgressAC(true, userId))
         usersAPI.followAC(userId)
@@ -144,7 +143,6 @@ export const follow = (userId: number) => {
 }
 
 export const unfollow = (userId: number) => {
-    debugger
     return (dispatch: DispatchType) => {
         dispatch(toggleIsFollowingProgressAC(true, userId))
         usersAPI.followAC(userId)

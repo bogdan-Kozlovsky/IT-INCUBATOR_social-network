@@ -16,11 +16,17 @@ export const usersAPI = {
             .then(response => {
                 return response.data
             })
-    },
-    unfollowAC(userId: number) {
+    }, unfollowAC(userId: number) {
         return instance.delete(`follow/${userId}`)
     }, followAC(userId: number) {
         return instance.post(`follow/${userId}`)
-    },
-}
+    }, getProfile(userId: string) {
+        return instance.get(`profile/` + userId)
+    }
 
+}
+export const authAPI = {
+    me() {
+        return instance.get('auth/me')
+    }
+}

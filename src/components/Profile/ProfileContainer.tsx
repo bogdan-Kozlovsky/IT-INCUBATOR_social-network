@@ -1,10 +1,11 @@
 import React, {ComponentType, FC} from "react";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfileAC} from "../../redux/profile-reducer";
+import {getUserProfileThunk, setUserProfileAC} from "../../redux/profile-reducer";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 
 export type ContactsPropsType = {
@@ -33,7 +34,8 @@ export type MapStatePropsType = {
     profile: ProfilePropsType | null
 }
 export type MapDispatchToPropsType = {
-    setUserProfileAC: (profile: ProfilePropsType) => void
+    getUserProfileThunk: (userId: string) => void
+    // setUserProfileAC: (profile: ProfilePropsType) => void
 }
 
 type RoutersType = {
@@ -50,15 +52,10 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId: any = this.props.router.params.userId
-        console.log(userId)
         if (!userId) {
             userId = '2'
         }
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(response => {
-                this.props.setUserProfileAC(response.data);
-            });
+        this.props.getUserProfileThunk(userId)
     }
 
 
@@ -78,7 +75,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 
 const WithURLDataContainerProfileComponent: ComponentType<ProfileContainerPropsType & any> = withRouter(ProfileContainer)
 
-export default connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setUserProfileAC})(WithURLDataContainerProfileComponent);
+export default connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {getUserProfileThunk: getUserProfileThunk})(WithURLDataContainerProfileComponent);
 
 export function withRouter<T>(Component: ComponentType<T>): ComponentType<T & WithRouterType> {
 

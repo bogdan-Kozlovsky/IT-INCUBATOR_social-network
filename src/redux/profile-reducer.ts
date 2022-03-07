@@ -1,4 +1,5 @@
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
+import {usersAPI} from "../api/api";
 
 export type RouteType = {
     likesCount: number
@@ -79,4 +80,16 @@ export const setUserProfileAC = (profile: ProfilePropsType) => {
         type: 'SET-USER-PROFILE',
         profile
     } as const
+}
+
+
+type DispatchType = (action: GlobalReducerType) => void
+
+export const getUserProfileThunk = (userId: string) => {
+    return (dispatch: DispatchType) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfileAC(response.data))
+            });
+    }
 }
