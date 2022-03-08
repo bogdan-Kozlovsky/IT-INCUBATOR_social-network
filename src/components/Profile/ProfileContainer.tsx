@@ -6,6 +6,7 @@ import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "react-router-dom";
 import {usersAPI} from "../../api/api";
+import {Dialogs} from "../Dialogs/Dialogs";
 
 
 export type ContactsPropsType = {
@@ -32,6 +33,7 @@ export type ProfilePropsType = {
 
 export type MapStatePropsType = {
     profile: ProfilePropsType | null
+    isAuth: Boolean
 }
 export type MapDispatchToPropsType = {
     getUserProfileThunk: (userId: string) => void
@@ -69,7 +71,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 }
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth,
 });
 
 

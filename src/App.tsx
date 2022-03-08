@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import {Navigation} from "./components/Navigation/Navigation";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 
 const App: React.FC = (props) => {
@@ -25,6 +25,7 @@ const App: React.FC = (props) => {
                         <Route path='/news' element={<h2>News</h2>}/>
                         <Route path='/music' element={<h2>Music</h2>}/>
                         <Route path='/settings' element={<h2>Settings</h2>}/>
+                        <Route path='/login' element={<Login/>}/>
                     </Routes>
                 </div>
             </div>
