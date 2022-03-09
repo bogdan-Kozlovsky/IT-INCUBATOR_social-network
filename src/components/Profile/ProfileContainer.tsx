@@ -1,12 +1,10 @@
-import React, {ComponentType, FC} from "react";
-import axios from "axios";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
-import {getUserProfileThunk, setUserProfileAC} from "../../redux/profile-reducer";
+import {getUserProfileThunk} from "../../redux/profile-reducer";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "react-router-dom";
-import {usersAPI} from "../../api/api";
-import {Dialogs} from "../Dialogs/Dialogs";
+import {withAuthRedirect} from "../../HOC/WithAuthNavigate";
 
 
 export type ContactsPropsType = {
@@ -37,7 +35,6 @@ export type MapStatePropsType = {
 }
 export type MapDispatchToPropsType = {
     getUserProfileThunk: (userId: string) => void
-    // setUserProfileAC: (profile: ProfilePropsType) => void
 }
 
 type RoutersType = {
@@ -78,7 +75,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 
 const WithURLDataContainerProfileComponent: ComponentType<ProfileContainerPropsType & any> = withRouter(ProfileContainer)
 
-export default connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {getUserProfileThunk: getUserProfileThunk})(WithURLDataContainerProfileComponent);
+export default withAuthRedirect(connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {getUserProfileThunk: getUserProfileThunk})(WithURLDataContainerProfileComponent));
 
 export function withRouter<T>(Component: ComponentType<T>): ComponentType<T & WithRouterType> {
 
