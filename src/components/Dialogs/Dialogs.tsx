@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {UsersPropsType} from "./DialogsContainer";
-import { Navigate } from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 
 export const Dialogs = (props: UsersPropsType) => {
@@ -25,7 +25,10 @@ export const Dialogs = (props: UsersPropsType) => {
         props.updateNewMessageBody(body)
     }
 
-    if (!props.isAuth) return <Navigate to={'/login'}/>
+    // внимательно
+    // if (!props.isAuth) return <Navigate to={'/login'}/>
+
+    // внимательно
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

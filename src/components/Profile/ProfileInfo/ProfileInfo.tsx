@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../../preloader/Preloader";
 import {ProfilePropsType} from "../ProfileContainer";
+import {ProfileStatus} from "./ProfileStatus";
 
 
 type propsType = {
@@ -20,6 +21,7 @@ export const ProfileInfo = ({...props}: propsType) => {
                 <img style={{borderRadius: '20px'}} src={props.profile.photos.small}
                      alt='avatar'/>
                 <p>{props.profile.aboutMe}</p>
+                <ProfileStatus/>
             </div>
 
         </div>
