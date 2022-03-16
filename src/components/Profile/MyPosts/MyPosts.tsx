@@ -14,7 +14,6 @@ export const MyPosts = (props: MyPostPropsType) => {
         props.addPost()
     }
     const onPostChange = () => {
-        debugger
         let text: string = newPostElement.current?.value || ""
         props.updateNewPostText(text)
     }

@@ -1,6 +1,8 @@
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
+// type
 export type RouteType = {
     likesCount: number
     message: string
@@ -10,19 +12,20 @@ export type ProfileType = {
     posts: Array<RouteType>
     newPostText: string,
     profile: ProfilePropsType | null
+    status: string
 }
 type NewPostType = {
     id: number
     message: string
     likesCount: number
 }
-
 type GlobalReducerType =
-    AddPostACType
-    | UpdateNewPostTextACType
-    | SetUserProfileACType
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setStatusAC>
 
-
+// initialState
 let initialState: ProfileType = {
     posts: [
         {id: 1, message: 'Hi,how are you', likesCount: 12},
@@ -31,11 +34,12 @@ let initialState: ProfileType = {
         {id: 4, message: 'how are you', likesCount: 12}
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: '',
 }
 
+// reduce
 export const profileReducer = (state: ProfileType = initialState, action: GlobalReducerType): ProfileType => {
-
     switch (action.type) {
         case 'ADD-POST':
             let newPost: NewPostType = {id: 5, message: state.newPostText, likesCount: 0,}
@@ -53,43 +57,62 @@ export const profileReducer = (state: ProfileType = initialState, action: Global
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
         }
+        case "SET-STATUS": {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state
     }
 }
 
-type AddPostACType = ReturnType<typeof addPostAC>
+// action Creator
 export const addPostAC = () => {
     return {
         type: 'ADD-POST',
     } as const
 }
-
-type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
 export const updateNewPostTextAC = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         text: newText
     } as const
 }
-
-
-type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 export const setUserProfileAC = (profile: ProfilePropsType) => {
     return {
         type: 'SET-USER-PROFILE',
         profile
     } as const
 }
-
-
-type DispatchType = (action: GlobalReducerType) => void
-
-export const getUserProfileThunk = (userId: string) => {
-    return (dispatch: DispatchType) => {
-        usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfileAC(response.data))
-            });
-    }
+export const setStatusAC = (status: string) => {
+    return {
+        type: 'SET-STATUS',
+        status
+    } as const
 }
+
+// thunk
+export const getUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfileAC(response.data))
+        });
+}
+export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setStatusAC(response.data))
+        });
+}
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAC(status))
+            }
+        })
+}
+
+

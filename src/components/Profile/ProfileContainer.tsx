@@ -1,6 +1,6 @@
 import React, {ComponentType} from "react";
 import {connect} from "react-redux";
-import {getUserProfileThunk} from "../../redux/profile-reducer";
+import {getStatusTC, getUserProfileTC, updateStatusTC} from "../../redux/profile-reducer";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "react-router-dom";
@@ -32,9 +32,14 @@ export type ProfilePropsType = {
 export type MapStatePropsType = {
     profile: ProfilePropsType | null
     isAuth: Boolean
+    status: string
 }
 export type MapDispatchToPropsType = {
-    getUserProfileThunk: (userId: string) => void
+    getUserProfileTC: (userId: string) => void
+    getStatusTC: (userId: string) => void
+    updateStatusTC:(status:string) => void
+
+
 }
 
 type RoutersType = {
@@ -54,14 +59,18 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
         if (!userId) {
             userId = '2'
         }
-        this.props.getUserProfileThunk(userId)
+        this.props.getUserProfileTC(userId)
+        this.props.getStatusTC(userId)
     }
 
 
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props}
+                         profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatusTC={this.props.updateStatusTC}/>
             </div>
         )
     }
@@ -70,12 +79,17 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
+    status: state.profilePage.status
 });
 
 
 const WithURLDataContainerProfileComponent: ComponentType<ProfileContainerPropsType & any> = withRouter(ProfileContainer)
 
-export default withAuthRedirect(connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {getUserProfileThunk: getUserProfileThunk})(WithURLDataContainerProfileComponent));
+export default withAuthRedirect(connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
+    getUserProfileTC,
+    getStatusTC,
+    updateStatusTC,
+})(WithURLDataContainerProfileComponent));
 
 export function withRouter<T>(Component: ComponentType<T>): ComponentType<T & WithRouterType> {
 
@@ -94,4 +108,3 @@ export function withRouter<T>(Component: ComponentType<T>): ComponentType<T & Wi
 }
 
 type WithRouterType = Location & NavigateFunction & Readonly<Params<string>>;
-

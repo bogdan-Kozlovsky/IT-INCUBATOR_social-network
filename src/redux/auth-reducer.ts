@@ -1,12 +1,13 @@
 import {authAPI} from "../api/api";
+import {Dispatch} from "redux";
 
+// type
 export type InitialStateType = {
     id: number | null
     email: string | null
     login: string | null
     isAuth: boolean
 }
-
 let initialState = {
     id: null,
     email: null,
@@ -14,6 +15,9 @@ let initialState = {
     isAuth: false
 }
 
+export type GeneralType = ReturnType<typeof setAuthUserDataAC>
+
+// reducer
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA": {
@@ -24,9 +28,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
         }
     }
 }
-export type GeneralType = SetUserDataType
-type SetUserDataType = ReturnType<typeof setAuthUserData>
-export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
+
+// actionCreator
+export const setAuthUserDataAC = (id: number, email: string, login: string, isAuth: boolean) => {
     return {
         type: 'SET-USER-DATA',
         data: {
@@ -35,15 +39,14 @@ export const setAuthUserData = (id: number, email: string, login: string, isAuth
     }
 }
 
-type DispatchType = (action: GeneralType) => void
-
+// thunk
 export const getAuthUserDataThunk = () => {
-    return (dispatch: DispatchType) => {
+    return (dispatch: Dispatch) => {
         authAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id, email, login} = response.data.data
-                    dispatch(setAuthUserData(id, email, login, true))
+                    dispatch(setAuthUserDataAC(id, email, login, true))
                 }
             })
     }

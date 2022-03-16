@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
     followAC,
-    getUsers,
+    getUsersTC,
     setCurrentPageAC,
     toggleIsFollowingProgressAC,
     unfollowAC,
@@ -78,6 +78,6 @@ export const UsersContainer = connect(mapStateToProps, {
     unfollowAC: unfollowAC,
     setCurrentPage: setCurrentPageAC,
     toggleIsFollowingProgress: toggleIsFollowingProgressAC,
-    getUsers: getUsers,
+    getUsers: getUsersTC,
 
 })(UsersAPIContainer)

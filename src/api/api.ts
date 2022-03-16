@@ -16,14 +16,30 @@ export const usersAPI = {
             .then(response => {
                 return response.data
             })
-    }, unfollowAC(userId: number) {
+    },
+    unfollowAC(userId: number) {
         return instance.delete(`follow/${userId}`)
-    }, followAC(userId: number) {
+    },
+    followAC(userId: number) {
         return instance.post(`follow/${userId}`)
-    }, getProfile(userId: string) {
-        return instance.get(`profile/` + userId)
-    }
+    },
 
+
+}
+
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId)
+    },
+
+
+
+    getStatus(userId: string) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status:string) {
+        return instance.put('profile/status',{status})
+    },
 }
 export const authAPI = {
     me() {

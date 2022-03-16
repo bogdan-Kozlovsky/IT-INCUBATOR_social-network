@@ -7,15 +7,15 @@ import {Navigate} from "react-router-dom";
 type propsType = {
     profile: ProfilePropsType | null
     isAuth: Boolean
+    status: string,
+    updateStatusTC: (status: string) => void
 }
 export const Profile = ({...props}: propsType) => {
-    const {
-        profile
-    } = props
-    if (!props.isAuth) return <Navigate to={'/login'}/>
+
+    // if (!props.isAuth) return <Navigate to={'/login'}/>
     return (
         <div>
-            <ProfileInfo profile={profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
             <MyPostsContainer/>
         </div>
     );
