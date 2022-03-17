@@ -1,5 +1,5 @@
 import s from './ProfileInfo.module.css'
-import {Preloader} from "../../../preloader/Preloader";
+import {Preloader} from "../../../common/preloader/Preloader";
 import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatus} from "./ProfileStatus";
 

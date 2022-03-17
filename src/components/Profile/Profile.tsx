@@ -15,7 +15,11 @@ export const Profile = ({...props}: propsType) => {
     // if (!props.isAuth) return <Navigate to={'/login'}/>
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC}/>
+            <ProfileInfo
+                profile={props.profile}
+                status={props.status}
+                updateStatusTC={props.updateStatusTC}
+            />
             <MyPostsContainer/>
         </div>
     );
