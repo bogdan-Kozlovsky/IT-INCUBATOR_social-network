@@ -8,13 +8,11 @@ type PostsType = {
     id: number
 }
 type GlobalReducerType =
-    | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
 
 export type InitialStateType = {
     dialogs: Array<PostsType>
     messages: Array<DialogType>
-    newMessageBody: string
 }
 
 // initialState
@@ -31,22 +29,15 @@ let initialState: InitialStateType = {
         {id: 3, message: 'how is your health today'},
         {id: 4, message: 'Where had you been?'},
     ],
-    newMessageBody: "",
 }
 
 // reducer
 export const dialogsReducer = (state: InitialStateType = initialState, action: GlobalReducerType): InitialStateType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY":
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
         case  "SEND-MESSAGE":
-            let body = state.newMessageBody
+            let body = action.newMessageBody
             return {
                 ...state,
-                newMessageBody: '',
                 messages: [...state.messages, {id: 6, message: body}]
             }
         default:
@@ -55,15 +46,10 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: G
 }
 
 // action Creator
-export const updateNewMessageBodyAC = (newText: string) => {
+export const sendMessageAC = (newMessageBody: string) => {
     return {
-        type: "UPDATE-NEW-MESSAGE-BODY",
-        body: newText
-    } as const
-}
-export const sendMessageAC = () => {
-    return {
-        type: "SEND-MESSAGE"
+        type: "SEND-MESSAGE",
+        newMessageBody
     } as const
 
 }
