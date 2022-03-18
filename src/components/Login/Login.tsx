@@ -44,6 +44,10 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     component={Input}
                 /> remember me
             </div>
+            {props.error && <div style={{color: 'red'}}>
+                {props.error}
+            </div>
+            }
             <div>
                 <button>Login</button>
             </div>

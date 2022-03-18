@@ -33,11 +33,12 @@ export type MapStatePropsType = {
     profile: ProfilePropsType | null
     isAuth: Boolean
     status: string
+    authorizedUserId: number | null
 }
 export type MapDispatchToPropsType = {
     getUserProfileTC: (userId: string) => void
     getStatusTC: (userId: string) => void
-    updateStatusTC:(status:string) => void
+    updateStatusTC: (status: string) => void
 
 
 }
@@ -57,7 +58,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId: any = this.props.router.params.userId
         if (!userId) {
-            userId = '2'
+            // userId = '2'
+            userId = this.props.authorizedUserId
         }
         this.props.getUserProfileTC(userId)
         this.props.getStatusTC(userId)
@@ -79,7 +81,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     isAuth: state.auth.isAuth,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
 });
 
 
