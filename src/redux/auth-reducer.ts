@@ -30,7 +30,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
 }
 
 // actionCreator
-export const setAuthUserDataAC = (id: number, email: string, login: string, isAuth: boolean) => {
+export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: 'SET-USER-DATA',
         data: {
@@ -50,5 +50,23 @@ export const getAuthUserDataThunk = () => {
                 }
             })
     }
+}
+
+export const loginTC = (email: string, password: string, rememberMe: Boolean) => (dispatch: Dispatch) => {
+    authAPI.login(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthUserDataThunk() as any)
+            }
+        })
+}
+
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(null, null, null, false));
+            }
+        });
 }
 

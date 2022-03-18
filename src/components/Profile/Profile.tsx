@@ -12,7 +12,7 @@ type propsType = {
 }
 export const Profile = ({...props}: propsType) => {
 
-    // if (!props.isAuth) return <Navigate to={'/login'}/>
+    if (!props.isAuth) return <Navigate to={'/login'}/>
     return (
         <div>
             <ProfileInfo

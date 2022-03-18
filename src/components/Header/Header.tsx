@@ -5,6 +5,7 @@ import {InitialStateType} from "../../redux/auth-reducer";
 
 type HeaderPropsType = {
     auth: InitialStateType
+    logoutTC: () => void
 }
 export const Header = ({...props}: HeaderPropsType) => {
     return (
@@ -14,7 +15,10 @@ export const Header = ({...props}: HeaderPropsType) => {
                     src='http://pngimg.com/uploads/magic_hat/small/magic_hat_PNG102.png' alt={'img'}/>
             </div>
             <div className={s.loginBlock}>
-                {props.auth.isAuth ? props.auth.login : <NavLink to={'/login'}>Login</NavLink>}
+
+                { props.auth.isAuth
+                    ? <div>{props.auth.login} - <button onClick={props.logoutTC}>Log out</button> </div>
+                    : <NavLink to={'/login'}>Login</NavLink> }
             </div>
         </header>
     )

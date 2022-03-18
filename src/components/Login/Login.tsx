@@ -1,12 +1,22 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../common/FromControls/FormControls";
 import {required} from "../../utils/validators";
+import {connect} from "react-redux";
+import {loginTC} from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Navigate} from "react-router-dom";
 
 type FormDataType = {
     login: string,
     password: string,
     rememberMe: boolean,
 }
+
+type MapStateToPropsType = {
+    isAuth: boolean
+}
+
+type MapDispatchToPropsType = {}
 
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
@@ -23,6 +33,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     validate={[required]}
                     placeholder={'Password'}
                     name={'password'}
+                    type={'password'}
                     component={Input}
                 />
             </div>
@@ -44,10 +55,14 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
-export const Login = () => {
+const Login = (props: any) => {
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        props.loginTC(formData.login, formData.password, formData.rememberMe)
+    }
+
+    if (props.isAuth) {
+        return <Navigate to={"/profile"}/>
     }
 
     return (
@@ -57,3 +72,7 @@ export const Login = () => {
         </div>
     );
 };
+const mapStateToProps = (state: AppStateType) => ({
+    isAuth: state.auth.isAuth
+})
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {loginTC})(Login);
