@@ -31,7 +31,6 @@ export const initializeSuccessAC = () => {
     }
 }
 export const initializeAppTC = () => (dispatch: any) => {
-    debugger
     dispatch(getAuthUserDataThunk())
         .then(() => {
             dispatch(initializeSuccessAC())
