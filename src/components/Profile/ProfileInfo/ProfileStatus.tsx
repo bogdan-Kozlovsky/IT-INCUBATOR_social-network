@@ -1,56 +1,39 @@
-import React, {ChangeEvent} from "react";
+import {ChangeEvent, useState} from "react";
 
 type PropsType = {
     status: string
     updateStatusTC: (status: string) => void
 }
 
-export class ProfileStatus extends React.Component<PropsType> {
-    state = {
-        editMode: false,
-        status: this.props.status,
-    }
-    activeEditMode = () => {
-        this.setState({
-            editMode: true
-        })
-    }
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false
-        })
-        this.props.updateStatusTC(this.state.status)
+export const ProfileStatus = ({...props}: PropsType) => {
+    const [editMode, setEditMode] = useState<boolean>(false)
+    const [value, setValue] = useState<string>(props.status)
 
-    }
-    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
     }
 
-    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            })
-        }
+    const deactivateEditMode = () => {
+        setEditMode(false)
+        props.updateStatusTC(value)
+    }
+    const activeEditMode = () => {
+        setEditMode(true)
     }
 
+    return (
+        <div>
+            {editMode
+                ? <input
+                    onChange={onStatusChange}
+                    onBlur={deactivateEditMode}
+                    autoFocus type="text"
+                    placeholder={'description'}
+                    value={value}
+                />
+                : <span onDoubleClick={activeEditMode}>{props.status || '-----'}</span>
+            }
+        </div>
+    );
+};
 
-    render() {
-        return (
-            <div>
-                {this.state.editMode
-                    ? <input
-                        onChange={this.onStatusChange}
-                        onBlur={this.deactivateEditMode}
-                        autoFocus type="text"
-                        placeholder={'description'}
-                        value={this.state.status}
-                    />
-                    : <span onDoubleClick={this.activeEditMode}>{this.props.status || '-----'}</span>
-                }
-            </div>
-        )
-    }
-}
