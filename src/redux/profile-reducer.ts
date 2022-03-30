@@ -10,9 +10,8 @@ export type RouteType = {
 }
 export type ProfileType = {
     posts: Array<RouteType>
-    // newPostText: string,
-    profile: ProfilePropsType | null
-    status: string
+    profile?: ProfilePropsType | null
+    status?: string
 }
 type NewPostType = {
     id: number

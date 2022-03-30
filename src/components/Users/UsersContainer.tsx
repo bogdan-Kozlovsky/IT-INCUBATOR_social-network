@@ -1,11 +1,10 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    followAC,
+    followTC,
     getUsersTC,
     setCurrentPageAC,
-    toggleIsFollowingProgressAC,
-    unfollowAC,
+    toggleIsFollowingProgressAC, unfollowTC,
     UserType
 } from "../../redux/users-reducer";
 import React from "react";
@@ -23,8 +22,8 @@ import {
 type UsersPropsType = {
     users: UserType[]
     pageSize: number
-    followAC: (id: number) => void
-    unfollowAC: (id: number) => void
+    followTC: (id: number) => void
+    unfollowTC: (id: number) => void
     totalUsersCount: number
     currentPage: number
     setCurrentPage: (el: number) => void
@@ -57,8 +56,8 @@ export class UsersAPIContainer extends React.Component<UsersPropsType> {
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
-                        followAC={this.props.followAC}
-                        unfollowAC={this.props.unfollowAC}
+                        followTC={this.props.followTC}
+                        unfollowTC={this.props.unfollowTC}
                         toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                         followingInProgress={this.props.followingInProgress}
                     />
@@ -82,8 +81,8 @@ export const mapStateToProps = (state: AppStateType) => {
 
 
 export const UsersContainer = connect(mapStateToProps, {
-    followAC: followAC,
-    unfollowAC: unfollowAC,
+    followTC: followTC,
+    unfollowTC: unfollowTC,
     setCurrentPage: setCurrentPageAC,
     toggleIsFollowingProgress: toggleIsFollowingProgressAC,
     getUsers: getUsersTC,

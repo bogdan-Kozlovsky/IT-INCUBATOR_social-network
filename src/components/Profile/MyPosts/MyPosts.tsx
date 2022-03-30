@@ -1,6 +1,6 @@
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import React from "react";
+import React, {memo} from "react";
 import {MyPostPropsType} from "./MyPostContainers";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators";
@@ -10,11 +10,12 @@ type AddPostFormType = {
     newPostBody: string
 }
 
-export const MyPosts = (props: MyPostPropsType) => {
+export const MyPosts = memo((props: MyPostPropsType) => {
+    console.log('MyPost')
     let post = props.posts.map(({id, message, likesCount}) => (
-        <React.Fragment key={id}>
+        <div key={id}>
             <Post message={message} likesCount={likesCount}/>
-        </React.Fragment>))
+        </div>))
 
     const addNewPost = (values: AddPostFormType) => {
         props.addPost(values.newPostBody)
@@ -33,7 +34,7 @@ export const MyPosts = (props: MyPostPropsType) => {
             </div>
         </div>
     )
-}
+})
 
 
 const maxLength10 = maxLengthCreator(10);
