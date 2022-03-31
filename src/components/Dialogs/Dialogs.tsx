@@ -1,26 +1,27 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {UsersPropsType} from "./DialogsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
+// type
 type AddMessageFormType = {
     newMessageBody: string
 }
 
 export const Dialogs = (props: UsersPropsType) => {
-    let state = props.dialogsPage
-    let dialogsElements = state.dialogs.map(({id, name}) => (<div key={id}>{name}</div>))
+    const {
+        dialogsPage,
+        sendMessage,
+    } = props
 
-    let messageElements = state.messages.map(({id, message}) => (<React.Fragment key={id}>
-        <Dialog dialog={message}/>
-    </React.Fragment>))
-
-
+    let dialogsElements = dialogsPage.dialogs.map(({id, name}) =>
+        (<div key={id}>{name}</div>))
+    let messageElements = dialogsPage.messages.map(({id, message}) =>
+        (<div key={id}><Dialog dialog={message}/></div>))
     const addNewMessage = (values: AddMessageFormType) => {
-        props.sendMessage(values.newMessageBody)
+        sendMessage(values.newMessageBody)
     }
-
     // внимательно
     // if (!props.isAuth    ) return <Navigate to={'/login'}/>
     // внимательно
@@ -28,14 +29,10 @@ export const Dialogs = (props: UsersPropsType) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-
                 {dialogsElements}
-
             </div>
             <div className={s.messages}>
-
                 {messageElements}
-
                 <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {Navigation} from "./components/Navigation/Navigation";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -28,7 +28,7 @@ class App extends React.Component<AppPropsType, {}> {
         }
 
         return (
-            <BrowserRouter>
+            <>
                 <HeaderContainer/>
                 <div className='app-wrapper'>
                     <Navigation/>
@@ -45,7 +45,7 @@ class App extends React.Component<AppPropsType, {}> {
                         </Routes>
                     </div>
                 </div>
-            </BrowserRouter>
+            </>
         );
     }
 }

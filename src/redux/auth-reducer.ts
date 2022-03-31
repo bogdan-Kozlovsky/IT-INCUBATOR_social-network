@@ -15,18 +15,15 @@ let initialState = {
     login: null,
     isAuth: false
 }
-
 export type GeneralType = ReturnType<typeof setAuthUserDataAC>
 
 // reducer
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
-        case "SET-USER-DATA": {
+        case "SET-USER-DATA":
             return {...state, ...action.data, isAuth: true}
-        }
-        default: {
+        default:
             return state
-        }
     }
 }
 
@@ -41,15 +38,11 @@ export const setAuthUserDataAC = (id: number | null, email: string | null, login
 }
 
 // thunk
-export const getAuthUserDataThunk = () => {
-    return (dispatch: Dispatch) => {
-        return authAPI.me()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data
-                    dispatch(setAuthUserDataAC(id, email, login, true))
-                }
-            })
+export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
+    const response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserDataAC(id, email, login, true))
     }
 }
 
@@ -58,7 +51,7 @@ export const loginTC = (email: string, password: string, rememberMe: Boolean) =>
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserDataThunk() as any)
-            }else {
+            } else {
                 let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
                 dispatch(stopSubmit("login", {_error: message}));
 

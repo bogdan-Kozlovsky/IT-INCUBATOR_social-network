@@ -7,8 +7,7 @@ type PostsType = {
     name: string
     id: number
 }
-type GlobalReducerType =
-    | ReturnType<typeof sendMessageAC>
+type GlobalReducerType = | ReturnType<typeof sendMessageAC>
 
 export type InitialStateType = {
     dialogs: Array<PostsType>
@@ -35,21 +34,11 @@ let initialState: InitialStateType = {
 export const dialogsReducer = (state: InitialStateType = initialState, action: GlobalReducerType): InitialStateType => {
     switch (action.type) {
         case  "SEND-MESSAGE":
-            let body = action.newMessageBody
-            return {
-                ...state,
-                messages: [...state.messages, {id: 6, message: body}]
-            }
+            return {...state, messages: [...state.messages, {id: 6, message: action.newMessageBody}]}
         default:
             return state
     }
 }
 
 // action Creator
-export const sendMessageAC = (newMessageBody: string) => {
-    return {
-        type: "SEND-MESSAGE",
-        newMessageBody
-    } as const
-
-}
+export const sendMessageAC = (newMessageBody: string) => ({type: "SEND-MESSAGE", newMessageBody} as const)

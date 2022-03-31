@@ -4,7 +4,7 @@ import cn from 'classnames'
 import {NavLink} from 'react-router-dom';
 
 
-export const Navigation: FC = () => {
+export const Navigation = () => {
     return (
 
         <div>

@@ -8,7 +8,6 @@ type MapStateToPropsType = {
     auth: InitialStateType
 }
 type MapDispatchToPropsType = {
-    // getAuthUserDataThunk: () => void
     logoutTC: () => void
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
@@ -17,11 +16,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 type HeaderTypeProps = MapStateToPropsType & MapDispatchToPropsType
 
 class HeaderContainer extends React.Component<HeaderTypeProps, {}> {
-
-    // componentDidMount() {
-    //     this.props.getAuthUserDataThunk()
-    // }
-
     render() {
         return <Header {...this.props} auth={this.props.auth}/>
     }

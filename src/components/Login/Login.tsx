@@ -6,21 +6,26 @@ import {loginTC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Navigate} from "react-router-dom";
 
+// type
 type FormDataType = {
     login: string,
     password: string,
     rememberMe: boolean,
 }
-
 type MapStateToPropsType = {
     isAuth: boolean
 }
-
 type MapDispatchToPropsType = {}
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+
+    const {
+        handleSubmit,
+        error,
+    } = props
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'Login'}
                        name={'login'}
@@ -44,8 +49,8 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     component={Input}
                 /> remember me
             </div>
-            {props.error && <div style={{color: 'red'}}>
-                {props.error}
+            {error && <div style={{color: 'red'}}>
+                {error}
             </div>
             }
             <div>

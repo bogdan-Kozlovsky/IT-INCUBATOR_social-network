@@ -7,7 +7,11 @@ type HeaderPropsType = {
     auth: InitialStateType
     logoutTC: () => void
 }
-export const Header = ({...props}: HeaderPropsType) => {
+export const Header = (props: HeaderPropsType) => {
+    const {
+        auth,
+        logoutTC,
+    } = props
     return (
         <header className={s.header}>
             <div style={{width: '1200px', margin: '0 auto', padding: '10px'}}>
@@ -16,9 +20,9 @@ export const Header = ({...props}: HeaderPropsType) => {
             </div>
             <div className={s.loginBlock}>
 
-                { props.auth.isAuth
-                    ? <div>{props.auth.login} - <button onClick={props.logoutTC}>Log out</button> </div>
-                    : <NavLink to={'/login'}>Login</NavLink> }
+                {auth.isAuth
+                    ? <div>{auth.login} - <button onClick={logoutTC}>Log out</button></div>
+                    : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     )

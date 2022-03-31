@@ -10,13 +10,8 @@ export type RouteType = {
 }
 export type ProfileType = {
     posts: Array<RouteType>
-    profile?: ProfilePropsType | null
-    status?: string
-}
-type NewPostType = {
-    id: number
-    message: string
-    likesCount: number
+    profile: ProfilePropsType | null
+    status: string
 }
 type GlobalReducerType =
     | ReturnType<typeof addPostAC>
@@ -34,71 +29,42 @@ let initialState: ProfileType = {
     profile: null,
     status: '',
 }
-
+//
 // reduce
 export const profileReducer = (state: ProfileType = initialState, action: GlobalReducerType): ProfileType => {
     switch (action.type) {
         case 'ADD-POST':
-            let newPost: NewPostType = {id: 5, message: action.newPostBody, likesCount: 0,}
             return {
                 ...state,
-                posts: [...state.posts, newPost]
+                posts: [...state.posts, {id: 5, message: action.newPostBody, likesCount: 0,}]
             }
 
-        case "SET-USER-PROFILE": {
+        case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
-        }
-        case "SET-STATUS": {
-            return {
-                ...state,
-                status: action.status
-            }
-        }
+        case "SET-STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
 // action Creator
-export const addPostAC = (newPostBody:string) => {
-    return {
-        type: 'ADD-POST',
-        newPostBody
-    } as const
-}
-export const setUserProfileAC = (profile: ProfilePropsType) => {
-    return {
-        type: 'SET-USER-PROFILE',
-        profile
-    } as const
-}
-export const setStatusAC = (status: string) => {
-    return {
-        type: 'SET-STATUS',
-        status
-    } as const
-}
+export const addPostAC = (newPostBody: string) => ({type: 'ADD-POST', newPostBody} as const)
+export const setUserProfileAC = (profile: ProfilePropsType) => ({type: 'SET-USER-PROFILE', profile} as const)
+export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 // thunk
-export const getUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data))
-        });
+export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(response.data))
 }
-export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setStatusAC(response.data))
-        });
+export const getStatusTC = (userId: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(response.data))
 }
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatusAC(status))
-            }
-        })
+export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
+    }
 }
-
-

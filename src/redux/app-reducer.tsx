@@ -1,38 +1,32 @@
 import {getAuthUserDataThunk} from "./auth-reducer";
 import {Dispatch} from "redux";
 
+// initial state
 export type InitialStateType = {
     initialized: boolean
 }
 
+// type
 let initialState = {
     initialized: false
 }
+export type GeneralType = ReturnType<typeof initializeSuccessAC>
 
+// reducer
 export const appReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
-        case "SET-INITIALIZED": {
-            return {
-                ...state,
-                initialized: true
-            }
-        }
-        default: {
+        case "INITIALIZED-SUCCESS":
+            // error initialized: false
+            return {...state, initialized: false}
+        default:
             return state
-        }
     }
 }
-export type GeneralType = SetUserDataType
-type SetUserDataType = ReturnType<typeof initializeSuccessAC>
-export const initializeSuccessAC = () => {
-    return {
-        type: 'INITIALIZED-SUCCESS',
 
-    }
-}
-export const initializeAppTC = () => (dispatch: any) => {
+// action creator
+export const initializeSuccessAC = () => ({type: 'INITIALIZED-SUCCESS',} as const)
+// thunk
+export const initializeAppTC = () => async (dispatch: any) => {
     dispatch(getAuthUserDataThunk())
-        .then(() => {
-            dispatch(initializeSuccessAC())
-        })
+    const resolve = await dispatch(initializeSuccessAC())
 }

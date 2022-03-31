@@ -11,14 +11,19 @@ type AddPostFormType = {
 }
 
 export const MyPosts = memo((props: MyPostPropsType) => {
-    console.log('MyPost')
-    let post = props.posts.map(({id, message, likesCount}) => (
+
+    const {
+        posts,
+        addPost,
+    } = props
+
+    let post = posts.map(({id, message, likesCount}) => (
         <div key={id}>
             <Post message={message} likesCount={likesCount}/>
         </div>))
 
     const addNewPost = (values: AddPostFormType) => {
-        props.addPost(values.newPostBody)
+        addPost(values.newPostBody)
     }
 
     return (

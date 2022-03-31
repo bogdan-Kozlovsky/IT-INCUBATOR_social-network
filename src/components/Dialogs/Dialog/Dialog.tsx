@@ -1,11 +1,15 @@
 import s from "../Dialogs.module.css";
-import React, {FC} from "react";
-
-type StyledDialogProps={
-    dialog:string
+import React from "react";
+// type
+type DialogPropsType = {
+    dialog: string
 }
-export const Dialog:FC<StyledDialogProps>=(props)=>{
+
+export const Dialog = (props: DialogPropsType) => {
+    const {
+        dialog
+    } = props
     return (
-        <div className={s.dialog}>{props.dialog}</div>
+        <div className={s.dialog}>{dialog}</div>
     )
 }
