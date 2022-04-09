@@ -52,7 +52,12 @@ export const profileReducer = (state: ProfileType = initialState, action: Global
 export const addPostAC = (newPostBody: string) => ({type: 'ADD-POST', newPostBody} as const)
 export const setUserProfileAC = (profile: ProfilePropsType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
-
+export const savePhotoSuccessAC = (photos: any) => {
+    return {
+        type: 'SAVE-PHOTO-SUCCESS',
+        photos
+    } as const
+}
 // thunk
 export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getProfile(userId)
@@ -66,5 +71,12 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
     const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusAC(status))
+    }
+}
+
+export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 }

@@ -3,6 +3,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostContainers";
 import {ProfilePropsType} from "./ProfileContainer";
 import {Navigate} from "react-router-dom";
+import {savePhotoTC} from "../../redux/profile-reducer";
 
 // type
 type PropsType = {
@@ -10,6 +11,8 @@ type PropsType = {
     isAuth: Boolean
     status: string,
     updateStatusTC: (status: string) => void
+    isOwner: boolean
+    savePhotoTC: (file: any) => void
 }
 export const Profile = (props: PropsType) => {
 
@@ -18,6 +21,8 @@ export const Profile = (props: PropsType) => {
         profile,
         status,
         updateStatusTC,
+        isOwner,
+        savePhotoTC,
     } = props
 
     if (!isAuth) return <Navigate to={'/login'}/>
@@ -27,6 +32,8 @@ export const Profile = (props: PropsType) => {
                 profile={profile}
                 status={status}
                 updateStatusTC={updateStatusTC}
+                isOwner={isOwner}
+                savePhotoTC={savePhotoTC}
             />
             <MyPostsContainer/>
         </div>
