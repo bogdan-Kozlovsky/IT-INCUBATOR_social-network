@@ -1,6 +1,11 @@
 import styles from './FormControls.module.css'
+import {Field, WrappedFieldProps} from "redux-form";
+import {FC} from "react";
 
-const FormControl = ({input, meta, child, ...props}:any) => {
+
+export type FieldValidatorType = (value: string) => string | undefined
+
+export const FormControl = ({input, meta, child, ...props}:any) => {
     const hasError = meta.touched && meta.error;
     return (
         <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
@@ -22,3 +27,19 @@ export const Input = (props) => {
     const {input, meta, child, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
 }
+
+export function createField<FormKeysType extends string>(placeholder: string | undefined,
+                                                         name: FormKeysType,
+                                                         validators: Array<FieldValidatorType>,
+                                                         component: FC<WrappedFieldProps>,
+                                                         props = {}, text = "") {
+    return <div>
+        <Field placeholder={placeholder} name={name}
+               validate={validators}
+               component={component}
+               {...props}
+        /> {text}
+    </div>
+}
+
+export type GetStringKeys<T> = Extract<keyof T, string>

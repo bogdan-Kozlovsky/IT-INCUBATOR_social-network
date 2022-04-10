@@ -36,7 +36,7 @@ export const ProfileStatus = ({...props}: PropsType) => {
                     placeholder={'description'}
                     value={value}
                 />
-                : <span onDoubleClick={activeEditMode}>{props.status || '-----'}</span>
+                : <div><b>status:</b><span onDoubleClick={activeEditMode}>{props.status || '-----'}</span></div>
             }
         </div>
     );
