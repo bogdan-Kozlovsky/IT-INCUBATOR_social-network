@@ -4,8 +4,8 @@ import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatus} from "./ProfileStatus";
 import usersIcons from "../../../assets/images/users.png";
 import {ChangeEvent, useState} from "react";
-import {ProfileType, savePhotoTC} from "../../../redux/profile-reducer";
-import {ProfileDataForm} from "./ProfileDataForm";
+import {ProfileDataFormReduxForm} from "./ProfileDataForm";
+import {useDispatch} from "react-redux";
 
 type propsType = {
     profile: ProfilePropsType | null
@@ -13,64 +13,53 @@ type propsType = {
     updateStatusTC: (status: any) => void
     isOwner: boolean
     savePhotoTC: (file: any) => void
+    saveProfileTC: (profile: ProfilePropsType) => Promise<any>
 }
-export const ProfileInfo = ({...props}: propsType) => {
-    let [editMode, setEditMode] = useState(false);
+export const ProfileInfo = ({profile, status, updateStatusTC, isOwner, savePhotoTC, saveProfileTC}: propsType) => {
+    const dispatch = useDispatch()
+    let [editMode, setEditMode] = useState<boolean>(false);
 
+    if (!profile) {
+        return <Preloader/>
+    }
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.files && e.currentTarget.files.length) {
-            props.savePhotoTC(e.currentTarget.files[0])
+            savePhotoTC(e.currentTarget.files[0])
         }
     }
 
-    // const onSubmit = (formData: ProfileType) => {
-    //     saveProfile(formData).then(
-    //         () => {
-    //             setEditMode(false);
-    //         }
-    //     );
-    // }
 
-
-    if (!props.profile) {
-        return <Preloader/>
+    const onSubmit = (formData: ProfilePropsType) => {
+        saveProfileTC(formData)
+            .then(() => {
+                    setEditMode(false);
+                }
+            );
     }
+    console.log(editMode)
+
     return (
         <div>
             <div>
-                <img style={{borderRadius: '20px'}} src={props.profile.photos.large} alt='img'/>
+                <img style={{borderRadius: '20px'}} src={profile.photos.large} alt='img'/>
             </div>
-
+            {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
             {editMode
-                ? <ProfileDataForm/>
-                // ? <ProfileDataForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/>
-                : <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>}
-            {/*    : <ProfileData goToEditMode={() => {*/}
-            {/*    setEditMode(true)*/}
-            {/*}} profile={profile} isOwner={isOwner}/>}*/}
+                ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => setEditMode(true)}/>}
 
 
-            {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+
             <div className={s.avatar}>
-                <img style={{borderRadius: '20px'}} src={props.profile.photos.small || usersIcons}
+                <img style={{borderRadius: '20px'}} src={profile?.photos.small || usersIcons}
                      alt='avatar'/>
-                <ProfileData profile={props.profile} isOwner={props.isOwner} goToEditMode={() => setEditMode(true)}/>
-                <ProfileStatus
-                    status={props.status}
-                    updateStatusTC={props.updateStatusTC}/>
+                <ProfileStatus status={status} updateStatusTC={updateStatusTC}/>
             </div>
 
         </div>
     )
 }
 
-type ContactsPropsType = {
-    contactTitle: string
-    contactValue: string
-}
-const Contact = ({contactTitle, contactValue}: ContactsPropsType) => {
-    return <div><b>{contactTitle}</b>: {contactValue}</div>
-}
 
 type ProfileDataPropsType = {
     profile: ProfilePropsType
@@ -81,19 +70,20 @@ type ProfileDataPropsType = {
 const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => {
     return (
         <div>
-
             {isOwner && <div>
                 <button onClick={goToEditMode}>edit</button>
             </div>}
+            <div><b>Full name:</b>{profile.fullName}</div>
 
             <p>{profile.aboutMe}</p>
-            <div><b>Full name:</b>{profile.fullName}</div>
             <div>
                 <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'not'}
             </div>
 
             {profile.lookingForAJob &&
-                <div><b>My professional skills</b>:{profile.lookingForAJob}</div>
+                <div>
+                    <b>My professional skills</b>:{profile.lookingForAJob}
+                </div>
             }
             <div>
                 <b>About me</b>: {profile.aboutMe}
@@ -109,6 +99,10 @@ const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => 
     )
 }
 
+const Contact = ({contactTitle, contactValue}: ContactsPropsType) => {
+    return <div><b>{contactTitle}</b>: {contactValue}</div>
+}
+
 export type ContactsType = {
     github: string
     vk: string
@@ -119,3 +113,19 @@ export type ContactsType = {
     youtube: string
     mainLink: string
 }
+
+type ContactsPropsType = {
+    contactTitle: string
+    contactValue: string
+}
+
+
+
+
+
+
+
+
+
+
+

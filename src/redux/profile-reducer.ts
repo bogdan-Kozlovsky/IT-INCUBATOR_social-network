@@ -1,6 +1,8 @@
 import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 // type
 export type RouteType = {
@@ -75,8 +77,28 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 }
 
 export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+    debugger
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccessAC(response.data.data.photos))
     }
 }
+
+export const saveProfileTC = (profile: ProfilePropsType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
+    debugger
+    const userId = getState().auth.id;
+    const response = await profileAPI.saveProfile(profile);
+
+    if (response.data.resultCode === 0) {
+        debugger
+        // @ts-ignore
+        dispatch(getUserProfileTC(userId));
+    } else {
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
+        return Promise.reject(response.data.messages[0]);
+    }
+}
+
+
+
+

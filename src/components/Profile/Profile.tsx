@@ -12,7 +12,7 @@ type PropsType = {
     status: string,
     updateStatusTC: (status: string) => void
     isOwner: boolean
-    savePhotoTC: (file: any) => void
+    savePhotoTC: (profile: ProfilePropsType) => Promise<any>
 }
 export const Profile = (props: PropsType) => {
 
@@ -29,6 +29,7 @@ export const Profile = (props: PropsType) => {
     return (
         <div>
             <ProfileInfo
+                saveProfileTC={savePhotoTC}
                 profile={profile}
                 status={status}
                 updateStatusTC={updateStatusTC}

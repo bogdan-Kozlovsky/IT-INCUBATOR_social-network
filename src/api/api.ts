@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 
 
 const instance = axios.create({
@@ -37,14 +38,20 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put('profile/status', {status})
     },
-    savePhoto(photoFile:string){
+    savePhoto(photoFile: string) {
+        debugger
         let formData = new FormData()
         formData.append('image', photoFile)
-        return instance.put('/profile/photo', formData,{
+        return instance.put('/profile/photo', formData, {
+
             headers: {
-                'Content-Type' : 'multipart/form-data'
+                'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    saveProfile(profile: ProfilePropsType) {
+        debugger
+        return instance.put(`profile`, profile);
     }
 }
 export const authAPI = {
@@ -54,7 +61,7 @@ export const authAPI = {
     login(email: string, password: string, rememberMe: Boolean) {
         return instance.post(`auth/login`, {email, password, rememberMe})
     },
-    logout(){
+    logout() {
         return instance.delete(`/auth/login`)
     },
 

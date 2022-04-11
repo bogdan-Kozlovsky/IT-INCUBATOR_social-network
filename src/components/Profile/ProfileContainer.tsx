@@ -1,6 +1,13 @@
 import React, {ComponentType} from "react";
 import {connect} from "react-redux";
-import {getStatusTC, getUserProfileTC, savePhotoTC, updateStatusTC} from "../../redux/profile-reducer";
+import {
+    getStatusTC,
+    getUserProfileTC,
+    ProfileType,
+    savePhotoTC,
+    saveProfileTC,
+    updateStatusTC
+} from "../../redux/profile-reducer";
 import {Profile} from "./Profile";
 import {AppStateType} from "../../redux/redux-store";
 import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "react-router-dom";
@@ -39,8 +46,9 @@ export type MapDispatchToPropsType = {
     getUserProfileTC: (userId: string) => void
     getStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
-    savePhotoTC: (file: any) => void
-
+    //////// typeScript
+    savePhotoTC: any
+    saveProfileTC: (profile: ProfilePropsType) => Promise<any>
 }
 
 type RoutersType = {
@@ -101,11 +109,13 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 
 const WithURLDataContainerProfileComponent: ComponentType<ProfileContainerPropsType & any> = withRouter(ProfileContainer)
 
+// @ts-ignore
 export default withAuthRedirect(connect<MapStatePropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {
     getUserProfileTC,
     getStatusTC,
     updateStatusTC,
     savePhotoTC,
+    saveProfileTC,
 })(WithURLDataContainerProfileComponent));
 
 export function withRouter<T>(Component: ComponentType<T>): ComponentType<T & WithRouterType> {
