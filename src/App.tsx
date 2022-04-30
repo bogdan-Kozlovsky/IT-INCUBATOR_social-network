@@ -6,12 +6,12 @@ import {Navigation} from "./components/Navigation/Navigation";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
 import {Preloader} from "./common/preloader/Preloader";
 import {compose} from "redux";
 import {initializeAppTC} from "./redux/app-reducer";
+import {Dialogs} from "./components/Dialogs/Dialogs";
 
 
 type AppPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -36,7 +36,7 @@ class App extends React.Component<AppPropsType, {}> {
                         <Routes>
                             <Route path='profile/' element={<ProfileContainer/>}/>
                             <Route path='profile/:userId' element={<ProfileContainer/>}/>
-                            <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+                            <Route path='/dialogs/*' element={<Dialogs/>}/>
                             <Route path='/users/*' element={<UsersContainer/>}/>
                             <Route path='/news' element={<h2>News</h2>}/>
                             <Route path='/music' element={<h2>Music</h2>}/>

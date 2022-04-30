@@ -65,39 +65,21 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
 
 type ThunkType = ThunkAction<void, AppStateType, Dispatch<GeneralType>, GeneralType>
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
-    // authAPI.login(email, password, rememberMe)
-    //     .then(response => {
-    //         if (response.data.resultCode === 0) {
-    //             dispatch(getAuthUserDataThunk() as any)
-    //         } else {
-    //             if (response.data.resultCode === 10) {
-    //                 await dispatch(getCaptchaUrl());
-    //             }
-    //             let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-    //             // @ts-ignore
-    //             dispatch(stopSubmit("login", {_error: message}));
-    //
-    //         }
-    //     }
-    console.log(captcha)
-    debugger
-    try {
-        const response = await authAPI.login(email, password, rememberMe, captcha);
-        if (response.data.resultCode === 0) {
-            await dispatch(getAuthUserDataThunk());
-        } else {
-            if (response.data.resultCode === 10) {
-                await dispatch(getCaptchaUrlTC());
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => (dispatch) => {
+    authAPI.login(email, password, rememberMe, captcha)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthUserDataThunk() as any)
             } else {
-                const message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error. Please reload page";
+                if (response.data.resultCode === 10) {
+                    dispatch(getCaptchaUrlTC())
+                }
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
                 // @ts-ignore
                 dispatch(stopSubmit("login", {_error: message}));
+
             }
-        }
-    } catch (error) {
-        console.log(`Error login. ${error}`);
-    }
+        })
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {

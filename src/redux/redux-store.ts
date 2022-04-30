@@ -6,6 +6,7 @@ import {authReducer} from "./auth-reducer";
 import thunk from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from "./app-reducer";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 
 let reducers = combineReducers({
@@ -18,4 +19,4 @@ let reducers = combineReducers({
 })
 export type AppStateType = ReturnType<typeof reducers>
 
-export let store = createStore(reducers, applyMiddleware(thunk))
+export let store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)))

@@ -26,7 +26,7 @@ export type LoginFormValuesType = {
     login: string,
     password: string,
     rememberMe: boolean,
-    captchaUrl: any
+    captcha: string
 }
 // export const LoginForm = (props: InjectedFormProps<FormDataType>) => {
 export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps> = ({
@@ -80,16 +80,23 @@ const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({form: 
 
 // type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>
 type LoginFormValuesTypeKeys = any
+
+// export type LoginFormValuesType = {
+//     captcha: string
+//     rememberMe: boolean
+//     password: string
+//     email: string
+// }
 type LoginPropsType = {
-    isAuth: boolean
-    captchaUrl: any
-    loginTC: any
+    isAuth?: boolean
+    captchaUrl?: any
+    loginTC?: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
-const Login = (props: any) => {
+const Login = (props: LoginPropsType) => {
     const dispatch = useDispatch()
-    const onSubmit = (formData: LoginFormValuesTypeKeys) => {
+    const onSubmit = (formData: LoginFormValuesType) => {
         console.log(formData)
-        dispatch(loginTC(formData.login, formData.password, formData.rememberMe, formData.captchaUrl))
+        dispatch(loginTC(formData.login, formData.password, formData.rememberMe, formData.captcha))
     }
 
     if (props.isAuth) {

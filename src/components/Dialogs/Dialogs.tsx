@@ -1,7 +1,10 @@
 import React from "react";
 import s from './Dialogs.module.css'
-import {Dialog} from "./Dialog/Dialog";
-import {UsersPropsType} from "./DialogsContainer";
+import {useDispatch} from "react-redux";
+import {sendMessageAC} from "../../redux/dialogs-reducer";
+import {Navigate} from "react-router-dom";
+import {useAppSelector} from "../../common/hook/selectorHook";
+import {selectDialogs, selectIsAuth} from "../../redux/selectors";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 // type
@@ -9,22 +12,24 @@ type AddMessageFormType = {
     newMessageBody: string
 }
 
-export const Dialogs = (props: UsersPropsType) => {
-    const {
-        dialogsPage,
-        sendMessage,
-    } = props
+export const Dialogs = () => {
+    const dispatch = useDispatch()
 
-    let dialogsElements = dialogsPage.dialogs.map(({id, name}) =>
-        (<div key={id}>{name}</div>))
-    let messageElements = dialogsPage.messages.map(({id, message}) =>
-        (<div key={id}><Dialog dialog={message}/></div>))
+    const {dialogs, messages} = useAppSelector(selectDialogs)
+    const isAuth = useAppSelector(selectIsAuth)
+
+
+    let dialogsElements = dialogs.map(({id, name}) => (<div key={id}>{name}</div>))
+    let messageElements = messages.map(({id, message}) => (<div key={id}>{message}</div>))
+
+
     const addNewMessage = (values: AddMessageFormType) => {
-        sendMessage(values.newMessageBody)
+        dispatch(sendMessageAC(values.newMessageBody))
     }
-    // внимательно
-    // if (!props.isAuth    ) return <Navigate to={'/login'}/>
-    // внимательно
+
+    if (!isAuth) {
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <div className={s.dialogs}>
@@ -35,7 +40,6 @@ export const Dialogs = (props: UsersPropsType) => {
                 {messageElements}
                 <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
-
         </div>
     )
 }
