@@ -16,17 +16,17 @@ export type GeneralType = ReturnType<typeof initializeSuccessAC>
 export const appReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
         case "INITIALIZED-SUCCESS":
-            // error initialized: false
-            return {...state, initialized: false}
+            return {...state, initialized: action.value}
         default:
             return state
     }
 }
 
 // action creator
-export const initializeSuccessAC = () => ({type: 'INITIALIZED-SUCCESS',} as const)
+export const initializeSuccessAC = (value:boolean) => ({type: 'INITIALIZED-SUCCESS',value} as const)
 // thunk
 export const initializeAppTC = () => async (dispatch: any) => {
+    debugger
     dispatch(getAuthUserDataThunk())
-    const resolve = await dispatch(initializeSuccessAC())
+    dispatch(initializeSuccessAC(true))
 }
