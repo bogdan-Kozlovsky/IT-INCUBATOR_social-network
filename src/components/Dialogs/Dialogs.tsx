@@ -16,7 +16,7 @@ export const Dialogs = () => {
     const dispatch = useDispatch()
 
     const {dialogs, messages} = useAppSelector(selectDialogs)
-    const isAuth = useAppSelector(selectIsAuth)
+    const {isAuth} = useAppSelector(selectIsAuth)
 
 
     let dialogsElements = dialogs.map(({id, name}) => (<div key={id}>{name}</div>))

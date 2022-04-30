@@ -1,17 +1,18 @@
 import React from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-import {InitialStateType} from "../../redux/auth-reducer";
+import {useAppSelector} from "../../common/hook/selectorHook";
+import {selectIsAuth} from "../../redux/selectors";
+import {logoutTC} from "../../redux/auth-reducer";
+import {useDispatch} from "react-redux";
 
-type HeaderPropsType = {
-    auth: InitialStateType
-    logoutTC: () => void
-}
-export const Header = (props: HeaderPropsType) => {
-    const {
-        auth,
-        logoutTC,
-    } = props
+export const Header = () => {
+    const dispatch = useDispatch()
+    const {isAuth, login} = useAppSelector(selectIsAuth)
+
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
     return (
         <header className={s.header}>
             <div style={{width: '1200px', margin: '0 auto', padding: '10px'}}>
@@ -20,8 +21,8 @@ export const Header = (props: HeaderPropsType) => {
             </div>
             <div className={s.loginBlock}>
 
-                {auth.isAuth
-                    ? <div>{auth.login} - <button onClick={logoutTC}>Log out</button></div>
+                {isAuth
+                    ? <div>{login} - <button onClick={logoutHandler}>Log out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>

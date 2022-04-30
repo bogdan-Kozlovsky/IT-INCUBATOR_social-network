@@ -27,7 +27,7 @@ export type GeneralType =
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA":
-            return {...state, ...action.data, isAuth: true}
+            // return {...state, ...action.data, isAuth: action.data.isAuth}
         case "GET_CAPTCHA_URL_SUCCESS":
             return {
                 ...state,
@@ -42,7 +42,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Gene
 export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: 'SET-USER-DATA',
-        data: {
+        payload: {
             id, email, login, isAuth
         }
     } as const

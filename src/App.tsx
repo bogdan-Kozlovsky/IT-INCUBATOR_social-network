@@ -4,7 +4,6 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import {Route, Routes} from "react-router-dom";
 import {Navigation} from "./components/Navigation/Navigation";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
@@ -12,6 +11,7 @@ import {Preloader} from "./common/preloader/Preloader";
 import {compose} from "redux";
 import {initializeAppTC} from "./redux/app-reducer";
 import {Dialogs} from "./components/Dialogs/Dialogs";
+import {Header} from "./components/Header/Header";
 
 
 type AppPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -29,7 +29,7 @@ class App extends React.Component<AppPropsType, {}> {
 
         return (
             <>
-                <HeaderContainer/>
+                <Header/>
                 <div className='app-wrapper'>
                     <Navigation/>
                     <div className='app-wrapper-content'>
