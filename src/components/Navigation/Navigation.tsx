@@ -6,7 +6,6 @@ import {NavLink} from 'react-router-dom';
 
 export const Navigation = () => {
     return (
-
         <div>
             <ul className={cn(s.navigation__items, s.navigation)}>
                 <li className={s.navigation__item}>
@@ -56,7 +55,6 @@ export const Navigation = () => {
                     >
                         Settings
                     </NavLink>
-
                 </li>
             </ul>
         </div>

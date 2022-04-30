@@ -9,3 +9,6 @@ export const selectDialogs = (state: AppStateType) =>  state.dialogsPage
 //app
 export const selectInitialized = (state: AppStateType) =>  state.app.initialized
 
+//profile
+export const selectProfile = (state:AppStateType) => state.profilePage
+

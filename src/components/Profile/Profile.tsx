@@ -1,9 +1,8 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/MyPostContainers";
 import {ProfilePropsType} from "./ProfileContainer";
 import {Navigate} from "react-router-dom";
-import {savePhotoTC} from "../../redux/profile-reducer";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 // type
 type PropsType = {
@@ -36,7 +35,7 @@ export const Profile = (props: PropsType) => {
                 isOwner={isOwner}
                 savePhotoTC={savePhotoTC}
             />
-            <MyPostsContainer/>
+            <MyPosts/>
         </div>
     );
 };
