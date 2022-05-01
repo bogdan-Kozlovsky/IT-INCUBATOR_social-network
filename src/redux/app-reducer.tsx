@@ -26,7 +26,6 @@ export const appReducer = (state: InitialStateType = initialState, action: Gener
 export const initializeSuccessAC = (value:boolean) => ({type: 'INITIALIZED-SUCCESS',value} as const)
 // thunk
 export const initializeAppTC = () => async (dispatch: any) => {
-    debugger
     dispatch(getAuthUserDataThunk())
     dispatch(initializeSuccessAC(true))
 }

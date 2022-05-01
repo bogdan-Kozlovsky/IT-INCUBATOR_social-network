@@ -77,7 +77,6 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 }
 
 export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
-    debugger
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccessAC(response.data.data.photos))
@@ -85,12 +84,10 @@ export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
 }
 
 export const saveProfileTC = (profile: ProfilePropsType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
-    debugger
     const userId = getState().auth.id;
     const response = await profileAPI.saveProfile(profile);
 
     if (response.data.resultCode === 0) {
-        debugger
         // @ts-ignore
         dispatch(getUserProfileTC(userId));
     } else {
