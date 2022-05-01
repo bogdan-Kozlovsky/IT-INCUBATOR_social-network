@@ -133,29 +133,29 @@ export type ProfileContainerPropsType = MapStatePropsType & MapDispatchToPropsTy
 //
 // type WithRouterType = Location & NavigateFunction & Readonly<Params<string>>;
 
-export const ProfileContainer = () => {
-    const dispatch = useDispatch()
-    const {profile, status} = useAppSelector(selectProfile)
-    const {isAuth} = useAppSelector(selectIsAuth)
-    // const userId = useParams()
-    // console.log(userId)
-    const userId = '22141'
-
-    useEffect(() => {
-        if (userId) {
-            dispatch(getUserProfileTC((userId)))
-            dispatch(getStatusTC((userId)))
-        }
-        // }, [userId, dispatch])
-    }, [])
-    return (
-        <div>
-            <Profile
-                isAuth={isAuth}
-                profile={profile}
-                status={status}
-                isOwner={!userId}
-            />
-        </div>
-    )
-};
+// export const ProfileContainer = () => {
+//     const dispatch = useDispatch()
+//     const {profile, status} = useAppSelector(selectProfile)
+//     const {isAuth} = useAppSelector(selectIsAuth)
+//     // const userId = useParams()
+//     // console.log(userId)
+//     const userId = '22141'
+//
+//     useEffect(() => {
+//         if (userId) {
+//             dispatch(getUserProfileTC((userId)))
+//             dispatch(getStatusTC((userId)))
+//         }
+//         // }, [userId, dispatch])
+//     }, [])
+//     return (
+//         <div>
+//             <Profile
+//                 isAuth={isAuth}
+//                 profile={profile}
+//                 status={status}
+//                 isOwner={!userId}
+//             />
+//         </div>
+//     )
+// };

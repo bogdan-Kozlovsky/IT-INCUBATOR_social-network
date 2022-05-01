@@ -12,3 +12,6 @@ export const selectInitialized = (state: AppStateType) =>  state.app.initialized
 //profile
 export const selectProfile = (state:AppStateType) => state.profilePage
 
+//users
+export const selectUsers = (state:AppStateType) => state.usersPage
+

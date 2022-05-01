@@ -3,14 +3,14 @@ import {Header} from "./components/Header/Header";
 import {Navigation} from "./components/Navigation/Navigation";
 import {Route, Routes} from "react-router-dom";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {UsersContainer} from "./components/Users/UsersContainer";
 import Login from "./components/Login/Login";
 import {initializeAppTC} from "./redux/app-reducer";
 import {Preloader} from "./common/preloader/Preloader";
 import {useAppSelector} from "./common/hook/selectorHook";
 import {selectInitialized} from "./redux/selectors";
 import {useDispatch} from "react-redux";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {Profile} from "./components/Profile/Profile";
+import {Users} from "./components/Users/Users";
 
 export const App = () => {
     const dispatch = useDispatch()
@@ -30,10 +30,10 @@ export const App = () => {
                 <Navigation/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='profile/' element={<ProfileContainer/>}/>
-                        <Route path='profile/:userId' element={<ProfileContainer/>}/>
+                        <Route path='profile/' element={<Profile/>}/>
+                        <Route path='profile/:userId' element={<Profile/>}/>
                         <Route path='/dialogs/*' element={<Dialogs/>}/>
-                        <Route path='/users/*' element={<UsersContainer/>}/>
+                        <Route path='/users/*' element={<Users/>}/>
                         <Route path='/news' element={<h2>News</h2>}/>
                         <Route path='/music' element={<h2>Music</h2>}/>
                         <Route path='/settings' element={<h2>Settings</h2>}/>

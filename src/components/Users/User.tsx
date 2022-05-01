@@ -2,23 +2,29 @@ import React from 'react';
 import styles from "./users.module.css";
 import usersIcons from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {followTC, unfollowTC} from "../../redux/users-reducer";
 
 
 type propsType = {
     user: any
-    followTC: (id: number) => void
-    unfollowTC: (id: number) => void
     followingInProgress: number[]
 }
 
 export let User = ({...props}: propsType) => {
-
+    const dispatch = useDispatch()
     const {
         user,
         followingInProgress,
-        unfollowTC,
-        followTC,
     } = props
+
+    const onHandlerUnfollow = (id: number) => {
+        dispatch(unfollowTC(id))
+    }
+
+    const onHandlerFollow = (id: number) => {
+        dispatch(followTC(id))
+    }
 
     return (
         <div>
@@ -27,19 +33,20 @@ export let User = ({...props}: propsType) => {
                        <NavLink to={'/profile/' + user.id}>
                         <img style={{width: '70px', objectFit: 'cover'}}
                              src={user.photos.small != null ? user.photos.small : usersIcons}
-                             className={styles.userPhoto}/>
+                             className={styles.userPhoto}
+                             alt={'usePhoto'}
+                        />
                        </NavLink>
                     </div>
                     <div>
                         {user.followed
                             ? <button
                                 disabled={followingInProgress.some(id => id === user.id)}
-                                onClick={() => unfollowTC(user.id)}>
+                                onClick={() => onHandlerUnfollow(user.id)}>
                                 Unfollow</button>
                             : <button disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => followTC(user.id)}>
+                                      onClick={() => onHandlerFollow(user.id)}>
                                 Follow</button>}
-
                     </div>
                 </span>
             <span>

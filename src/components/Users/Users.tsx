@@ -1,39 +1,35 @@
-import React from 'react';
-import { UserType} from "../../redux/users-reducer";
+import React, {useEffect} from 'react';
+import {getUsersTC, UserType} from "../../redux/users-reducer";
 import Paginator from "../../common/Paginator/Paginator";
 import {User} from "./User";
+import {useAppSelector} from "../../common/hook/selectorHook";
+import {selectUsers} from "../../redux/selectors";
+import {useDispatch} from "react-redux";
+import {Preloader} from "../../common/preloader/Preloader";
 
-type propsType = {
-    onPageChanged: (pageNumber: number) => void
-    users: UserType[]
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    followTC: (id: number) => void
-    unfollowTC: (id: number) => void
-    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: number[]
-}
 
-export const Users = ({...props}: propsType) => {
-    const {
-        pageSize,
-        totalUsersCount,
-        users,
-        currentPage,
-        followTC,unfollowTC,
-        onPageChanged,
-    } = props
+export const Users = () => {
+    const dispatch = useDispatch()
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(getUsersTC(pageNumber, pageSize))
+    }
+
+    const {users, pageSize, totalUsersCount, currentPage, followingInProgress, isFetching} = useAppSelector(selectUsers)
+
+    useEffect(() => {
+        dispatch(getUsersTC(currentPage, pageSize))
+    }, [])
+
     return <div>
+        {isFetching && <Preloader/>}
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-                   totalUsersCount={totalUsersCount} pageSize={pageSize} />
+                   totalUsersCount={totalUsersCount} pageSize={pageSize}/>
         <div>
             {
                 users.map(u => <User user={u}
-                                     followingInProgress={props.followingInProgress}
+                                     followingInProgress={followingInProgress}
                                      key={u.id}
-                                     unfollowTC={unfollowTC}
-                                     followTC={followTC}
                     />
                 )
             }

@@ -11,10 +11,7 @@ import {savePhotoTC, saveProfileTC} from "../../../redux/profile-reducer";
 type propsType = {
     profile: ProfilePropsType | null
     status: string
-    // updateStatusTC: (status: any) => void
     isOwner: boolean
-    // savePhotoTC: (file: any) => void
-    // saveProfileTC: (profile: ProfilePropsType) => Promise<any>
 }
 export const ProfileInfo = ({profile, status, isOwner}: propsType) => {
     const dispatch = useDispatch()

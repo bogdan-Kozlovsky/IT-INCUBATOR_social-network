@@ -61,11 +61,18 @@ export const savePhotoSuccessAC = (photos: any) => {
     } as const
 }
 // thunk
-export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.getProfile(userId)
-    dispatch(setUserProfileAC(response.data))
+export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
+    try {
+        const response = await profileAPI.getProfile(userId)
+        dispatch(setUserProfileAC(response.data))
+        console.log(response.data)
+
+    } catch (e) {
+        alert(e)
+    }
+    debugger
 }
-export const getStatusTC = (userId: string) => async (dispatch: Dispatch) => {
+export const getStatusTC = (userId: any) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getStatus(userId)
     dispatch(setStatusAC(response.data))
 }
