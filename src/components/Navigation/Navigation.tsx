@@ -11,11 +11,10 @@ export const Navigation = () => {
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/profile">
-                        Profile
+                        to="/">
+                        Me
                     </NavLink>
                 </li>
-
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}

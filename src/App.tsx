@@ -11,13 +11,20 @@ import {selectInitialized} from "./redux/selectors";
 import {useDispatch} from "react-redux";
 import {Profile} from "./components/Profile/Profile";
 import {Users} from "./components/Users/Users";
+import {Me} from "./components/Me/Me";
+import {useActions} from "./common/hook/useAction";
 
 export const App = () => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
+
+
+    const {initializeAppTC} = useActions()
+
+
     const initialized = useAppSelector(selectInitialized)
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        initializeAppTC()
     }, [])
 
     if (!initialized) {
@@ -30,14 +37,16 @@ export const App = () => {
                 <Navigation/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path='profile/' element={<Profile/>}/>
+                        <Route path='/' element={<Me/>}/>
                         <Route path='profile/:userId' element={<Profile/>}/>
+                        {/*<Route path='/profile' element={<Profile/>}/>*/}
                         <Route path='/dialogs/*' element={<Dialogs/>}/>
                         <Route path='/users/*' element={<Users/>}/>
                         <Route path='/news' element={<h2>News</h2>}/>
                         <Route path='/music' element={<h2>Music</h2>}/>
                         <Route path='/settings' element={<h2>Settings</h2>}/>
                         <Route path='/login' element={<Login/>}/>
+                        <Route path={'/*'} element={<div>error</div>}/>
                     </Routes>
                 </div>
             </div>

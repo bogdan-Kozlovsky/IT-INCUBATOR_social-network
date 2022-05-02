@@ -1,24 +1,24 @@
 import React, {useEffect} from 'react';
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {Navigate, useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {MyPosts} from "../Profile/MyPosts/MyPosts";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth, selectProfile} from "../../redux/selectors";
 import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
+import {Navigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {ProfileInfo} from "../Profile/ProfileInfo/ProfileInfo";
 
-export const Profile = () => {
+export const Me = () => {
     const dispatch = useDispatch()
-    const {profile, status} = useAppSelector(selectProfile)
-    const {isAuth} = useAppSelector(selectIsAuth)
-    const {userId} = useParams()
 
+    const {id, isAuth} = useAppSelector(selectIsAuth)
+    const {profile, status} = useAppSelector(selectProfile)
 
     useEffect(() => {
-        if (userId) {
-            dispatch(getUserProfileTC(Number(userId)))
-            dispatch(getStatusTC(Number(userId)))
+        if (id) {
+            dispatch(getUserProfileTC(Number(id)))
+            dispatch(getStatusTC(Number(id)))
         }
-    }, [userId, dispatch])
+    }, [])
 
 
     if (!isAuth) return <Navigate to={'/login'}/>
@@ -27,8 +27,9 @@ export const Profile = () => {
             <ProfileInfo
                 profile={profile}
                 status={status}
-                userId={userId}
+                userId={id}
             />
+            <MyPosts/>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {getUsersTC, UserType} from "../../redux/users-reducer";
+import {getUsersTC} from "../../redux/users-reducer";
 import Paginator from "../../common/Paginator/Paginator";
 import {User} from "./User";
 import {useAppSelector} from "../../common/hook/selectorHook";
