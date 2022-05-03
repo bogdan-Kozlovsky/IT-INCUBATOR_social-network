@@ -1,20 +1,19 @@
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../../common/preloader/Preloader";
-import {ProfilePropsType} from "../ProfileContainer";
 import {ProfileStatus} from "./ProfileStatus";
 import usersIcons from "../../../assets/images/users.png";
 import {ChangeEvent, useState} from "react";
 import {ProfileDataFormReduxForm} from "./ProfileDataForm";
 import {useDispatch} from "react-redux";
-import {savePhotoTC, saveProfileTC} from "../../../redux/profile-reducer";
+import {ProfileType, savePhotoTC, saveProfileTC} from "../../../redux/profile-reducer";
 import {useAppSelector} from "../../../common/hook/selectorHook";
 import {selectIsAuth} from "../../../redux/selectors";
 
 type propsType = {
-    profile: ProfilePropsType | null
+    profile: ProfileType | null
     status: string
-    // userId: number | null
-    userId: any
+    userId: string | undefined
+    // userId: any
 }
 export const ProfileInfo = ({profile, status, userId}: propsType) => {
     const dispatch = useDispatch()
@@ -31,7 +30,7 @@ export const ProfileInfo = ({profile, status, userId}: propsType) => {
     }
 
 
-    const onSubmit = (formData: ProfilePropsType) => {
+    const onSubmit = (formData: ProfileType) => {
         dispatch(saveProfileTC(formData))
         setEditMode(false)
     }
@@ -60,7 +59,7 @@ export const ProfileInfo = ({profile, status, userId}: propsType) => {
 
 
 type ProfileDataPropsType = {
-    profile: ProfilePropsType
+    profile: ProfileType
     goToEditMode: () => void
 }
 

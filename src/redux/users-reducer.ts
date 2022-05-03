@@ -4,15 +4,15 @@ import {Dispatch} from "redux";
 // type
 export type UserType = {
     id: number
-    photos: { small: string, large: string }
+    photos: {
+        large: null | string
+        small: null | string
+    }
     followed: boolean
     name: string
     status: string
-    location: {
-        city: string
-        country: string
-    }
 }
+
 export type UsersType = {
     users: Array<UserType>
     pageSize: number
@@ -85,8 +85,9 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
     dispatch(setUsersTotalCountAC(data.totalCount))
 }
 export const followTC = (userId: number) => async (dispatch: Dispatch) => {
+    debugger
     dispatch(toggleIsFollowingProgressAC(true, userId))
-    const response = await usersAPI.followAC(userId)
+    const response = await usersAPI.follow(userId)
     if (response.data.resultCode) {
         dispatch(followAC(userId))
     }
@@ -94,7 +95,7 @@ export const followTC = (userId: number) => async (dispatch: Dispatch) => {
 }
 export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFollowingProgressAC(true, userId))
-    const response = await usersAPI.followAC(userId)
+    const response = await usersAPI.unfollow(userId)
     if (response.data.resultCode) {
         dispatch(unfollowAC(userId))
     }

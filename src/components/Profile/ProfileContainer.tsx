@@ -9,42 +9,23 @@ import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth, selectProfile} from "../../redux/selectors";
 
 
-export type ContactsPropsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
-}
-export type PhotosPropsType = { large: string, small: string }
-export type ProfilePropsType = {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsPropsType
-    photos: PhotosPropsType
-}
 
 
-export type MapStatePropsType = {
-    profile: ProfilePropsType | null
-    isAuth: Boolean
-    status: string
-    authorizedUserId: number | null
-}
-export type MapDispatchToPropsType = {
-    getUserProfileTC: (userId: string) => void
-    getStatusTC: (userId: string) => void
-    updateStatusTC: (status: string) => void
-    //////// typeScript
-    savePhotoTC: any
-    saveProfileTC: (profile: ProfilePropsType) => Promise<any>
-}
+
+// export type MapStatePropsType = {
+//     profile: ProfilePropsType | null
+//     isAuth: Boolean
+//     status: string
+//     authorizedUserId: number | null
+// }
+// export type MapDispatchToPropsType = {
+//     getUserProfileTC: (userId: string) => void
+//     getStatusTC: (userId: string) => void
+//     updateStatusTC: (status: string) => void
+//     //////// typeScript
+//     savePhotoTC: any
+//     saveProfileTC: (profile: ProfilePropsType) => Promise<any>
+// }
 
 type RoutersType = {
     router: {
@@ -53,7 +34,7 @@ type RoutersType = {
         navigate: NavigateFunction
     }
 }
-export type ProfileContainerPropsType = MapStatePropsType & MapDispatchToPropsType & RoutersType
+// export type ProfileContainerPropsType = MapStatePropsType & MapDispatchToPropsType & RoutersType
 
 
 // class ProfileContainer extends React.Component<ProfileContainerPropsType> {

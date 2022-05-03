@@ -1,18 +1,38 @@
-import {ProfilePropsType} from "../components/Profile/ProfileContainer";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
 import {stopSubmit} from "redux-form";
 
 // type
+export type ContactsPropsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type PhotosPropsType = { large: string, small: string }
+export type ProfileType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsPropsType
+    photos: PhotosPropsType
+}
+
 export type RouteType = {
     likesCount: number
     message: string
     id: number
 }
-export type ProfileType = {
+export type initialType = {
     posts: Array<RouteType>
-    profile: ProfilePropsType | null
+    profile: ProfileType | null
     status: string
 }
 type GlobalReducerType =
@@ -21,7 +41,7 @@ type GlobalReducerType =
     | ReturnType<typeof setStatusAC>
 
 // initialState
-let initialState: ProfileType = {
+let initialState: initialType = {
     posts: [
         {id: 1, message: 'Hi,how are you', likesCount: 12},
         {id: 2, message: 'Hi, you', likesCount: 11},
@@ -33,7 +53,7 @@ let initialState: ProfileType = {
 }
 //
 // reduce
-export const profileReducer = (state: ProfileType = initialState, action: GlobalReducerType): ProfileType => {
+export const profileReducer = (state: initialType = initialState, action: GlobalReducerType): initialType => {
     switch (action.type) {
         case 'ADD-POST':
             return {
@@ -52,7 +72,7 @@ export const profileReducer = (state: ProfileType = initialState, action: Global
 
 // action Creator
 export const addPostAC = (newPostBody: string) => ({type: 'ADD-POST', newPostBody} as const)
-export const setUserProfileAC = (profile: ProfilePropsType) => ({type: 'SET-USER-PROFILE', profile} as const)
+export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 export const savePhotoSuccessAC = (photos: any) => {
     return {
@@ -62,12 +82,9 @@ export const savePhotoSuccessAC = (photos: any) => {
 }
 // thunk
 export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
-    debugger
     try {
-        // const response = await profileAPI.getProfile(userId)
         const response = await profileAPI.getProfile(userId)
         dispatch(setUserProfileAC(response.data))
-
     } catch (e) {
         debugger
         // alert(e)
@@ -75,7 +92,7 @@ export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
 }
 export const getStatusTC = (userId: any) => async (dispatch: Dispatch) => {
     const response = await profileAPI.getStatus(userId)
-    dispatch(setStatusAC(response.data))
+    dispatch(setStatusAC(response.data.status))
 }
 export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
     const response = await profileAPI.updateStatus(status)
@@ -91,7 +108,7 @@ export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
     }
 }
 
-export const saveProfileTC = (profile: ProfilePropsType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
+export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
     const userId = getState().auth.id;
     const response = await profileAPI.saveProfile(profile);
 

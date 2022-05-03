@@ -1,15 +1,14 @@
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {ProfileType} from "../../../redux/profile-reducer";
+import {initialType, ProfileType} from "../../../redux/profile-reducer";
 import {FC} from "react";
 import {createField, GetStringKeys, Input, Textarea} from "../../../common/FromControls/FormControls";
-import {ProfilePropsType} from "../ProfileContainer";
 
 type PropsType = {
-    profile: ProfilePropsType
+    profile: ProfileType
 }
-type ProfileTypeKeys = GetStringKeys<ProfilePropsType>
+type ProfileTypeKeys = GetStringKeys<ProfileType>
 
-const ProfileDataForm: FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = (
+const ProfileDataForm: FC<InjectedFormProps<initialType, PropsType> & PropsType> = (
     {handleSubmit, profile, error}) => {
     return (
         <form onSubmit={handleSubmit}>

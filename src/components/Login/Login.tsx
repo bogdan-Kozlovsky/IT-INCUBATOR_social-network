@@ -44,6 +44,9 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
                 {error}
             </div>
             }
+
+            <p>bogdankozlovski18@gmail.com</p>
+            <p>bogdan04.06</p>
             <div>
                 <button>Login</button>
             </div>

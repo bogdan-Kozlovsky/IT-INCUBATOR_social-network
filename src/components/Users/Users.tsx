@@ -23,14 +23,19 @@ export const Users = () => {
 
     return <div>
         {isFetching && <Preloader/>}
+
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
                    totalUsersCount={totalUsersCount} pageSize={pageSize}/>
         <div>
             {
-                users.map(u => <User user={u}
-                                     followingInProgress={followingInProgress}
-                                     key={u.id}
-                    />
+                users.map(u => {
+                        return (
+                            <User key={u.id}
+                                  user={u}
+                                  followingInProgress={followingInProgress}
+                            />
+                        )
+                    }
                 )
             }
         </div>

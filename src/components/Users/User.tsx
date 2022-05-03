@@ -3,10 +3,11 @@ import styles from "./users.module.css";
 import usersIcons from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {followTC, unfollowTC} from "../../redux/users-reducer";
+import {followTC, unfollowTC, UserType} from "../../redux/users-reducer";
 
 
 type propsType = {
+    // user: UserType[]
     user: any
     followingInProgress: number[]
 }

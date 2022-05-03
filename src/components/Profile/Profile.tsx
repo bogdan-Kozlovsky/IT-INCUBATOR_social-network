@@ -6,11 +6,12 @@ import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth, selectProfile} from "../../redux/selectors";
 import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
 
+
 export const Profile = () => {
     const dispatch = useDispatch()
     const {profile, status} = useAppSelector(selectProfile)
     const {isAuth} = useAppSelector(selectIsAuth)
-    const {userId} = useParams()
+    const {userId} = useParams<{ userId: string | undefined }>()
 
 
     useEffect(() => {
