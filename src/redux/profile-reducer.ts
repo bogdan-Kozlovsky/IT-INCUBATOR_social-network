@@ -64,6 +64,7 @@ export const profileReducer = (state: initialType = initialState, action: Global
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-STATUS":
+            debugger
             return {...state, status: action.status}
         default:
             return state
@@ -86,13 +87,18 @@ export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
         const response = await profileAPI.getProfile(userId)
         dispatch(setUserProfileAC(response.data))
     } catch (e) {
-        debugger
-        // alert(e)
     }
 }
-export const getStatusTC = (userId: any) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.getStatus(userId)
-    dispatch(setStatusAC(response.data.status))
+export const getStatusTC = (userId: number) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            const response = await profileAPI.getStatus(userId)
+            dispatch(setStatusAC(response.data.status))
+        } catch (e) {
+            console.log(e)
+        }
+
+    };
 }
 export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
     const response = await profileAPI.updateStatus(status)

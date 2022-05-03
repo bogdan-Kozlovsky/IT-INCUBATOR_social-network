@@ -58,15 +58,19 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string) => {
 
 // thunk
 // export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
-export const getAuthUserDataThunk = () => (dispatch: Dispatch) => {
-    authAPI.me()
-        .then(res => {
-            let {id, email, login} = res.data.data
-            dispatch(setAuthUserDataAC(id, email, login, true))
-        })
-        .catch(error => {
-            console.log(error)
-        })
+export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
+    try {
+        const response = await authAPI.me()
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserDataAC(id, email, login, true))
+    } catch (error) {
+        if (error instanceof Error) {
+            dispatch(errorAC(error.name))
+            setTimeout(() => {
+                dispatch(errorAC(null))
+            }, 2000)
+        }
+    }
 }
 
 type ThunkType = ThunkAction<void, AppStateType, Dispatch<GeneralType>, GeneralType>
@@ -85,24 +89,44 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
             }
         }
     } catch (error) {
-        // console.log(error.data)
-        dispatch(errorAC(error))
+        if (error instanceof Error) {
+            dispatch(errorAC(error.name))
+            setTimeout(() => {
+                dispatch(errorAC(null))
+            }, 2000)
+        }
     }
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
-    authAPI.logout()
-        .then(response => {
-            console.log(response.data)
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserDataAC(undefined, null, null, false));
-            }
-        });
+export const logoutTC = () => async (dispatch: Dispatch) => {
+    try {
+        const response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserDataAC(undefined, null, null, false));
+        }
+    } catch (error) {
+        if (error instanceof Error) {
+            dispatch(errorAC(error.name))
+            setTimeout(() => {
+                dispatch(errorAC(null))
+            }, 2000)
+        }
+    }
 }
 
 export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
-    const response = await securityAPI.getCaptchaUrl();
-    console.log(response.data)
-    const captchaUrl = response.data.url;
-    dispatch(getCaptchaUrlSuccessAC(captchaUrl));
+    try {
+        const response = await securityAPI.getCaptchaUrl();
+        const captchaUrl = response.data.url;
+        dispatch(getCaptchaUrlSuccessAC(captchaUrl));
+    } catch (error) {
+        if (error instanceof Error) {
+            dispatch(errorAC(error.name))
+            setTimeout(() => {
+                dispatch(errorAC(null))
+            }, 2000)
+        }
+    }
+
+
 }

@@ -7,23 +7,23 @@ import {Login} from "./components/Login/Login";
 import {initializeAppTC} from "./redux/app-reducer";
 import {Preloader} from "./common/preloader/Preloader";
 import {useAppSelector} from "./common/hook/selectorHook";
-import {selectInitialized} from "./redux/selectors";
+import {selectError, selectInitialized} from "./redux/selectors";
 import {Profile} from "./components/Profile/Profile";
 import {Users} from "./components/Users/Users";
 import {Me} from "./components/Me/Me";
-import {useActions} from "./common/hook/useAction";
+import {useDispatch} from "react-redux";
+import {Error} from "./common/Error/Error";
 
 export const App = () => {
-    // const dispatch = useDispatch()
 
 
-    const {initializeAppTC} = useActions()
+    const dispatch = useDispatch()
 
 
     const initialized = useAppSelector(selectInitialized)
-
+    const error = useAppSelector(selectError)
     useEffect(() => {
-        initializeAppTC()
+        dispatch(initializeAppTC())
     }, [])
 
     if (!initialized) {
@@ -32,6 +32,7 @@ export const App = () => {
     return (
         <>
             <Header/>
+            {error && <Error/>}
             <div className='app-wrapper'>
                 <Navigation/>
                 <div className='app-wrapper-content'>

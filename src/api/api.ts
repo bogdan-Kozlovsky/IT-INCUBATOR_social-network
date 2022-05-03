@@ -4,7 +4,7 @@ import {PhotosPropsType, ProfileType} from "../redux/profile-reducer";
 
 
 const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+    baseURL: 'https://social-network.samuraijs.com/api/1.000/',
     withCredentials: true,
     headers: {
         'API-KEY': "edbb6621-0047-4274-8a4c-f1d2a1bf4727    "
@@ -48,8 +48,8 @@ export const profileAPI = {
     getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/` + userId)
     },
-    getStatus(userId: string) {
-        return instance.get<{ status: any }>(`profile/status/${userId}`)
+    getStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
         return instance.put<ResponseType>('profile/status', {status})
