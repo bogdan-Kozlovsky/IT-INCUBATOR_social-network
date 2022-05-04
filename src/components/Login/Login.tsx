@@ -1,14 +1,15 @@
-import {InjectedFormProps, reduxForm} from "redux-form";
-import {createField, GetStringKeys, Input} from "../../common/FromControls/FormControls";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {createField, GetStringKeys, Input, Textarea} from "../../common/FromControls/FormControls";
 import {required} from "../../utils/validators";
 import {useDispatch} from "react-redux";
 import {loginTC} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
-import {FC} from "react";
+import React, {FC} from "react";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth} from "../../redux/selectors";
 import s from './style.module.css'
 import {PATH} from "../../enums/patch";
+import {Error} from "../../common/Error/Error";
 // type
 type LoginFormOwnProps = {
     captchaUrl: string | null
@@ -29,15 +30,36 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <div className={s.fromWrapper}>
-                {createField<LoginFormValuesTypeKeys>('Login', 'login', [required], Input)}
+            <div>
+                {/*{createField<LoginFormValuesTypeKeys>('Login', 'login', [required], Input)}*/}
+                <Field
+                    validate={[required]}
+                    component={Input}
+                    className={s.input}
+                    name='login'
+                    placeholder='Login'
+                />
             </div>
             <div>
-                {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], Input, {type: 'password'})}
+                <Field
+                    validate={[required]}
+                    component={Input}
+                    className={s.input}
+                    name='password'
+                    placeholder='Password'
+                    type={'password'}
+                />
             </div>
-            <div>
-                {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'}, 'remember me')}
-            </div>
+
+            <label className={s.label}>
+                remember me
+                <Field
+                    component={Input}
+                    className={s.inputCheckbox}
+                    name='rememberMe'
+                    type={'checkbox'}
+                />
+            </label>
 
             {captchaUrl && <img src={captchaUrl} alt={'captchaUrl'}/>}
             {captchaUrl && createField<LoginFormValuesTypeKeys>('Symbols from image', 'captcha', [required], Input, {})}

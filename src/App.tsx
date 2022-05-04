@@ -4,7 +4,6 @@ import {Navigation} from "./components/Navigation/Navigation";
 import {Route, Routes} from "react-router-dom";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Login} from "./components/Login/Login";
-import {initializeAppTC} from "./redux/app-reducer";
 import {Preloader} from "./common/preloader/Preloader";
 import {useAppSelector} from "./common/hook/selectorHook";
 import {selectError, selectInitialized} from "./redux/selectors";
@@ -14,20 +13,20 @@ import {Me} from "./components/Me/Me";
 import {useDispatch} from "react-redux";
 import {Error} from "./common/Error/Error";
 import {PATH} from "./enums/patch";
+import {getAuthUserDataThunk} from "./redux/auth-reducer";
 
 export const App = () => {
 
-
     const dispatch = useDispatch()
-
-
     const initialized = useAppSelector(selectInitialized)
     const error = useAppSelector(selectError)
+
     useEffect(() => {
-        dispatch(initializeAppTC())
+        dispatch(getAuthUserDataThunk())
     }, [])
 
-    if (!initialized) {
+    // if (!initialized) {
+    if (false) {
         return <Preloader/>
     }
     return (
@@ -39,8 +38,8 @@ export const App = () => {
                 <>
                     <Routes>
                         <Route path={PATH.ME} element={<Me/>}/>
-                        {/*<Route path={`${PATH.PROFILE}/userid`} element={<Profile/>}/>*/}
-                        <Route path='profile/userId' element={<Profile/>}/>
+                        <Route path={`${PATH.PROFILE}/:userId`} element={<Profile/>}/>
+                        {/*<Route path='profile/:userId' element={<Profile/>}/>*/}
                         <Route path={PATH.DIALOGS} element={<Dialogs/>}/>
                         <Route path={PATH.USERS} element={<Users/>}/>
                         <Route path={PATH.LOGIN} element={<Login/>}/>

@@ -4,6 +4,7 @@ import usersIcons from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {followTC, unfollowTC, UserType} from "../../redux/users-reducer";
+import {PATH} from "../../enums/patch";
 
 type propsType = {
     user: UserType
@@ -30,7 +31,7 @@ export let User = ({...props}: propsType) => {
                 <div>
                     {/*<NavLink to={'/profile/' + user.id}>*/}
                     {/* <NavLink to={`${PATH.PROFILE}/${user.id}`}>*/}
-                    <NavLink to={'profile/' + user.id}>
+                    <NavLink to={'/profile/' + user.id}>
                         <img
                             src={user.photos.small != null ? user.photos.small : usersIcons}
                             className={s.userPhoto}

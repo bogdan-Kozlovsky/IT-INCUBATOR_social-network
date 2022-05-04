@@ -5,6 +5,7 @@ import style from './error.module.css'
 
 export const Error = () => {
     const error = useAppSelector(selectError)
+    console.log(error)
     return (
         <div className={style.wrapper}>
             <div className={style.block}>

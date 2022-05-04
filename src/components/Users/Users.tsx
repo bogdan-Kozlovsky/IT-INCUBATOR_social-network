@@ -3,14 +3,16 @@ import {getUsersTC} from "../../redux/users-reducer";
 import Paginator from "../../common/Paginator/Paginator";
 import {User} from "./User";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectUsers} from "../../redux/selectors";
+import {selectIsAuth, selectUsers} from "../../redux/selectors";
 import {useDispatch} from "react-redux";
 import {Preloader} from "../../common/preloader/Preloader";
 import s from './users.module.css'
+import {Navigate} from "react-router-dom";
+import {PATH} from "../../enums/patch";
 
 export const Users = () => {
     const dispatch = useDispatch()
-
+    const {isAuth} = useAppSelector(selectIsAuth)
     const onPageChanged = (pageNumber: number) => {
         dispatch(getUsersTC(pageNumber, pageSize))
     }
@@ -21,6 +23,9 @@ export const Users = () => {
         dispatch(getUsersTC(currentPage, pageSize))
     }, [])
 
+    if (!isAuth) {
+        return <Navigate to={PATH.LOGIN}/>
+    }
     return <div className={s.wrapperUsers}>
         {isFetching && <Preloader/>}
 

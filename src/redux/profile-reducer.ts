@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
 import {stopSubmit} from "redux-form";
 import {v1} from "uuid";
+import {ErrorFunc} from "../common/hook/selectorHook";
 
 // type
 export type ContactsPropsType = {
@@ -93,7 +94,11 @@ export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
     try {
         const response = await profileAPI.getProfile(userId)
         dispatch(setUserProfileAC(response.data))
-    } catch (e) {
+    } catch (error) {
+        if (error instanceof Error) {
+            const {name} = error
+            ErrorFunc(name, dispatch)
+        }
     }
 }
 export const getStatusTC = (userId: number) => {
@@ -101,37 +106,64 @@ export const getStatusTC = (userId: number) => {
         try {
             const response = await profileAPI.getStatus(userId)
             dispatch(setStatusAC(response.data.status))
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            if (error instanceof Error) {
+                const {name} = error
+                ErrorFunc(name, dispatch)
+            }
         }
 
     };
 }
 export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
-    const response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatusAC(status))
+    try {
+        const response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusAC(status))
+        }
+    }catch (error) {
+        if (error instanceof Error) {
+            const {name} = error
+            ErrorFunc(name, dispatch)
+        }
     }
+
 }
 
 export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccessAC(response.data.data.photos))
+    try {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccessAC(response.data.data.photos))
+        }
+    }catch (error) {
+        if (error instanceof Error) {
+            const {name} = error
+            ErrorFunc(name, dispatch)
+        }
     }
+
 }
 
 export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
-    const userId = getState().auth.id;
-    const response = await profileAPI.saveProfile(profile);
+    try {
+        const userId = getState().auth.id;
+        const response = await profileAPI.saveProfile(profile);
 
-    if (response.data.resultCode === 0) {
-        // @ts-ignore
-        dispatch(getUserProfileTC(userId));
-    } else {
-        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
-        return Promise.reject(response.data.messages[0]);
+        if (response.data.resultCode === 0) {
+            // @ts-ignore
+            dispatch(getUserProfileTC(userId));
+        } else {
+            dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
+            return Promise.reject(response.data.messages[0]);
+        }
+    }catch (error) {
+        if (error instanceof Error) {
+            const {name} = error
+            ErrorFunc(name, dispatch)
+        }
     }
+
 }
 
 

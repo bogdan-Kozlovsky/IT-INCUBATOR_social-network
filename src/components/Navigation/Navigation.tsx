@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import s from './navigation.module.scss'
 import cn from 'classnames'
 import {NavLink} from 'react-router-dom';

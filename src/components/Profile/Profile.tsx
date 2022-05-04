@@ -14,7 +14,6 @@ export const Profile = () => {
     const {isAuth} = useAppSelector(selectIsAuth)
     const {userId} = useParams<{ userId: string | undefined }>()
 
-    console.log(userId)
     useEffect(() => {
         if (userId) {
             dispatch(getUserProfileTC(Number(userId)))

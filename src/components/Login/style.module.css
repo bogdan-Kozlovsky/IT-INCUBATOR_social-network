@@ -1,35 +1,49 @@
-.loginWrapper{
+.loginWrapper {
     padding: 20px;
     width: 100%;
 
 }
 
-.box{
+.box {
     max-width: 700px;
     margin: 0 auto;
 }
 
-.subTitle{
+.subTitle {
     font-weight: 400;
     margin-bottom: 20px;
     font-size: 18px;
 }
 
-.link{
+.link {
     font-weight: 700;
     color: #ff8f00;
 }
 
-.text{
+.text {
     margin-bottom: 15px;
 }
 
-.decor{
+.decor {
     font-weight: 700;
 }
 
 /*//form*/
 
-.fromWrapper{
-    margin:  20px 0;
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 14px 0;
+    border-radius: 5px;
+    background-color: hsla(0, 0%, 86.3%, .2);
+    border: 1px solid #dcdcdc;
+}
+
+.label {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.inputCheckbox{
+    margin-left: 5px;
 }

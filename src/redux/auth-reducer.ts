@@ -3,8 +3,8 @@ import {Dispatch} from "redux";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./redux-store";
-import {errorAC} from "./app-reducer";
-import {ErrorFunc} from "../common/hook/useAction";
+import {errorAC, initializeSuccessAC} from "./app-reducer";
+import {ErrorFunc} from "../common/hook/selectorHook";
 
 // type
 export type InitialStateType = {
@@ -30,7 +30,8 @@ export type GeneralType =
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA":
-        // return {...state, ...action.data, isAuth: action.data.isAuth}
+            debugger
+            return {...state, ...action.payload, isAuth: action.payload.isAuth}
         case "GET_CAPTCHA_URL_SUCCESS":
             return {
                 ...state,
@@ -58,20 +59,24 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string) => {
 }
 
 // thunk
-// export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
 export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
     try {
         const response = await authAPI.me()
-        let {id, email, login} = response.data.data
-        dispatch(setAuthUserDataAC(id, email, login, true))
+
+        if (response.data.resultCode === 0) {
+            let {id, email, login} = response.data.data
+
+            dispatch(setAuthUserDataAC(id, email, login, true))
+            dispatch(initializeSuccessAC(true))
+        }
+        if (response.data.resultCode === 1) {
+            ErrorFunc(response.data.messages[0], dispatch)
+        }
     } catch (error) {
         if (error instanceof Error) {
-            dispatch(errorAC(error.name))
-            setTimeout(() => {
-                dispatch(errorAC(null))
-            }, 2000)
+            const {name} = error
+            ErrorFunc(name, dispatch)
         }
-        // ErrorFunc(error)
     }
 }
 
@@ -92,10 +97,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
         }
     } catch (error) {
         if (error instanceof Error) {
-            dispatch(errorAC(error.name))
-            setTimeout(() => {
-                dispatch(errorAC(null))
-            }, 2000)
+            const {name} = error
+            ErrorFunc(name, dispatch)
         }
     }
 }
@@ -105,13 +108,12 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         const response = await authAPI.logout()
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserDataAC(undefined, null, null, false));
+            dispatch(initializeSuccessAC(false))
         }
     } catch (error) {
         if (error instanceof Error) {
-            dispatch(errorAC(error.name))
-            setTimeout(() => {
-                dispatch(errorAC(null))
-            }, 2000)
+            const {name} = error
+            ErrorFunc(name, dispatch)
         }
     }
 }
@@ -123,10 +125,8 @@ export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
         dispatch(getCaptchaUrlSuccessAC(captchaUrl));
     } catch (error) {
         if (error instanceof Error) {
-            dispatch(errorAC(error.name))
-            setTimeout(() => {
-                dispatch(errorAC(null))
-            }, 2000)
+            const {name} = error
+            ErrorFunc(name, dispatch)
         }
     }
 

@@ -1,7 +1,4 @@
-.active {
-    font-weight: 600;
-    font-size: 20px;
-}
+
 
 
 .wrapperUsers {
@@ -51,6 +48,13 @@
     width: 100px;
     padding: 5px 15px;
     background-color: #ff8f00;
+    border: 1px solid #ff8f00;
     color: #ffffff;
-    border: none;
+    transition: all 0.5s;
+}
+
+.btn:hover {
+    border: 1px solid #ff8f00;
+    background-color: #ffffff;
+    color: #ff8f00;
 }

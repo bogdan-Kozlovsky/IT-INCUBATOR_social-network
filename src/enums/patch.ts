@@ -4,5 +4,5 @@ export enum PATH {
     DIALOGS = '/dialogs',
     USERS = '/users',
     LOGIN = '/login',
-    ERROR_404 = '/404',
+    ERROR_404 = '404',
 }

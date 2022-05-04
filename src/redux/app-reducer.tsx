@@ -43,5 +43,5 @@ export const errorAC = (value: any) => {
 // thunk
 export const initializeAppTC = () => async (dispatch: any) => {
     dispatch(getAuthUserDataThunk())
-    dispatch(initializeSuccessAC(true))
+    // dispatch(initializeSuccessAC(true))
 }
