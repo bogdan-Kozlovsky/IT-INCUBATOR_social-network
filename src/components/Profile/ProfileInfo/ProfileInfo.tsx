@@ -36,22 +36,24 @@ export const ProfileInfo = ({profile, status, userId}: propsType) => {
     }
 
     return (
-        <div>
-            <div>
-                <img style={{borderRadius: '20px', width: '200px'}} src={profile.photos.large || usersIcons} alt='img'/>
+        <div className={s.wrapper}>
+            <div className={s.changeAvatarBox}>
+                <img className={s.images} src={profile.photos.large || usersIcons} alt='img'/>
+                <label className={s.label}>
+                    change avatar
+                    <input className={s.inputFile} type="file" onChange={onMainPhotoSelected}/>
+                </label>
             </div>
-            {id === userId && <button onClick={() => setEditMode(!editMode)}>EDIT</button>}
 
-            {editMode && <input type="file" onChange={onMainPhotoSelected}/>}
-            {editMode
-                ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
-                : <ProfileData profile={profile} goToEditMode={() => setEditMode(true)}/>}
-
-
-            <div className={s.avatar}>
-                <img style={{borderRadius: '20px'}} src={profile?.photos.small || usersIcons}
-                     alt='avatar'/>
+            <div className={s.dataChangesBox}>
+                <h2 className={s.title}>User information:</h2>
                 <ProfileStatus status={status}/>
+                {editMode
+                    ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                    : <ProfileData profile={profile} goToEditMode={() => setEditMode(true)}/>}
+
+                {id === userId &&
+                    <button className={s.edit} onClick={() => setEditMode(!editMode)}>Edit information ✎</button>}
             </div>
         </div>
     )
@@ -66,13 +68,20 @@ type ProfileDataPropsType = {
 // const ProfileData = ({profile, goToEditMode}: ProfileDataPropsType) => {
 const ProfileData = ({profile, goToEditMode}: any) => {
     return (
-        <div>
-            <div><b>Full name:</b>{profile.fullName}</div>
-
-            <p>{profile.aboutMe}</p>
-            <div>
-                <b>Looking for a job</b>: {profile.lookingForAJob ? 'yes' : 'not'}
-            </div>
+        <table>
+            <tbody className={s.tbody}>
+            <tr>
+                <td>Full name:</td>
+                <td>{profile.fullName}</td>
+            </tr>
+            <tr>
+                <td>About me:</td>
+                <td>{profile.aboutMe}</td>
+            </tr>
+            <tr>
+                <td>Looking for a job:</td>
+                <td>{profile.lookingForAJob ? 'yes' : 'not'}</td>
+            </tr>
 
             {profile.lookingForAJob &&
                 <div>
@@ -80,26 +89,37 @@ const ProfileData = ({profile, goToEditMode}: any) => {
                 </div>
             }
             <div>
-                <b>About me</b>: {profile.aboutMe}
             </div>
-            <b>Contacts</b>:<b>Contacts</b>: {
-            Object
-                .keys(profile.contacts)
-                .map((key) => {
-                    return <div key={key}>
-                        {
-                            profile.contacts[key] !== null
-                            && <Contact contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
-                        }
+            <b>Contacts</b>: {
+                Object
+                    .keys(profile.contacts)
+                    .map((key) => {
+                        return <div key={key}>
+                            {
+                                profile.contacts[key] !== null
+                                &&
+                                <Contact contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+                            }
 
-                    </div>
-                })}
-        </div>
+                        </div>
+                    })}
+            </tbody>
+
+        </table>
     )
 }
 
 const Contact = ({contactTitle, contactValue}: ContactsPropsType) => {
-    return <div><b>{contactTitle}</b>: {contactValue}</div>
+    return <table>
+        <tbody>
+        <tr>
+            <td>{contactTitle}:</td>
+            <td>{contactValue}</td>
+        </tr>
+        </tbody>
+
+    </table>
+
 }
 
 export type ContactsType = {

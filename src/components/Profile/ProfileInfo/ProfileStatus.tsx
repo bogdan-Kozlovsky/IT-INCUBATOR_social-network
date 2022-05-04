@@ -1,6 +1,8 @@
 import {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {updateStatusTC} from "../../../redux/profile-reducer";
+import pencil from '../../../assets/images/pencil.svg'
+import s from './ProfileInfo.module.css'
 
 type PropsType = {
     status: string
@@ -29,13 +31,18 @@ export const ProfileStatus = (props: PropsType) => {
         <div>
             {editMode
                 ? <input
+                    className={s.statusInput}
                     onChange={onStatusChange}
                     onBlur={deactivateEditMode}
                     autoFocus type="text"
-                    placeholder={'description'}
+                    placeholder={'change profile status'}
                     value={value}
                 />
-                : <div><b>status:</b><span onDoubleClick={activeEditMode}>{status || '-----'}</span></div>
+                : <div onDoubleClick={activeEditMode} className={s.statusBox}>
+                    <b>status:</b>
+                    <span>{status || 'изменить статус профиля'}</span>
+                    <img className={s.pencilDecor} src={pencil} alt="pencil"/>
+                </div>
             }
         </div>
     );

@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth, selectProfile} from "../../redux/selectors";
 import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
+import {PATH} from "../../enums/patch";
 
 
 export const Profile = () => {
@@ -22,9 +23,9 @@ export const Profile = () => {
     }, [userId, dispatch])
 
 
-    if (!isAuth) return <Navigate to={'/login'}/>
+    if (!isAuth) return <Navigate to={PATH.LOGIN}/>
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <ProfileInfo
                 profile={profile}
                 status={status}

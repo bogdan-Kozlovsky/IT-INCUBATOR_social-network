@@ -6,6 +6,7 @@ import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {ProfileInfo} from "../Profile/ProfileInfo/ProfileInfo";
+import {PATH} from "../../enums/patch";
 
 export const Me = () => {
     const dispatch = useDispatch()
@@ -21,9 +22,9 @@ export const Me = () => {
     }, [])
 
 
-    if (!isAuth) return <Navigate to={'/login'}/>
+    if (!isAuth) return <Navigate to={PATH.LOGIN}/>
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <ProfileInfo
                 profile={profile}
                 status={status}

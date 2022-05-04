@@ -1,30 +1,48 @@
 import React from "react";
-import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectIsAuth} from "../../redux/selectors";
+import {selectIsAuth, selectProfile} from "../../redux/selectors";
 import {logoutTC} from "../../redux/auth-reducer";
 import {useDispatch} from "react-redux";
+import s from './Header.module.css'
+import logoutIcon from './../../assets/images/logout.svg'
+import usersIcons from "../../assets/images/users.png";
+import {PATH} from "../../enums/patch";
+
 
 export const Header = () => {
     const dispatch = useDispatch()
+
     const {isAuth, login} = useAppSelector(selectIsAuth)
+    const {profile} = useAppSelector(selectProfile)
 
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
+
     return (
         <header className={s.header}>
-            <div style={{width: '1200px', margin: '0 auto', padding: '10px'}}>
-                <img
-                    src='http://pngimg.com/uploads/magic_hat/small/magic_hat_PNG102.png' alt={'img'}/>
-            </div>
-            <div className={s.loginBlock}>
+            <div className='maxContainer'>
+                <div className={s.wrapper}>
+                    <div>
+                        <span className={s.headerLogoText}>It-incubator</span>
+                    </div>
+                    <div className={s.loginBlock}>
 
-                {isAuth
-                    ? <div>{login} - <button onClick={logoutHandler}>Log out</button></div>
-                    : <NavLink to={'/login'}>Login</NavLink>}
+                        {isAuth
+                            ? <div className={s.headerNavigateBox}>
+                                <img className={s.avatar} src={profile?.photos.small || usersIcons}
+                                     alt='avatar'/>
+                                <button className={s.btn} onClick={logoutHandler}>
+                                    <span className={s.text}>Log out</span>
+                                    <img className={s.logout} src={logoutIcon} alt="logoutIcon"/>
+                                </button>
+                            </div>
+                            : <NavLink className={s.login} to={PATH.LOGIN}>Login</NavLink>}
+                    </div>
+                </div>
             </div>
+
         </header>
     )
 }

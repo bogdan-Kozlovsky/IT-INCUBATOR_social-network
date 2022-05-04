@@ -28,8 +28,11 @@ export const MyPosts = memo(() => {
 
     return (
         <div className={s.myPosts}>
-            <h3>My Posts</h3>
+            <h3 className={s.subtitle}>My Posts</h3>
             <div>
+                {/*<textarea className={s.textArea} placeholder='post text'>*/}
+
+                {/*</textarea>*/}
                 <div>
                     <AddPostFormRedux onSubmit={addNewPost}/>
                 </div>
@@ -50,12 +53,13 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
             <Field
                 validate={[required, maxLength10]}
                 component={Textarea}
+                className={s.textArea}
                 style={{resize: 'none'}}
                 name='newPostBody'
                 placeholder='Enter your post'
             />
-            <div>
-                <button>Add post</button>
+            <div className={s.boxBtn}>
+                <button className={s.btn}>Add post</button>
             </div>
         </form>
     )

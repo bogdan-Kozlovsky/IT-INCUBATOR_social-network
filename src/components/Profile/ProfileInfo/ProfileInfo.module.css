@@ -1,7 +1,79 @@
-.avatar{
+.avatar {
     padding: 10px;
 }
-.avatar img{
-    width: 50px;
-    height: 50px;
+
+.images {
+    width: 250px;
+    height: 250px;
+}
+
+.wrapper {
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+.label {
+    /*width: 100px;*/
+    padding: 4px;
+    margin: 20px 0 10px;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: #ff8f00;
+    box-shadow: 0 2px 1px 1px #b2b2b2;
+    cursor: pointer;
+}
+
+.changeAvatarBox {
+    margin: 0 50px 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputFile {
+    display: none;
+}
+
+.dataChangesBox {
+    width: 100%;
+}
+
+/*profile data*/
+
+.title {
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+/*profileStatus*/
+
+.pencilDecor {
+    width: 30px;
+}
+
+.statusBox {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.statusInput {
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.edit {
+    width: 100%;
+    text-align: end;
+    border: none;
+    background-color: transparent;
+}
+
+/*table*/
+.tbody{
+    margin-bottom: 25px;
 }

@@ -6,6 +6,7 @@ import {Navigate} from "react-router-dom";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectDialogs, selectIsAuth} from "../../redux/selectors";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {PATH} from "../../enums/patch";
 
 // type
 type AddMessageFormType = {
@@ -28,7 +29,7 @@ export const Dialogs = () => {
     }
 
     if (!isAuth) {
-        return <Navigate to={'/login'}/>
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return (

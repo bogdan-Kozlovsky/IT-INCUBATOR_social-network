@@ -1,10 +1,4 @@
 
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 ul {
     list-style: none;
 }
@@ -14,6 +8,7 @@ ul {
     margin: 0 auto;
     display: flex;
     overflow: hidden;
+    min-height: 100vh;
 }
 
 .app-wrapper-content {

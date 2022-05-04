@@ -13,6 +13,7 @@ import {Users} from "./components/Users/Users";
 import {Me} from "./components/Me/Me";
 import {useDispatch} from "react-redux";
 import {Error} from "./common/Error/Error";
+import {PATH} from "./enums/patch";
 
 export const App = () => {
 
@@ -35,20 +36,17 @@ export const App = () => {
             {error && <Error/>}
             <div className='app-wrapper'>
                 <Navigation/>
-                <div className='app-wrapper-content'>
+                <>
                     <Routes>
-                        <Route path='/' element={<Me/>}/>
+                        <Route path={PATH.ME} element={<Me/>}/>
+                        {/*<Route path={`${PATH.PROFILE}/:userid`} element={<Profile/>}/>*/}
                         <Route path='profile/:userId' element={<Profile/>}/>
-                        {/*<Route path='/profile' element={<Profile/>}/>*/}
-                        <Route path='/dialogs/*' element={<Dialogs/>}/>
-                        <Route path='/users/*' element={<Users/>}/>
-                        <Route path='/news' element={<h2>News</h2>}/>
-                        <Route path='/music' element={<h2>Music</h2>}/>
-                        <Route path='/settings' element={<h2>Settings</h2>}/>
-                        <Route path='/login' element={<Login/>}/>
+                        <Route path={PATH.DIALOGS} element={<Dialogs/>}/>
+                        <Route path={PATH.USERS} element={<Users/>}/>
+                        <Route path={PATH.LOGIN} element={<Login/>}/>
                         <Route path={'/*'} element={<div>error</div>}/>
                     </Routes>
-                </div>
+                </>
             </div>
         </>
     );

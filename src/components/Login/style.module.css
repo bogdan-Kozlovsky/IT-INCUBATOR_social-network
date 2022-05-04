@@ -1,0 +1,35 @@
+.loginWrapper{
+    padding: 20px;
+    width: 100%;
+
+}
+
+.box{
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.subTitle{
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.link{
+    font-weight: 700;
+    color: #ff8f00;
+}
+
+.text{
+    margin-bottom: 15px;
+}
+
+.decor{
+    font-weight: 700;
+}
+
+/*//form*/
+
+.fromWrapper{
+    margin:  20px 0;
+}

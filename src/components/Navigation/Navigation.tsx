@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import s from './navigation.module.scss'
 import cn from 'classnames'
 import {NavLink} from 'react-router-dom';
+import {PATH} from "../../enums/patch";
 
 
 export const Navigation = () => {
@@ -11,14 +12,14 @@ export const Navigation = () => {
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/">
+                        to={PATH.ME}>
                         Me
                     </NavLink>
                 </li>
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/dialogs">
+                        to={PATH.DIALOGS}>
                         Messages
                     </NavLink>
                 </li>
@@ -26,33 +27,8 @@ export const Navigation = () => {
                 <li className={s.navigation__item}>
                     <NavLink
                         className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/users">
+                        to={PATH.USERS}>
                         Users
-                    </NavLink>
-                </li>
-
-                <li className={s.navigation__item}>
-                    <NavLink
-                        className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/news">
-                        News
-                    </NavLink>
-                </li>
-
-                <li className={s.navigation__item}>
-                    <NavLink
-                        className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to="/music">
-                        Music
-                    </NavLink>
-                </li>
-
-                <li className={s.navigation__item}>
-                    <NavLink
-                        className={({isActive}) => `${s.navigation__link} ${isActive ? s.navigation__active : ''}`}
-                        to={"/settings"}
-                    >
-                        Settings
                     </NavLink>
                 </li>
             </ul>

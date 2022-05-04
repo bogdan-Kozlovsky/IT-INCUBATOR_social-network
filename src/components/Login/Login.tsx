@@ -7,7 +7,8 @@ import {Navigate} from "react-router-dom";
 import {FC} from "react";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth} from "../../redux/selectors";
-
+import s from './style.module.css'
+import {PATH} from "../../enums/patch";
 // type
 type LoginFormOwnProps = {
     captchaUrl: string | null
@@ -28,7 +29,7 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
 
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
+            <div className={s.fromWrapper}>
                 {createField<LoginFormValuesTypeKeys>('Login', 'login', [required], Input)}
             </div>
             <div>
@@ -69,13 +70,26 @@ export const Login = () => {
     }
 
     if (isAuth) {
-        return <Navigate to={"/"}/>
+        return <Navigate to={PATH.ME}/>
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+        <div className={s.loginWrapper}>
+            <div className={s.box}>
+                <h3 className={s.subTitle}>To log in get registered <a className={s.link}
+                                                                       href={'https://social-network.samuraijs.com/login'}>here</a> or
+                    use common test account credentials:</h3>
+                <p className={s.text}>
+                    Email:
+                    <span className={s.decor}>  free@samuraijs.com</span>
+                </p>
+                <p className={s.text}>
+                    Password:
+                    <span className={s.decor}> free</span>
+                </p>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+            </div>
+
         </div>
     );
 };

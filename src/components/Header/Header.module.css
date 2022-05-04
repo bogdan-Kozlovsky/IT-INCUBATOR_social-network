@@ -1,13 +1,53 @@
 .header {
+    background-color: #32353a;
+}
+
+.wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: green;
     margin-bottom: 20px;
-    padding: 0 15px;
+    padding: 10px 15px;
 }
 
-.header img {
-    width: 50px;
-    height: 50px;
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    background-color: #32353a;
+}
+
+.logout {
+    width: 40px;
+}
+
+.text {
+    font-weight: 700;
+    display: inline-block;
+    padding: 0 10px 0 30px;
+    color: #ff8f00;
+}
+
+.avatar {
+    width: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.headerLogoText {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    color: aliceblue;
+}
+
+.headerNavigateBox{
+    display: flex;
+    align-items: center;
+}
+
+.login{
+    font-weight: 700;
+    color: #ff8f00;
 }
