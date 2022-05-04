@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import s from '../../components/Users/users.module.css'
+// import s from '../../components/Users/users.module.css'
 import rightArrow from '../../assets/images/rightArrow.svg'
 import leftArrow from '../../assets/images/leftArrow.svg'
+
+import s from './paginator.module.css'
 
 type propsType = {
     pageSize: number

@@ -30,7 +30,7 @@ export const Users = () => {
             totalUsersCount={totalUsersCount}
             pageSize={pageSize}
         />
-        <div>
+        <div className={s.boxUser}>
             {
                 users.map(u => {
                         return (

@@ -1,0 +1,16 @@
+.wrapperPaginator {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    padding: 4px;
+    margin: auto auto 30px;
+}
+
+.arrow {
+    width: 20px;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+}
