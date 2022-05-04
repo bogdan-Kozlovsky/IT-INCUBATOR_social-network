@@ -18,8 +18,8 @@ export const MyPosts = memo(() => {
     const {posts} = useAppSelector(selectProfile)
 
     let post = posts.map(({id, message, likesCount}) => (
-        <div key={id}>
-            <Post message={message} likesCount={likesCount}/>
+        <div key={`${id}${likesCount}`}>
+            <Post message={message} likesCount={likesCount} id={id}/>
         </div>))
 
     const addNewPost = (values: AddPostFormType) => {
@@ -30,12 +30,7 @@ export const MyPosts = memo(() => {
         <div className={s.myPosts}>
             <h3 className={s.subtitle}>My Posts</h3>
             <div>
-                {/*<textarea className={s.textArea} placeholder='post text'>*/}
-
-                {/*</textarea>*/}
-                <div>
-                    <AddPostFormRedux onSubmit={addNewPost}/>
-                </div>
+                <AddPostFormRedux onSubmit={addNewPost}/>
             </div>
             <div className={s.posts}>
                 {post}

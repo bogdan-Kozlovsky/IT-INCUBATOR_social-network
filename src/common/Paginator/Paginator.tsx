@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import s from '../../components/Users/users.module.css'
+import rightArrow from '../../assets/images/rightArrow.svg'
+import leftArrow from '../../assets/images/leftArrow.svg'
 
 type propsType = {
     pageSize: number
@@ -31,11 +33,13 @@ let Paginator = ({...props}: propsType) => {
     }
 
 
-    return <div>
+    return <div className={s.wrapperPaginator}>
         {portionNumber > 1 &&
-            <button onClick={() => {
+            <button className={s.btn} onClick={() => {
                 setPortionNumber(portionNumber - 1)
-            }}>PREV</button>}
+            }}>
+                <img className={s.arrow} src={leftArrow} alt="leftArrow"/>
+            </button>}
 
         {pages
             .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -48,9 +52,11 @@ let Paginator = ({...props}: propsType) => {
                     }}>{p}</span>
             })}
         {portionCount > portionNumber &&
-            <button onClick={() => {
+            <button className={s.btn} onClick={() => {
                 setPortionNumber(portionNumber + 1)
-            }}>NEXT</button>}
+            }}>
+                <img className={s.arrow} src={rightArrow} alt="rightArrow"/>
+            </button>}
 
 
     </div>

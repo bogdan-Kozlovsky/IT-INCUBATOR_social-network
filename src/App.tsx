@@ -39,8 +39,8 @@ export const App = () => {
                 <>
                     <Routes>
                         <Route path={PATH.ME} element={<Me/>}/>
-                        {/*<Route path={`${PATH.PROFILE}/:userid`} element={<Profile/>}/>*/}
-                        <Route path='profile/:userId' element={<Profile/>}/>
+                        {/*<Route path={`${PATH.PROFILE}/userid`} element={<Profile/>}/>*/}
+                        <Route path='/profile/userId' element={<Profile/>}/>
                         <Route path={PATH.DIALOGS} element={<Dialogs/>}/>
                         <Route path={PATH.USERS} element={<Users/>}/>
                         <Route path={PATH.LOGIN} element={<Login/>}/>

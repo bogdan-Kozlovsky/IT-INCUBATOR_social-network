@@ -8,11 +8,9 @@ import {PATH} from "../../enums/patch";
 
 
 type propsType = {
-    // user: UserType[]
-    user: any
+    user: UserType
     followingInProgress: number[]
 }
-
 export let User = ({...props}: propsType) => {
     const dispatch = useDispatch()
     const {
@@ -33,7 +31,8 @@ export let User = ({...props}: propsType) => {
                 <span>
                     <div>
                        {/*<NavLink to={'/profile/' + user.id}>*/}
-                        <NavLink to={`${PATH.PROFILE}/${user.id}`}>
+                        {/* <NavLink to={`${PATH.PROFILE}/${user.id}`}>*/}
+                        <NavLink to={'/profile/' + user.id}>
                         <img style={{width: '70px', objectFit: 'cover'}}
                              src={user.photos.small != null ? user.photos.small : usersIcons}
                              className={styles.userPhoto}
@@ -46,7 +45,8 @@ export let User = ({...props}: propsType) => {
                             ? <button
                                 disabled={followingInProgress.some(id => id === user.id)}
                                 onClick={() => onHandlerUnfollow(user.id)}>
-                                Unfollow</button>
+                                Unfollow
+                            </button>
                             : <button disabled={followingInProgress.some(id => id === user.id)}
                                       onClick={() => onHandlerFollow(user.id)}>
                                 Follow</button>}
@@ -58,8 +58,6 @@ export let User = ({...props}: propsType) => {
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{"user.location.country"}</div>
-                        <div>{"user.location.city"}</div>
                     </span>
                 </span>
         </div>)

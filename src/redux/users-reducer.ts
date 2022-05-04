@@ -84,20 +84,19 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
     dispatch(setUsersAC(data.items))
     dispatch(setUsersTotalCountAC(data.totalCount))
 }
-export const followTC = (userId: number) => async (dispatch: Dispatch) => {
-    debugger
+
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(toggleIsFollowingProgressAC(true, userId))
-    const response = await usersAPI.follow(userId)
-    if (response.data.resultCode) {
-        dispatch(followAC(userId))
+    let response = await apiMethod(userId)
+    if (response.data.resultCode === 0) {
+        dispatch(actionCreator(userId))
     }
     dispatch(toggleIsFollowingProgressAC(false, userId))
 }
+
+export const followTC = (userId: number) => async (dispatch: Dispatch) => {
+    followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followAC)
+}
 export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
-    dispatch(toggleIsFollowingProgressAC(true, userId))
-    const response = await usersAPI.unfollow(userId)
-    if (response.data.resultCode) {
-        dispatch(unfollowAC(userId))
-    }
-    dispatch(toggleIsFollowingProgressAC(false, userId))
+    followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowAC)
 }

@@ -4,6 +4,7 @@ import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 import {errorAC} from "./app-reducer";
+import {ErrorFunc} from "../common/hook/useAction";
 
 // type
 export type InitialStateType = {
@@ -70,6 +71,7 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
                 dispatch(errorAC(null))
             }, 2000)
         }
+        // ErrorFunc(error)
     }
 }
 

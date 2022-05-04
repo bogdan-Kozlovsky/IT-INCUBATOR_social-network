@@ -6,7 +6,7 @@ import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectUsers} from "../../redux/selectors";
 import {useDispatch} from "react-redux";
 import {Preloader} from "../../common/preloader/Preloader";
-
+import s from './users.module.css'
 
 export const Users = () => {
     const dispatch = useDispatch()
@@ -21,11 +21,15 @@ export const Users = () => {
         dispatch(getUsersTC(currentPage, pageSize))
     }, [])
 
-    return <div>
+    return <div className={s.wrapperUsers}>
         {isFetching && <Preloader/>}
 
-        <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-                   totalUsersCount={totalUsersCount} pageSize={pageSize}/>
+        <Paginator
+            currentPage={currentPage}
+            onPageChanged={onPageChanged}
+            totalUsersCount={totalUsersCount}
+            pageSize={pageSize}
+        />
         <div>
             {
                 users.map(u => {

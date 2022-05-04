@@ -2,6 +2,7 @@ import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
 import {stopSubmit} from "redux-form";
+import {v1} from "uuid";
 
 // type
 export type ContactsPropsType = {
@@ -28,7 +29,7 @@ export type ProfileType = {
 export type RouteType = {
     likesCount: number
     message: string
-    id: number
+    id: string
 }
 export type initialType = {
     posts: Array<RouteType>
@@ -39,14 +40,15 @@ type GlobalReducerType =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof counterAC>
 
 // initialState
 let initialState: initialType = {
     posts: [
-        {id: 1, message: 'Hi,how are you', likesCount: 12},
-        {id: 2, message: 'Hi, you', likesCount: 11},
-        {id: 3, message: 'Hi,how are you', likesCount: 11},
-        {id: 4, message: 'how are you', likesCount: 12}
+        {id: v1(), message: 'Hi,how are you', likesCount: 0},
+        {id: v1(), message: 'Hi, you', likesCount: 1},
+        {id: v1(), message: 'Hi,how are you', likesCount: 0},
+        {id: v1(), message: 'how are you', likesCount: 0}
     ],
     profile: null,
     status: '',
@@ -58,14 +60,18 @@ export const profileReducer = (state: initialType = initialState, action: Global
         case 'ADD-POST':
             return {
                 ...state,
-                posts: [...state.posts, {id: 5, message: action.newPostBody, likesCount: 0,}]
+                posts: [...state.posts, {id: v1(), message: action.newPostBody, likesCount: 0,}]
             }
-
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-STATUS":
-            debugger
             return {...state, status: action.status}
+        case "COUNTER": {
+            return {
+                ...state,
+                posts: [...state.posts.map(e => e.id === action.id ? {...e, likesCount: action.likesCount} : e)]
+            }
+        }
         default:
             return state
     }
@@ -73,6 +79,7 @@ export const profileReducer = (state: initialType = initialState, action: Global
 
 // action Creator
 export const addPostAC = (newPostBody: string) => ({type: 'ADD-POST', newPostBody} as const)
+export const counterAC = (id: string, likesCount: number) => ({type: 'COUNTER', id, likesCount} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 export const savePhotoSuccessAC = (photos: any) => {

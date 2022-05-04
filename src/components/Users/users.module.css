@@ -1,4 +1,25 @@
-.active{
+.active {
     font-weight: 600;
     font-size: 20px;
+}
+
+.arrow {
+    width: 20px;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+}
+
+.wrapperUsers {
+    width: 100%;
+}
+
+.wrapperPaginator {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    padding: 4px;
+    margin: auto auto 30px;
 }
