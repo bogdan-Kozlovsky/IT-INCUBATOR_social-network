@@ -19,3 +19,19 @@ body {
   padding: 0 15px;
 }
 
+.textArea {
+  resize: none;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid orange;
+  padding: 20px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  border: none;
+  background-color: #ff8f00;
+  padding: 5px 20px;
+  color: white;
+}

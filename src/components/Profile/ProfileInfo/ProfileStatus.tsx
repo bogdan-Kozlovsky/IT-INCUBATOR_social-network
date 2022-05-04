@@ -6,12 +6,14 @@ import s from './ProfileInfo.module.css'
 
 type PropsType = {
     status: string
+    userId: string | undefined
+    myId: string | undefined
 }
 
 export const ProfileStatus = (props: PropsType) => {
     const dispatch = useDispatch()
 
-    const {status} = props
+    const {status, userId, myId} = props
     const [editMode, setEditMode] = useState<boolean>(false)
     const [value, setValue] = useState<string>(status)
 
@@ -45,6 +47,6 @@ export const ProfileStatus = (props: PropsType) => {
                 </div>
             }
         </div>
-    );
-};
+    )
+}
 

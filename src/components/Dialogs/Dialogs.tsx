@@ -20,8 +20,8 @@ export const Dialogs = () => {
     const {isAuth} = useAppSelector(selectIsAuth)
 
 
-    let dialogsElements = dialogs.map(({id, name}) => (<div key={id}>{name}</div>))
-    let messageElements = messages.map(({id, message}) => (<div key={id}>{message}</div>))
+    let dialogsElements = dialogs.map(({id, name}) => (<div className={s.item} key={id}>{name}</div>))
+    let messageElements = messages.map(({id, message}) => (<div className={s.item} key={id}>{message}</div>))
 
 
     const addNewMessage = (values: AddMessageFormType) => {
@@ -33,14 +33,17 @@ export const Dialogs = () => {
     }
 
     return (
-        <div className={s.dialogs}>
-            <div className={s.dialogsItems}>
-                {dialogsElements}
+        <div className={s.wrapper}>
+            <div className={s.block}>
+                <div className={s.dialogsItems}>
+                    {dialogsElements}
+                </div>
+                <div className={s.messages}>
+                    {messageElements}
+                </div>
             </div>
-            <div className={s.messages}>
-                {messageElements}
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
-            </div>
+
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
         </div>
     )
 }
@@ -52,11 +55,11 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = (props) 
             <Field
                 component='textarea'
                 name='newMessageBody'
-                style={{resize: "none"}}
+                className='textArea'
                 placeholder='Enter your message'
             />
             <div>
-                <button>Add message</button>
+                <button className='btn'>Add message</button>
             </div>
         </form>
     )

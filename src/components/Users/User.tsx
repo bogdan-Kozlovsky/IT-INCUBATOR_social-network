@@ -30,8 +30,8 @@ export let User = ({...props}: propsType) => {
             <div>
                 <div>
                     {/*<NavLink to={'/profile/' + user.id}>*/}
-                    {/* <NavLink to={`${PATH.PROFILE}/${user.id}`}>*/}
-                    <NavLink to={'/profile/' + user.id}>
+                     <NavLink to={`${PATH.PROFILE}/${user.id}`}>
+                    {/*<NavLink to={'/profile/' + user.id}>*/}
                         <img
                             src={user.photos.small != null ? user.photos.small : usersIcons}
                             className={s.userPhoto}

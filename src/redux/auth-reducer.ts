@@ -30,7 +30,6 @@ export type GeneralType =
 export const authReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA":
-            debugger
             return {...state, ...action.payload, isAuth: action.payload.isAuth}
         case "GET_CAPTCHA_URL_SUCCESS":
             return {

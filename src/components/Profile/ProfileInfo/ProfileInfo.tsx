@@ -39,15 +39,17 @@ export const ProfileInfo = ({profile, status, userId}: propsType) => {
         <div className={s.wrapper}>
             <div className={s.changeAvatarBox}>
                 <img className={s.images} src={profile.photos.large || usersIcons} alt='img'/>
-                <label className={s.label}>
-                    change avatar
-                    <input className={s.inputFile} type="file" onChange={onMainPhotoSelected}/>
-                </label>
+                {id === userId &&
+                    <label className={s.label}>
+                        change avatar
+                        <input className={s.inputFile} type="file" onChange={onMainPhotoSelected}/>
+                    </label>
+                }
             </div>
 
             <div className={s.dataChangesBox}>
                 <h2 className={s.title}>User information:</h2>
-                <ProfileStatus status={status}/>
+                <ProfileStatus status={status} myId={id} userId={userId}/>
                 {editMode
                     ? <ProfileDataFormReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                     : <ProfileData profile={profile} goToEditMode={() => setEditMode(true)}/>}

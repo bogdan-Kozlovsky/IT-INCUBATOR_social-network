@@ -5,7 +5,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators";
 import {Textarea} from "../../../common/FromControls/FormControls";
 import {useAppSelector} from "../../../common/hook/selectorHook";
-import {selectProfile} from "../../../redux/selectors";
+import {selectIsAuth, selectProfile} from "../../../redux/selectors";
 import {useDispatch} from "react-redux";
 import {addPostAC} from "../../../redux/profile-reducer";
 
@@ -16,6 +16,7 @@ type AddPostFormType = {
 export const MyPosts = memo(() => {
     const dispatch = useDispatch()
     const {posts} = useAppSelector(selectProfile)
+    const {id} = useAppSelector(selectIsAuth)
 
     let post = posts.map(({id, message, likesCount}) => (
         <div key={`${id}${likesCount}`}>
@@ -48,13 +49,12 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormType>> = (props) => {
             <Field
                 validate={[required, maxLength10]}
                 component={Textarea}
-                className={s.textArea}
-                style={{resize: 'none'}}
+                className='textArea'
                 name='newPostBody'
                 placeholder='Enter your post'
             />
             <div className={s.boxBtn}>
-                <button className={s.btn}>Add post</button>
+                <button className='btn'>Add post</button>
             </div>
         </form>
     )
