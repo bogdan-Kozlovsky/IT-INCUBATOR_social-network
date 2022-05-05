@@ -21,7 +21,6 @@ export const Profile = () => {
         }
     }, [userId, dispatch])
 
-
     if (!isAuth) return <Navigate to={PATH.LOGIN}/>
     return (
         <div style={{width: '100%'}}>

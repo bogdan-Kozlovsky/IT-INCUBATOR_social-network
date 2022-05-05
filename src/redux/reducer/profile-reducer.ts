@@ -4,6 +4,7 @@ import {AppStateType} from "../redux-store";
 import {stopSubmit} from "redux-form";
 import {v1} from "uuid";
 import {ErrorFunc} from "../../common/hook/selectorHook";
+import {progressAC} from "./app-reducer";
 
 // type
 export type ContactsPropsType = {
@@ -82,7 +83,9 @@ export const profileReducer = (state: initialType = initialState, action: Global
 export const addPostAC = (newPostBody: string) => ({type: 'ADD-POST', newPostBody} as const)
 export const counterAC = (id: string, likesCount: number) => ({type: 'COUNTER', id, likesCount} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
-export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
+export const setStatusAC = (status: string) => {
+    return ({type: 'SET-STATUS', status} as const);
+}
 export const savePhotoSuccessAC = (photos: any) => {
     return {
         type: 'SAVE-PHOTO-SUCCESS',
@@ -92,6 +95,7 @@ export const savePhotoSuccessAC = (photos: any) => {
 // thunk
 export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
     try {
+        dispatch(progressAC(true))
         const response = await profileAPI.getProfile(userId)
         dispatch(setUserProfileAC(response.data))
     } catch (error) {
@@ -99,54 +103,66 @@ export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
             const {name} = error
             ErrorFunc(name, dispatch)
         }
+    } finally {
+        dispatch(progressAC(true))
     }
 }
 export const getStatusTC = (userId: number) => {
     return async (dispatch: Dispatch) => {
         try {
+            dispatch(progressAC(false))
             const response = await profileAPI.getStatus(userId)
-            dispatch(setStatusAC(response.data.status))
+            dispatch(setStatusAC(response.data))
         } catch (error) {
             if (error instanceof Error) {
                 const {name} = error
                 ErrorFunc(name, dispatch)
             }
+        } finally {
+            dispatch(progressAC(true))
         }
 
     };
 }
 export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
     try {
+        dispatch(progressAC(false))
         const response = await profileAPI.updateStatus(status)
         if (response.data.resultCode === 0) {
             dispatch(setStatusAC(status))
         }
-    }catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             const {name} = error
             ErrorFunc(name, dispatch)
         }
+    } finally {
+        dispatch(progressAC(true))
     }
 
 }
 
 export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
     try {
+        dispatch(progressAC(false))
         let response = await profileAPI.savePhoto(file)
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccessAC(response.data.data.photos))
         }
-    }catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             const {name} = error
             ErrorFunc(name, dispatch)
         }
+    } finally {
+        dispatch(progressAC(true))
     }
 
 }
 
 export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch, getState: () => AppStateType) => {
     try {
+        dispatch(progressAC(false))
         const userId = getState().auth.id;
         const response = await profileAPI.saveProfile(profile);
 
@@ -157,11 +173,13 @@ export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch
             dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
             return Promise.reject(response.data.messages[0]);
         }
-    }catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             const {name} = error
             ErrorFunc(name, dispatch)
         }
+    } finally {
+        dispatch(progressAC(true))
     }
 
 }

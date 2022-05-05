@@ -7,7 +7,7 @@ export const selectIsAuth = (state: AppStateType) => state.auth
 export const selectDialogs = (state: AppStateType) => state.dialogsPage
 
 //app
-export const selectInitialized = (state: AppStateType) => state.app.initialized
+export const selectInitialized = (state: AppStateType) => state.app
 
 //profile
 export const selectProfile = (state: AppStateType) => state.profilePage

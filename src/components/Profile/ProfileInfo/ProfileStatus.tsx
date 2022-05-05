@@ -11,11 +11,29 @@ type PropsType = {
 }
 
 export const ProfileStatus = (props: PropsType) => {
-    const dispatch = useDispatch()
 
     const {status, userId, myId} = props
+
+
+    console.log(status)
+    return (
+        <div>
+            {userId === myId
+                ? <ProfileStatusEditMode status={status}/>
+                : <span>{status || 'not status'}</span>
+            }
+        </div>
+    )
+}
+
+type ProfileStatusEditModeType = {
+    status: string
+}
+const ProfileStatusEditMode = (props: ProfileStatusEditModeType) => {
+    const {status} = props
     const [editMode, setEditMode] = useState<boolean>(false)
     const [value, setValue] = useState<string>(status)
+    const dispatch = useDispatch()
 
 
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,8 +41,8 @@ export const ProfileStatus = (props: PropsType) => {
     }
 
     const deactivateEditMode = () => {
-        setEditMode(false)
         dispatch(updateStatusTC(value))
+        setEditMode(false)
     }
     const activeEditMode = () => {
         setEditMode(true)
@@ -47,6 +65,6 @@ export const ProfileStatus = (props: PropsType) => {
                 </div>
             }
         </div>
-    )
-}
+    );
+};
 

@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "../redux-store";
-import {errorAC, initializeSuccessAC} from "./app-reducer";
+import {errorAC, initializeSuccessAC, progressAC} from "./app-reducer";
 import {ErrorFunc} from "../../common/hook/selectorHook";
 
 // type
@@ -60,11 +60,11 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string) => {
 // thunk
 export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
     try {
+        dispatch(progressAC(false))
         const response = await authAPI.me()
 
         if (response.data.resultCode === 0) {
             let {id, email, login} = response.data.data
-
             dispatch(setAuthUserDataAC(id, email, login, true))
             dispatch(initializeSuccessAC(true))
         }
@@ -77,6 +77,8 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
             const {name} = error
             ErrorFunc(name, dispatch)
         }
+    } finally {
+        dispatch(progressAC(true))
     }
 }
 

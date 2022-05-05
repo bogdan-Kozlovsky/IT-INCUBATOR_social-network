@@ -5,7 +5,6 @@ import {User} from "./User";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectIsAuth, selectUsers} from "../../redux/reducer/selectors";
 import {useDispatch} from "react-redux";
-import {Preloader} from "../../common/preloader/Preloader";
 import s from './users.module.css'
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../enums/patch";
@@ -27,7 +26,7 @@ export const Users = () => {
         return <Navigate to={PATH.LOGIN}/>
     }
     return <div className={s.wrapperUsers}>
-        {isFetching && <Preloader/>}
+        {/*{isFetching && <img className={s.loader} src={loading} alt="loading"/>}*/}
 
         <Paginator
             currentPage={currentPage}
@@ -35,6 +34,7 @@ export const Users = () => {
             totalUsersCount={totalUsersCount}
             pageSize={pageSize}
         />
+
         <div className={s.boxUser}>
             {
                 users.map(u => {

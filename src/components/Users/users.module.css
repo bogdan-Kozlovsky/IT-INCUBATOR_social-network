@@ -2,6 +2,7 @@
 
 
 .wrapperUsers {
+    position: relative;
     width: 100%;
 }
 
@@ -57,4 +58,9 @@
     border: 1px solid #ff8f00;
     background-color: #ffffff;
     color: #ff8f00;
+}
+
+.loader{
+    position: absolute;
+    top: 0;
 }

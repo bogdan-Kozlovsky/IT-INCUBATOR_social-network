@@ -5,7 +5,7 @@ import {sendMessageAC} from "../../redux/reducer/dialogs-reducer";
 import {Navigate} from "react-router-dom";
 import {useAppSelector} from "../../common/hook/selectorHook";
 import {selectDialogs, selectIsAuth} from "../../redux/reducer/selectors";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm, reset} from "redux-form";
 import {PATH} from "../../enums/patch";
 
 // type
@@ -27,6 +27,7 @@ export const Dialogs = () => {
 
     const addNewMessage = (values: AddMessageFormType) => {
         dispatch(sendMessageAC(values.newMessageBody))
+        dispatch(reset('dialogAddMessageForm'))
     }
 
     if (!isAuth) {

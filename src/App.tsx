@@ -5,7 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Login} from "./components/Login/Login";
 import {useAppSelector} from "./common/hook/selectorHook";
-import {selectError} from "./redux/reducer/selectors";
+import {selectError, selectInitialized} from "./redux/reducer/selectors";
 import {Profile} from "./components/Profile/Profile";
 import {Users} from "./components/Users/Users";
 import {Me} from "./components/Me/Me";
@@ -18,6 +18,7 @@ export const App = () => {
 
     const dispatch = useDispatch()
     const error = useAppSelector(selectError)
+    const {progress} = useAppSelector(selectInitialized)
 
 
     useEffect(() => {
@@ -28,6 +29,9 @@ export const App = () => {
         <>
             <Header/>
             {error && <Error/>}
+            {!progress && <div className='nav'>
+                <div className='statusBar'></div>
+            </div>}
             <div className='app-wrapper'>
                 <Navigation/>
                 <Routes>

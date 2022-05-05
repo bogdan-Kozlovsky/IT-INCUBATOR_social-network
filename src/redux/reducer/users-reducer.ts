@@ -1,5 +1,6 @@
 import {usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {progressAC} from "./app-reducer";
 
 // type
 export type UserType = {
@@ -77,12 +78,20 @@ export const toggleIsFollowingProgressAC = (isFetching: boolean, userId: any) =>
 
 // thunk
 export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
-    dispatch(toggleIsFetchingAC(true))
-    dispatch(setCurrentPageAC(currentPage))
-    const data = await usersAPI.getUsers(currentPage, pageSize)
-    dispatch(toggleIsFetchingAC(false))
-    dispatch(setUsersAC(data.items))
-    dispatch(setUsersTotalCountAC(data.totalCount))
+    try {
+        dispatch(progressAC(false))
+        dispatch(toggleIsFetchingAC(true))
+        dispatch(setCurrentPageAC(currentPage))
+        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setUsersAC(data.items))
+        dispatch(setUsersTotalCountAC(data.totalCount))
+    } catch (e) {
+
+    } finally {
+        dispatch(progressAC(true))
+        dispatch(toggleIsFetchingAC(false))
+    }
+
 }
 
 const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {

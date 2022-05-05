@@ -13,7 +13,6 @@ type propsType = {
     profile: ProfileType | null
     status: string
     userId: string | undefined
-    // userId: any
 }
 export const ProfileInfo = ({profile, status, userId}: propsType) => {
     const dispatch = useDispatch()
