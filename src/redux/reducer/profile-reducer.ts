@@ -1,9 +1,9 @@
-import {profileAPI} from "../api/api";
+import {profileAPI} from "../../api/api";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
+import {AppStateType} from "../redux-store";
 import {stopSubmit} from "redux-form";
 import {v1} from "uuid";
-import {ErrorFunc} from "../common/hook/selectorHook";
+import {ErrorFunc} from "../../common/hook/selectorHook";
 
 // type
 export type ContactsPropsType = {

@@ -1,8 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectIsAuth, selectProfile} from "../../redux/selectors";
-import {logoutTC} from "../../redux/auth-reducer";
+import {selectIsAuth, selectProfile} from "../../redux/reducer/selectors";
+import {logoutTC} from "../../redux/reducer/auth-reducer";
 import {useDispatch} from "react-redux";
 import s from './Header.module.css'
 import logoutIcon from './../../assets/images/logout.svg'
@@ -13,7 +13,7 @@ import {PATH} from "../../enums/patch";
 export const Header = () => {
     const dispatch = useDispatch()
 
-    const {isAuth, login} = useAppSelector(selectIsAuth)
+    const {isAuth} = useAppSelector(selectIsAuth)
     const {profile} = useAppSelector(selectProfile)
 
     const logoutHandler = () => {
@@ -42,7 +42,6 @@ export const Header = () => {
                     </div>
                 </div>
             </div>
-
         </header>
     )
 }

@@ -1,10 +1,10 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, securityAPI} from "../../api/api";
 import {Dispatch} from "redux";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {AppStateType} from "../redux-store";
 import {errorAC, initializeSuccessAC} from "./app-reducer";
-import {ErrorFunc} from "../common/hook/selectorHook";
+import {ErrorFunc} from "../../common/hook/selectorHook";
 
 // type
 export type InitialStateType = {
@@ -72,6 +72,7 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
             ErrorFunc(response.data.messages[0], dispatch)
         }
     } catch (error) {
+        dispatch(initializeSuccessAC(true))
         if (error instanceof Error) {
             const {name} = error
             ErrorFunc(name, dispatch)
@@ -107,7 +108,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         const response = await authAPI.logout()
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserDataAC(undefined, null, null, false));
-            dispatch(initializeSuccessAC(false))
+            dispatch(initializeSuccessAC(true))
         }
     } catch (error) {
         if (error instanceof Error) {

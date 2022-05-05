@@ -1,6 +1,6 @@
 import axios from "axios";
-import {UserType} from "../redux/users-reducer";
-import {PhotosPropsType, ProfileType} from "../redux/profile-reducer";
+import {UserType} from "../redux/reducer/users-reducer";
+import {PhotosPropsType, ProfileType} from "../redux/reducer/profile-reducer";
 
 
 const instance = axios.create({

@@ -4,7 +4,7 @@ import postIcons from '../../../../assets/images/post.svg';
 import likes from '../../../../assets/images/likeNoActive.svg'
 import likesActive from '../../../../assets/images/likeActive.svg'
 import {useDispatch} from "react-redux";
-import {counterAC} from "../../../../redux/profile-reducer";
+import {counterAC} from "../../../../redux/reducer/profile-reducer";
 
 // type
 type PostPropsType = {
@@ -22,8 +22,8 @@ export const Post: FC<PostPropsType> = (props) => {
     } = props
 
 
-    const counter = (id: string, likesCount: number) => {
-        dispatch(counterAC(id, likesCount))
+    const counter = () => {
+        dispatch(counterAC(id, likesCount + 1))
     }
     return (
         <div>
@@ -35,9 +35,9 @@ export const Post: FC<PostPropsType> = (props) => {
 
                 <div>
                     {likesCount > 0
-                        ? <img onClick={() => counter(id, likesCount + 1)} className={s.likesIcon} src={likesActive}
+                        ? <img onClick={counter} className={s.likesIcon} src={likesActive}
                                alt="likes"/>
-                        : <img onClick={() => counter(id, likesCount + 1)} className={s.likesIcon} src={likes}
+                        : <img onClick={counter} className={s.likesIcon} src={likes}
                                alt="likesActive"/>
                     }
                     <span>{likesCount}</span>

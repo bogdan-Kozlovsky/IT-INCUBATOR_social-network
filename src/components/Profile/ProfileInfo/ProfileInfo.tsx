@@ -5,9 +5,9 @@ import usersIcons from "../../../assets/images/users.png";
 import {ChangeEvent, useState} from "react";
 import {ProfileDataFormReduxForm} from "./ProfileDataForm";
 import {useDispatch} from "react-redux";
-import {ProfileType, savePhotoTC, saveProfileTC} from "../../../redux/profile-reducer";
+import {ProfileType, savePhotoTC, saveProfileTC} from "../../../redux/reducer/profile-reducer";
 import {useAppSelector} from "../../../common/hook/selectorHook";
-import {selectIsAuth} from "../../../redux/selectors";
+import {selectIsAuth} from "../../../redux/reducer/selectors";
 
 type propsType = {
     profile: ProfileType | null
@@ -90,8 +90,7 @@ const ProfileData = ({profile, goToEditMode}: any) => {
                     <b>My professional skills</b>:{profile.lookingForAJob}
                 </div>
             }
-            <div>
-            </div>
+
             <b>Contacts</b>: {
                 Object
                     .keys(profile.contacts)

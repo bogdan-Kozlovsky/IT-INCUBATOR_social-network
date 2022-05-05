@@ -1,5 +1,5 @@
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {initialType, ProfileType} from "../../../redux/profile-reducer";
+import {initialType, ProfileType} from "../../../redux/reducer/profile-reducer";
 import {FC} from "react";
 import {createField, GetStringKeys, Input, Textarea} from "../../../common/FromControls/FormControls";
 

@@ -5,9 +5,9 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators";
 import {Textarea} from "../../../common/FromControls/FormControls";
 import {useAppSelector} from "../../../common/hook/selectorHook";
-import {selectIsAuth, selectProfile} from "../../../redux/selectors";
+import {selectProfile} from "../../../redux/reducer/selectors";
 import {useDispatch} from "react-redux";
-import {addPostAC} from "../../../redux/profile-reducer";
+import {addPostAC} from "../../../redux/reducer/profile-reducer";
 
 type AddPostFormType = {
     newPostBody: string
@@ -16,7 +16,6 @@ type AddPostFormType = {
 export const MyPosts = memo(() => {
     const dispatch = useDispatch()
     const {posts} = useAppSelector(selectProfile)
-    const {id} = useAppSelector(selectIsAuth)
 
     let post = posts.map(({id, message, likesCount}) => (
         <div key={`${id}${likesCount}`}>

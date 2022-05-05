@@ -1,4 +1,3 @@
-@import 'App.css';
 @import './assets/normalize/noramlize.css';
 
 body {
@@ -34,4 +33,12 @@ body {
   background-color: #ff8f00;
   padding: 5px 20px;
   color: white;
+}
+
+.app-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  overflow: hidden;
+  min-height: 100vh;
 }

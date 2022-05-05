@@ -2,11 +2,11 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {createField, GetStringKeys, Input, Textarea} from "../../common/FromControls/FormControls";
 import {required} from "../../utils/validators";
 import {useDispatch} from "react-redux";
-import {loginTC} from "../../redux/auth-reducer";
+import {loginTC} from "../../redux/reducer/auth-reducer";
 import {Navigate} from "react-router-dom";
 import React, {FC} from "react";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectIsAuth} from "../../redux/selectors";
+import {selectIsAuth} from "../../redux/reducer/selectors";
 import s from './style.module.css'
 import {PATH} from "../../enums/patch";
 import {Error} from "../../common/Error/Error";
@@ -67,9 +67,6 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
                 {error}
             </div>
             }
-
-            <p>bogdankozlovski18@gmail.com</p>
-            <p>bogdan04.06</p>
             <div>
                 <button>Login</button>
             </div>

@@ -3,8 +3,8 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {Navigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectIsAuth, selectProfile} from "../../redux/selectors";
-import {getStatusTC, getUserProfileTC} from "../../redux/profile-reducer";
+import {selectIsAuth, selectProfile} from "../../redux/reducer/selectors";
+import {getStatusTC, getUserProfileTC} from "../../redux/reducer/profile-reducer";
 import {PATH} from "../../enums/patch";
 
 

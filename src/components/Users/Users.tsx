@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {getUsersTC} from "../../redux/users-reducer";
+import {getUsersTC} from "../../redux/reducer/users-reducer";
 import Paginator from "../../common/Paginator/Paginator";
 import {User} from "./User";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectIsAuth, selectUsers} from "../../redux/selectors";
+import {selectIsAuth, selectUsers} from "../../redux/reducer/selectors";
 import {useDispatch} from "react-redux";
 import {Preloader} from "../../common/preloader/Preloader";
 import s from './users.module.css'

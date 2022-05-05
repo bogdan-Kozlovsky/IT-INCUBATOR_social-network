@@ -1,10 +1,10 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import {useDispatch} from "react-redux";
-import {sendMessageAC} from "../../redux/dialogs-reducer";
+import {sendMessageAC} from "../../redux/reducer/dialogs-reducer";
 import {Navigate} from "react-router-dom";
 import {useAppSelector} from "../../common/hook/selectorHook";
-import {selectDialogs, selectIsAuth} from "../../redux/selectors";
+import {selectDialogs, selectIsAuth} from "../../redux/reducer/selectors";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {PATH} from "../../enums/patch";
 
@@ -12,6 +12,7 @@ import {PATH} from "../../enums/patch";
 type AddMessageFormType = {
     newMessageBody: string
 }
+
 
 export const Dialogs = () => {
     const dispatch = useDispatch()

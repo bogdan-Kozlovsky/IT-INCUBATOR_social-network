@@ -3,7 +3,7 @@ import s from "./users.module.css";
 import usersIcons from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {followTC, unfollowTC, UserType} from "../../redux/users-reducer";
+import {followTC, unfollowTC, UserType} from "../../redux/reducer/users-reducer";
 import {PATH} from "../../enums/patch";
 
 type propsType = {
@@ -29,9 +29,7 @@ export let User = ({...props}: propsType) => {
         <div className={s.wrapper}>
             <div>
                 <div>
-                    {/*<NavLink to={'/profile/' + user.id}>*/}
-                     <NavLink to={`${PATH.PROFILE}/${user.id}`}>
-                    {/*<NavLink to={'/profile/' + user.id}>*/}
+                    <NavLink to={`${PATH.PROFILE}/${user.id}`}>
                         <img
                             src={user.photos.small != null ? user.photos.small : usersIcons}
                             className={s.userPhoto}

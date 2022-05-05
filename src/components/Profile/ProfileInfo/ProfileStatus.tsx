@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import {updateStatusTC} from "../../../redux/profile-reducer";
+import {updateStatusTC} from "../../../redux/reducer/profile-reducer";
 import pencil from '../../../assets/images/pencil.svg'
 import s from './ProfileInfo.module.css'
 
