@@ -1,15 +1,17 @@
-import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
-import {errorAC} from "../../redux/reducer/app-reducer";
-import {Dispatch} from "redux";
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
 
-export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
+import { errorAC } from '../../redux/reducer/app-reducer';
+import { AppStateType } from '../../redux/redux-store';
+
+export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector;
 
 export const ErrorFunc = (error: any, dispatch: Dispatch) => {
-    if (error) {
-        dispatch(errorAC(error))
-        setTimeout(() => {
-            dispatch(errorAC(null))
-        }, 2000)
-    }
-}
+  if (error) {
+    dispatch(errorAC(error));
+    const callTimer = 2000;
+    setTimeout(() => {
+      dispatch(errorAC(null));
+    }, callTimer);
+  }
+};
