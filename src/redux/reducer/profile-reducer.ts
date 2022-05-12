@@ -1,5 +1,6 @@
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { stopSubmit } from 'redux-form';
+import { ThunkAction } from 'redux-thunk';
 import { v1 } from 'uuid';
 
 import { profileAPI } from '../../api/api';
@@ -47,6 +48,8 @@ type GlobalReducerType =
   | ReturnType<typeof setStatusAC>
   | ReturnType<typeof counterAC>
 
+type ThunkActionType = ThunkAction<void, AppStateType, unknown, AnyAction>
+
 // initialState
 const initialState: initialType = {
   posts: [
@@ -81,7 +84,6 @@ export const profileReducer = (state: initialType = initialState, action: Global
       return state;
   }
 };
-
 // action Creator
 export const addPostAC = (newPostBody: string) => ({ type: 'ADD-POST', newPostBody } as const);
 export const counterAC = (id: string, likesCount: number) => ({ type: 'COUNTER', id, likesCount } as const);
@@ -139,11 +141,13 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 
 };
 
-export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+// export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
+export const savePhotoTC = (file: any): ThunkActionType => async (dispatch) => {
   try {
     dispatch(progressAC(false));
     const response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+      await dispatch(getUserProfileTC('22141'));
       dispatch(savePhotoSuccessAC(response.data.data.photos));
     }
   } catch (error) {

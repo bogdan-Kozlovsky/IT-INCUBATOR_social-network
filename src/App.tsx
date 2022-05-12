@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Error } from './common/Error/Error';
 import { useAppSelector } from './common/hook/selectorHook';
+import { Preloader } from './common/preloader/Preloader';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import { Header } from './components/Header/Header';
 import { Login } from './components/Login/Login';
@@ -20,11 +21,16 @@ export const App = () => {
 
   const dispatch = useDispatch();
   const error = useAppSelector(selectError);
-  const { progress } = useAppSelector(selectInitialized);
+  const { progress, initialized } = useAppSelector(selectInitialized);
 
   useEffect(() => {
+
     dispatch(getAuthUserDataThunk());
   }, []);
+
+  if (!initialized) {
+    return <Preloader />;
+  }
 
   return (
     <>

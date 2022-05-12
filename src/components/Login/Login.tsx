@@ -72,7 +72,7 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
       </div>
       }
       <div>
-        <button type='submit'>Login</button>
+        <button className='btn' type='submit'>Login</button>
       </div>
     </form>
 
@@ -102,11 +102,12 @@ export const Login = () => {
           use common test account credentials:</h3>
         <p className={s.text}>
           Email:
-          <span className={s.decor}>  free@samuraijs.com</span>
+          {/* <span className={s.decor}>  free@samuraijs.com</span> */}
+          <span className={s.decor}>  bogdankozlovski18@gmail.com</span>
         </p>
         <p className={s.text}>
           Password:
-          <span className={s.decor}> free</span>
+          <span className={s.decor}> bogdan04.06</span>
         </p>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>

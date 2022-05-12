@@ -61,7 +61,6 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
   try {
     dispatch(progressAC(false));
     const response = await authAPI.me();
-
     if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserDataAC(id, email, login, true));
@@ -69,6 +68,7 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
     }
     const number = 1;
     if (response.data.resultCode === number) {
+      dispatch(initializeSuccessAC(true));
       ErrorFunc(response.data.messages[0], dispatch);
     }
   } catch (error) {

@@ -1,8 +1,8 @@
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { errorAC } from '../../redux/reducer/app-reducer';
-import { AppStateType } from '../../redux/redux-store';
+import { AppDispatch, AppStateType } from '../../redux/redux-store';
 
 export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector;
 
@@ -15,3 +15,5 @@ export const ErrorFunc = (error: any, dispatch: Dispatch) => {
     }, callTimer);
   }
 };
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();

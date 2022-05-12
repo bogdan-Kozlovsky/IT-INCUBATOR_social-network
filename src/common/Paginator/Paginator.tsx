@@ -11,14 +11,15 @@ type propsType = {
   currentPage: number
   totalUsersCount: number
   onPageChanged: (pageNumber: number) => void
+  portionSize?: number
 }
 const Paginator = ({ ...props }: propsType) => {
-  const portionSize = 10;
   const {
     pageSize,
     totalUsersCount,
     currentPage,
     onPageChanged,
+    portionSize = 10,
   } = props;
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -28,14 +29,13 @@ const Paginator = ({ ...props }: propsType) => {
   const rightPortionPageNumber = portionNumber * portionSize;
 
   const pages = [];
-  const startNum = 1;
-  for (let i = 1; i <= pagesCount; i = +startNum) {
+  for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
 
   return <div className={s.wrapperPaginator}>
     {portionNumber > 1 &&
-      <button type='submit' className={s.btn} onClick={() => {
+      <button className={s.btn} onClick={() => {
         setPortionNumber(portionNumber - 1);
       }}>
         <img className={s.arrow} src={leftArrow} alt='leftArrow' />
@@ -46,11 +46,11 @@ const Paginator = ({ ...props }: propsType) => {
       .map((p) => <span
         className={`${s.span} ${currentPage === p ? s.active : ''}`}
         key={p}
-        onClick={() => {
+        onClick={(e) => {
           onPageChanged(p);
         }}>{p}</span>)}
     {portionCount > portionNumber &&
-      <button type='submit' className={s.btn} onClick={() => {
+      <button className={s.btn} onClick={() => {
         setPortionNumber(portionNumber + 1);
       }}>
         <img className={s.arrow} src={rightArrow} alt='rightArrow' />
@@ -58,5 +58,57 @@ const Paginator = ({ ...props }: propsType) => {
 
   </div>;
 };
+// type propsType = {
+//   pageSize: number
+//   currentPage: number
+//   totalUsersCount: number
+//   onPageChanged: (pageNumber: number) => void
+// }
+// const Paginator = ({ ...props }: propsType) => {
+//   const portionSize = 10;
+//   const {
+//     pageSize,
+//     totalUsersCount,
+//     currentPage,
+//     onPageChanged,
+//   } = props;
+//
+//   const pagesCount = Math.ceil(totalUsersCount / pageSize);
+//   const portionCount = Math.ceil(pagesCount / portionSize);
+//   const [portionNumber, setPortionNumber] = useState(1);
+//   const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+//   const rightPortionPageNumber = portionNumber * portionSize;
+//
+//   const pages = [];
+//   const startNum = 1;
+//   for (let i = 1; i <= pagesCount; i = +startNum) {
+//     pages.push(i);
+//   }
+//
+//   return <div className={s.wrapperPaginator}>
+//     {portionNumber > 1 &&
+//       <button type='submit' className={s.btn} onClick={() => {
+//         setPortionNumber(portionNumber - 1);
+//       }}>
+//         <img className={s.arrow} src={leftArrow} alt='leftArrow' />
+//       </button>}
+//
+//     {pages
+//       .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+//       .map((p) => <span
+//         className={`${s.span} ${currentPage === p ? s.active : ''}`}
+//         key={p}
+//         onClick={() => {
+//           onPageChanged(p);
+//         }}>{p}</span>)}
+//     {portionCount > portionNumber &&
+//       <button type='submit' className={s.btn} onClick={() => {
+//         setPortionNumber(portionNumber + 1);
+//       }}>
+//         <img className={s.arrow} src={rightArrow} alt='rightArrow' />
+//       </button>}
+//
+//   </div>;
+// };
 
 export default Paginator;

@@ -15,6 +15,8 @@ export const Me = () => {
 
   const { id, isAuth } = useAppSelector(selectIsAuth);
   const { profile, status } = useAppSelector(selectProfile);
+  const photo = useAppSelector(selectProfile).profile?.photos.small;
+  // const foto = profile?.photos.large;
 
   useEffect(() => {
     if (id) {
@@ -22,6 +24,10 @@ export const Me = () => {
       dispatch(getStatusTC(Number(id)));
     }
   }, []);
+
+  // useEffect(() => {
+  //   dispatch(getUserProfileTC(Number(id)));
+  // }, [photo]);
 
   if (!isAuth) return <Navigate to={PATH.LOGIN} />;
   return (
