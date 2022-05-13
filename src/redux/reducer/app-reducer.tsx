@@ -1,5 +1,3 @@
-import { getAuthUserDataThunk } from './auth-reducer';
-
 // initial state
 export type InitialStateType = {
   initialized: boolean
@@ -34,18 +32,19 @@ export const appReducer = (state: InitialStateType = initialState, action: Gener
 
 // action creator
 export const initializeSuccessAC = (value: boolean) => ({
-    type: 'INITIALIZED-SUCCESS', value,
-  } as const);
+  type: 'INITIALIZED-SUCCESS', value,
+} as const);
 
 export const progressAC = (value: boolean) => ({
-    type: 'PROGRESS', value,
-  } as const);
+  type: 'PROGRESS', value,
+} as const);
 
 export const errorAC = (value: any) => ({
-    type: 'APP-ERROR', value,
-  } as const);
+  type: 'APP-ERROR', value,
+} as const);
+
 // thunk
-export const initializeAppTC = () => async (dispatch: any) => {
-  dispatch(getAuthUserDataThunk());
-  // dispatch(initializeSuccessAC(true))
-};
+// export const initializeAppTC = () => async (dispatch: any) => {
+//   dispatch(getAuthUserDataThunk());
+//   // dispatch(initializeSuccessAC(true))
+// };

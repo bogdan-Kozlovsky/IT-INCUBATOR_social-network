@@ -1,9 +1,8 @@
 import { Dispatch } from 'redux';
 
-import { usersAPI } from '../../api/api';
-import { RESPONSEFIGURES } from '../../enums/patch';
-
-import { progressAC } from './app-reducer';
+import { usersAPI } from 'api/user/index';
+import { RESPONSEFIGURES } from 'enums/patch';
+import { progressAC } from 'redux/reducer/app-reducer';
 
 // type
 export type UserType = {
@@ -105,8 +104,8 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 };
 
 export const followTC = (userId: number) => async (dispatch: Dispatch) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followAC);
+  await followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followAC);
 };
 export const unfollowTC = (userId: number) => async (dispatch: Dispatch) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowAC);
+  await followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowAC);
 };

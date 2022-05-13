@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../common/hook/selectorHook';
-import { PATH } from '../../enums/patch';
-import { getStatusTC, getUserProfileTC } from '../../redux/reducer/profile-reducer';
-import { selectIsAuth, selectProfile } from '../../redux/reducer/selectors';
-import { MyPosts } from '../Profile/MyPosts/MyPosts';
-import { ProfileInfo } from '../Profile/ProfileInfo/ProfileInfo';
+import { useAppSelector } from 'common/hook/selectorHook';
+import { MyPosts } from 'components/Profile/MyPosts/MyPosts';
+import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
+import { PATH } from 'enums/patch';
+import { getStatusTC, getUserProfileTC } from 'redux/reducer/profile-reducer';
+import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
 
 export const Me = () => {
   const dispatch = useDispatch();

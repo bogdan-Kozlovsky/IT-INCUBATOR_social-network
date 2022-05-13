@@ -1,4 +1,4 @@
-import { AppStateType } from '../redux-store';
+import { AppStateType } from 'redux/store';
 
 // auth
 export const selectIsAuth = (state: AppStateType) => state.auth;

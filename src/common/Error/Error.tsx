@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { selectError } from '../../redux/reducer/selectors';
-import { useAppSelector } from '../hook/selectorHook';
-
 import style from './error.module.css';
+
+import { useAppSelector } from 'common/hook/selectorHook';
+import { selectError } from 'redux/reducer/selectors';
 
 export const Error = () => {
   const error = useAppSelector(selectError);

@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { reset } from 'redux-form';
 
-import { useAppSelector } from '../../common/hook/selectorHook';
-import { PATH } from '../../enums/patch';
-import { sendMessageAC } from '../../redux/reducer/dialogs-reducer';
-import { selectDialogs, selectIsAuth } from '../../redux/reducer/selectors';
-import { AddMessageFormRedux } from '../AddMessageForm/AddMessageForm';
-
 import s from './Dialogs.module.css';
+
+import { useAppSelector } from 'common/hook/selectorHook';
+import { AddMessageFormRedux } from 'components/AddMessageForm/AddMessageForm';
+import { PATH } from 'enums/patch';
+import { DialogType, PostsType, sendMessageAC } from 'redux/reducer/dialogs-reducer';
+import { selectDialogs, selectIsAuth } from 'redux/reducer/selectors';
 
 // type
 export type AddMessageFormType = {
@@ -23,8 +23,9 @@ export const Dialogs = () => {
   const { dialogs, messages } = useAppSelector(selectDialogs);
   const { isAuth } = useAppSelector(selectIsAuth);
 
-  const dialogsElements = dialogs.map(({ id, name }) => (<div className={s.item} key={id}>{name}</div>));
-  const messageElements = messages.map(({ id, message }) => (<div className={s.item} key={id}>{message}</div>));
+  const dialogsElements = dialogs.map(({ id, name }: PostsType) => (<div className={s.item} key={id}>{name}</div>));
+  const messageElements = messages.map(({ id, message }: DialogType) => (
+    <div className={s.item} key={id}>{message}</div>));
 
   const addNewMessage = (values: AddMessageFormType) => {
     dispatch(sendMessageAC(values.newMessageBody));

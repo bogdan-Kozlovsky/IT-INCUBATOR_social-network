@@ -1,13 +1,12 @@
 import { Dispatch } from 'redux';
-import { FormAction, stopSubmit } from 'redux-form';
-import { ThunkDispatch } from 'redux-thunk';
+import { stopSubmit } from 'redux-form';
 
-import { authAPI, securityAPI } from '../../api/api';
-import { ErrorFunc } from '../../common/hook/selectorHook';
-import { RESPONSEFIGURES } from '../../enums/patch';
-import { AppStateType } from '../redux-store';
-
-import { initializeSuccessAC, progressAC } from './app-reducer';
+import { authApi } from 'api/auth/index';
+import { securityApi } from 'api/security/index';
+import { ErrorFunc } from 'common/hook/selectorHook';
+import { RESPONSEFIGURES } from 'enums/patch';
+import { initializeSuccessAC, progressAC } from 'redux/reducer/app-reducer';
+import { ThunkType } from 'utils/thunkType';
 
 // type
 export type InitialStateType = {
@@ -60,7 +59,7 @@ export const getCaptchaUrlSuccessAC = (captchaUrl: string) => ({
 export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
   try {
     dispatch(progressAC(false));
-    const response = await authAPI.me();
+    const response = await authApi.me();
     if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserDataAC(id, email, login, true));
@@ -84,7 +83,7 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
 
 export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
   try {
-    const response = await securityAPI.getCaptchaUrl();
+    const response = await securityApi.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccessAC(captchaUrl));
   } catch (error) {
@@ -95,11 +94,9 @@ export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
   }
 };
 
-// type ThunkType = ThunkAction<void, AppStateType, Dispatch<GeneralType>, GeneralType>
-
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: ThunkDispatch<AppStateType, unknown, FormAction>) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
   try {
-    const response = await authAPI.login(email, password, rememberMe, captcha);
+    const response = await authApi.login(email, password, rememberMe, captcha);
     if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
       await dispatch(getAuthUserDataThunk());
     } else if (response.data.resultCode === RESPONSEFIGURES.tenRequest) {
@@ -119,7 +116,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
   try {
-    const response = await authAPI.logout();
+    const response = await authApi.logout();
     if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
       dispatch(setAuthUserDataAC(undefined, null, null, false));
       dispatch(initializeSuccessAC(true));

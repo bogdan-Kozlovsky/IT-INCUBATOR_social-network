@@ -21,4 +21,3 @@ export type AppStateType = ReturnType<typeof reducers>
 
 export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 // export const store = createStore(reducers, applyMiddleware(thunk));
-export type AppDispatch = typeof store.dispatch;

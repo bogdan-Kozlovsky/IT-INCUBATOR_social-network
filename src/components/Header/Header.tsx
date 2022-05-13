@@ -3,14 +3,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import logoutIcon from '../../assets/images/logout.svg';
-import usersIcons from '../../assets/images/users.png';
-import { useAppSelector } from '../../common/hook/selectorHook';
-import { PATH } from '../../enums/patch';
-import { logoutTC } from '../../redux/reducer/auth-reducer';
-import { selectIsAuth, selectProfile } from '../../redux/reducer/selectors';
-
 import s from './Header.module.css';
+
+import logoutIcon from 'assets/images/logout.svg';
+import usersIcons from 'assets/images/users.png';
+import { useAppSelector } from 'common/hook/selectorHook';
+import { PATH } from 'enums/patch';
+import { logoutTC } from 'redux/reducer/auth-reducer';
+import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
 
 export const Header = () => {
   const dispatch = useDispatch();

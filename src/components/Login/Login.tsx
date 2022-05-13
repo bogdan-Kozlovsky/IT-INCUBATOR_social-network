@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
-import { createField, GetStringKeys, Input } from '../../common/FromControls/FormControls';
-import { useAppSelector } from '../../common/hook/selectorHook';
-import { PATH } from '../../enums/patch';
-import { loginTC } from '../../redux/reducer/auth-reducer';
-import { selectIsAuth } from '../../redux/reducer/selectors';
-import { required } from '../../utils/validators';
-
 import s from './style.module.css';
+
+import { createField, GetStringKeys, Input } from 'common/FromControls/FormControls';
+import { useAppSelector } from 'common/hook/selectorHook';
+import { PATH } from 'enums/patch';
+import { loginTC } from 'redux/reducer/auth-reducer';
+import { selectIsAuth } from 'redux/reducer/selectors';
+import { required } from 'utils/validators';
 
 // type
 type LoginFormOwnProps = {
