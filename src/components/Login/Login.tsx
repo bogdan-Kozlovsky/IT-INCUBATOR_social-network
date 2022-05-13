@@ -103,11 +103,11 @@ export const Login = () => {
         <p className={s.text}>
           Email:
           {/* <span className={s.decor}>  free@samuraijs.com</span> */}
-          <span className={s.decor}>  bogdankozlovski18@gmail.com</span>
+          <span className={s.decor}>bogdankozlovski18@gmail.com</span>
         </p>
         <p className={s.text}>
           Password:
-          <span className={s.decor}> bogdan04.06</span>
+          <span className={s.decor}>socialPassword</span>
         </p>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>
