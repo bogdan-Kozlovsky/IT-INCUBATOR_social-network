@@ -3,25 +3,30 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from 'common/hook/selectorHook';
+import { selectIdAuth, selectIsAuth } from '../../redux/selectors/auth';
+import { selectProfile, selectStatus } from '../../redux/selectors/profile';
+
 import { MyPosts } from 'components/Profile/MyPosts/MyPosts';
 import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
 import { PATH } from 'enums/patch';
 import { getStatusTC, getUserProfileTC } from 'redux/reducer/profile-reducer';
-import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
+import { useAppSelector } from 'types/useAppSelector';
 
 export const Me = () => {
   const dispatch = useDispatch();
 
-  const { id, isAuth } = useAppSelector(selectIsAuth);
-  const { profile, status } = useAppSelector(selectProfile);
-  const photo = useAppSelector(selectProfile).profile?.photos.small;
+  const isAuth = useAppSelector(selectIsAuth);
+  const idAuth = useAppSelector(selectIdAuth);
+  const status = useAppSelector(selectStatus);
+  const profile = useAppSelector(selectProfile);
+  
+  // const photo = useAppSelector(selectProfile).profile?.photos.small;
   // const foto = profile?.photos.large;
 
   useEffect(() => {
-    if (id) {
-      dispatch(getUserProfileTC(Number(id)));
-      dispatch(getStatusTC(Number(id)));
+    if (idAuth) {
+      dispatch(getUserProfileTC(Number(idAuth)));
+      dispatch(getStatusTC(Number(idAuth)));
     }
   }, []);
 
@@ -35,7 +40,7 @@ export const Me = () => {
       <ProfileInfo
         profile={profile}
         status={status}
-        userId={id}
+        userId={idAuth}
       />
       <MyPosts />
     </div>

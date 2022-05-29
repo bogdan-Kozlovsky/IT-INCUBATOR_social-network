@@ -1,6 +1,6 @@
 import { UserType } from 'redux/reducer/users-reducer';
 
-export type getUserType = {
+export type GetUserType = {
   error: null
   items: UserType[]
   totalCount: number

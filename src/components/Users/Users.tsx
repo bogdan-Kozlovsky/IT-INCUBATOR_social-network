@@ -3,27 +3,33 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { selectIsAuth } from '../../redux/selectors/auth';
+import {
+  selectCurrentPage,
+  selectFollowingInProgress,
+  selectPageSize,
+  selectTotalUsersCount,
+  selectUsers,
+} from '../../redux/selectors/users';
+
 import s from './users.module.css';
 
-import { useAppSelector } from 'common/hook/selectorHook';
 import Paginator from 'common/Paginator/Paginator';
 import { User } from 'components/Users/User';
 import { PATH } from 'enums/patch';
-import { selectIsAuth, selectUsers } from 'redux/reducer/selectors';
 import { getUsersTC } from 'redux/reducer/users-reducer';
+import { useAppSelector } from 'types/useAppSelector';
 
 export const Users = () => {
   const dispatch = useDispatch();
 
-  const {
-    users,
-    pageSize,
-    totalUsersCount,
-    currentPage,
-    followingInProgress,
-    // isFetching,
-  } = useAppSelector(selectUsers);
-  const { isAuth } = useAppSelector(selectIsAuth);
+  const currentPage = useAppSelector(selectCurrentPage);
+  const pageSize = useAppSelector(selectPageSize);
+  const totalUsersCount = useAppSelector(selectTotalUsersCount);
+  const followingInProgress = useAppSelector(selectFollowingInProgress);
+  const users = useAppSelector(selectUsers);
+
+  const isAuth = useAppSelector(selectIsAuth);
   const onPageChanged = (pageNumber: number) => {
     dispatch(getUsersTC(pageNumber, pageSize));
   };

@@ -2,15 +2,17 @@ import { ChangeEvent, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { selectIdAuth } from '../../../redux/selectors/auth';
+import { selectPhotoLarge } from '../../../redux/selectors/profile';
+
 import s from './ProfileInfo.module.css';
 
 import usersIcons from 'assets/images/users.png';
-import { useAppSelector } from 'common/hook/selectorHook';
 import { Preloader } from 'common/preloader/Preloader';
 import { ProfileDataFormReduxForm } from 'components/Profile/ProfileInfo/ProfileDataForm';
 import { ProfileStatus } from 'components/Profile/ProfileInfo/ProfileStatus';
 import { ProfileType, savePhotoTC, saveProfileTC } from 'redux/reducer/profile-reducer';
-import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
+import { useAppSelector } from 'types/useAppSelector';
 
 type propsType = {
   profile: ProfileType | null
@@ -20,8 +22,8 @@ type propsType = {
 export const ProfileInfo = ({ profile, status, userId }: propsType) => {
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState<boolean>(false);
-  const photo = useAppSelector(selectProfile).profile?.photos.large;
-  const { id } = useAppSelector(selectIsAuth);
+  const photo = useAppSelector(selectPhotoLarge);
+  const id = useAppSelector(selectIdAuth);
 
   if (!profile) {
     return <Preloader />;

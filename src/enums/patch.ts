@@ -4,10 +4,10 @@ export enum PATH {
   DIALOGS = '/dialogs',
   USERS = '/users',
   LOGIN = '/login',
-  ERROR_404 = '404',
+  PAGE_NOT_FOUND = '404',
 }
 
-export enum RESPONSEFIGURES {
-  zeroRequest = 0,
-  tenRequest = 0
+export enum RESPONSE_NUMBER {
+  COMPLETED_SUCCESSFULLY_NUMBER = 0,
+  REDIRECT_TO_CAPTCHA = 10
 }

@@ -3,8 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import { Error } from './common/Error/Error';
-import { useAppSelector } from './common/hook/selectorHook';
+import { ErrorMessage } from './common/ErrorMessage/ErrorMessage';
 import { Preloader } from './common/preloader/Preloader';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import { Header } from './components/Header/Header';
@@ -15,32 +14,39 @@ import { Profile } from './components/Profile/Profile';
 import { Users } from './components/Users/Users';
 import { PATH } from './enums/patch';
 import { getAuthUserDataThunk } from './redux/reducer/auth-reducer';
-import { selectError, selectInitialized } from './redux/reducer/selectors';
+import { selectIsInitialized, selectIsProgress } from './redux/selectors/app';
+import { selectErrorMessage } from './redux/selectors/errorMessage';
+
+import { useAppSelector } from 'types/useAppSelector';
 
 export const App = () => {
 
   const dispatch = useDispatch();
-  const error = useAppSelector(selectError);
-  const { progress, initialized } = useAppSelector(selectInitialized);
+
+  const errorMessage = useAppSelector(selectErrorMessage);
+  const isProgress = useAppSelector(selectIsProgress);
+  const isInitialized = useAppSelector(selectIsInitialized);
 
   useEffect(() => {
-
     dispatch(getAuthUserDataThunk());
   }, []);
 
-  if (!initialized) {
+  if (!isInitialized) {
     return <Preloader />;
   }
 
   return (
     <>
       <Header />
-      {error && <Error />}
-      {!progress && <div className='nav'>
+      {errorMessage && <ErrorMessage />}
+
+      {!isProgress && <div className='nav'>
+
         <div className='statusBar' />
       </div>}
       <div className='app-wrapper'>
         <Navigation />
+        
         <Routes>
           <Route path={PATH.ME} element={<Me />} />
           <Route path={`${PATH.PROFILE}/:userId`} element={<Profile />} />

@@ -3,16 +3,21 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { useAppSelector } from 'common/hook/selectorHook';
+import { selectIsAuth } from '../../redux/selectors/auth';
+import { selectProfile, selectStatus } from '../../redux/selectors/profile';
+
 import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
 import { PATH } from 'enums/patch';
 import { getStatusTC, getUserProfileTC } from 'redux/reducer/profile-reducer';
-import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
+import { useAppSelector } from 'types/useAppSelector';
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { profile, status } = useAppSelector(selectProfile);
-  const { isAuth } = useAppSelector(selectIsAuth);
+
+  const profile = useAppSelector(selectProfile);
+  const status = useAppSelector(selectStatus);
+  const isAuth = useAppSelector(selectIsAuth);
+
   const { userId } = useParams<{ userId: string | undefined }>();
 
   useEffect(() => {

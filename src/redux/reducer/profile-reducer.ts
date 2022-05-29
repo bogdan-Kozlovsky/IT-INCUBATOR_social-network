@@ -3,9 +3,10 @@ import { stopSubmit } from 'redux-form';
 import { ThunkAction } from 'redux-thunk';
 import { v1 } from 'uuid';
 
+import { errorProcessing } from '../../utils/errorProcessing';
+
 import { profileApi } from 'api/profile/index';
-import { ErrorFunc } from 'common/hook/selectorHook';
-import { RESPONSEFIGURES } from 'enums/patch';
+import { RESPONSE_NUMBER } from 'enums/patch';
 import { progressAC } from 'redux/reducer/app-reducer';
 import { AppStateType } from 'redux/store';
 
@@ -101,7 +102,7 @@ export const getUserProfileTC = (userId: any) => async (dispatch: Dispatch) => {
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));
@@ -115,7 +116,7 @@ export const getStatusTC = (userId: number) => async (dispatch: Dispatch) => {
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));
@@ -125,14 +126,14 @@ export const getStatusTC = (userId: number) => async (dispatch: Dispatch) => {
 export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
   try {
     dispatch(progressAC(false));
-    const response = await profileApi.updateStatus(status);
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+    const response = await profileApi.updateStatusProfile(status);
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       dispatch(setStatusAC(status));
     }
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));
@@ -144,15 +145,17 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
 export const savePhotoTC = (file: any): ThunkActionType => async (dispatch) => {
   try {
     dispatch(progressAC(false));
-    const response = await profileApi.savePhoto(file);
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+    // eslint-disable-next-line no-debugger
+    debugger
+    const response = await profileApi.savePhotoProfile(file);
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       await dispatch(getUserProfileTC('22141'));
       dispatch(savePhotoSuccessAC(response.data.data.photos));
     }
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));
@@ -167,7 +170,7 @@ export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch
     const response = await profileApi.saveProfile(profile);
     // const response = await profile.saveProfile(profile);
 
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       // @ts-ignore
       dispatch(getUserProfileTC(userId));
     } else {
@@ -177,7 +180,7 @@ export const saveProfileTC = (profile: ProfileType) => async (dispatch: Dispatch
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));

@@ -14,10 +14,9 @@ const reducers = combineReducers({
   dialogsPage: dialogsReducer,
   usersPage: usersReducer,
   auth: authReducer,
-  form: formReducer,
   app: appReducer,
+  form: formReducer,
 });
 export type AppStateType = ReturnType<typeof reducers>
 
 export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
-// export const store = createStore(reducers, applyMiddleware(thunk));

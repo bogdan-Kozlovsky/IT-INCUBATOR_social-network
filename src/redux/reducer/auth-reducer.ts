@@ -1,16 +1,16 @@
 import { Dispatch } from 'redux';
 import { stopSubmit } from 'redux-form';
 
+import { errorProcessing } from '../../utils/errorProcessing';
+
 import { authApi } from 'api/auth/index';
 import { securityApi } from 'api/security/index';
-import { ErrorFunc } from 'common/hook/selectorHook';
-import { RESPONSEFIGURES } from 'enums/patch';
+import { RESPONSE_NUMBER } from 'enums/patch';
 import { initializeSuccessAC, progressAC } from 'redux/reducer/app-reducer';
-import { ThunkType } from 'utils/thunkType';
+import { ThunkType } from 'types/thunkType';
 
 // type
 export type InitialStateType = {
-  // id: number | null
   id: string | undefined
   email: string | null
   login: string | null
@@ -60,7 +60,7 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
   try {
     dispatch(progressAC(false));
     const response = await authApi.me();
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       const { id, email, login } = response.data.data;
       dispatch(setAuthUserDataAC(id, email, login, true));
       dispatch(initializeSuccessAC(true));
@@ -68,13 +68,13 @@ export const getAuthUserDataThunk = () => async (dispatch: Dispatch) => {
     const number = 1;
     if (response.data.resultCode === number) {
       dispatch(initializeSuccessAC(true));
-      ErrorFunc(response.data.messages[0], dispatch);
+      errorProcessing(response.data.messages[0], dispatch);
     }
   } catch (error) {
     dispatch(initializeSuccessAC(true));
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   } finally {
     dispatch(progressAC(true));
@@ -89,7 +89,7 @@ export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   }
 };
@@ -97,19 +97,20 @@ export const getCaptchaUrlTC = () => async (dispatch: Dispatch) => {
 export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
   try {
     const response = await authApi.login(email, password, rememberMe, captcha);
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       await dispatch(getAuthUserDataThunk());
-    } else if (response.data.resultCode === RESPONSEFIGURES.tenRequest) {
-      await dispatch(getCaptchaUrlTC());
-    } else {
-      const minNumber = 0;
-      const message = response.data.messages.length > minNumber ? response.data.messages[0] : 'Some error';
-      dispatch(stopSubmit('login', { _error: message }));
     }
+    if (response.data.resultCode === RESPONSE_NUMBER.REDIRECT_TO_CAPTCHA) {
+      await dispatch(getCaptchaUrlTC());
+    }
+    const minNumber = 0;
+    const message = response.data.messages.length > minNumber ? response.data.messages[0] : 'Some error';
+    dispatch(stopSubmit('login', { _error: message }));
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   }
 };
@@ -117,14 +118,14 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
 export const logoutTC = () => async (dispatch: Dispatch) => {
   try {
     const response = await authApi.logout();
-    if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+    if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
       dispatch(setAuthUserDataAC(undefined, null, null, false));
       dispatch(initializeSuccessAC(true));
     }
   } catch (error) {
     if (error instanceof Error) {
       const { name } = error;
-      ErrorFunc(name, dispatch);
+      errorProcessing(name, dispatch);
     }
   }
 };

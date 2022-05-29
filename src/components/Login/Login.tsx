@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
+import { selectCaptchaUrl, selectIsAuth } from '../../redux/selectors/auth';
+
 import s from './style.module.css';
 
 import { createField, GetStringKeys, Input } from 'common/FromControls/FormControls';
-import { useAppSelector } from 'common/hook/selectorHook';
 import { PATH } from 'enums/patch';
 import { loginTC } from 'redux/reducer/auth-reducer';
-import { selectIsAuth } from 'redux/reducer/selectors';
+import { useAppSelector } from 'types/useAppSelector';
 import { required } from 'utils/validators';
 
 // type
@@ -35,7 +36,6 @@ export const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPr
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        {/* {createField<LoginFormValuesTypeKeys>('Login', 'login', [required], Input)} */}
         <Field
           validate={[required]}
           component={Input}
@@ -84,8 +84,11 @@ const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({ form:
 type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>
 
 export const Login = () => {
-  const { isAuth, captchaUrl } = useAppSelector(selectIsAuth);
   const dispatch = useDispatch();
+
+  const isAuth = useAppSelector(selectIsAuth);
+  const captchaUrl = useAppSelector(selectCaptchaUrl);
+
   const onSubmit = (formData: LoginFormValuesType) => {
     dispatch(loginTC(formData.login, formData.password, formData.rememberMe, formData.captcha));
   };
@@ -97,17 +100,16 @@ export const Login = () => {
   return (
     <div className={s.loginWrapper}>
       <div className={s.box}>
-        <h3 className={s.subTitle}>To log in get registered <a className={s.link}
-                                                               href='https://social-network.samuraijs.com/login'>here</a> or
+        <h3 className={s.subTitle}>To log in get registered
+          <a className={s.link} href='https://social-network.samuraijs.com/login'>here</a> or
           use common test account credentials:</h3>
         <p className={s.text}>
           Email:
-          {/* <span className={s.decor}>  free@samuraijs.com</span> */}
-          <span className={s.decor}>bogdankozlovski18@gmail.com</span>
+          <span className={s.decor}><span>bogdankozlovski18@gmail.com</span></span>
         </p>
         <p className={s.text}>
           Password:
-          <span className={s.decor}>socialPassword</span>
+          <span className={s.decor}><span>socialPassword</span></span>
         </p>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
       </div>

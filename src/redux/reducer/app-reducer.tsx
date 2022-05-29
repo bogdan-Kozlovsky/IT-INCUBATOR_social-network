@@ -1,15 +1,15 @@
 // initial state
 export type InitialStateType = {
-  initialized: boolean
-  progress: boolean
-  error: string | null
+  isInitialized: boolean
+  isProgress: boolean
+  errorMessage: string | null
 }
 
 // type
 const initialState = {
-  initialized: false,
-  progress: true,
-  error: null,
+  isInitialized: false,
+  isProgress: true,
+  errorMessage: null,
 };
 export type GeneralType =
   ReturnType<typeof initializeSuccessAC>
@@ -20,11 +20,11 @@ export type GeneralType =
 export const appReducer = (state: InitialStateType = initialState, action: GeneralType): InitialStateType => {
   switch (action.type) {
     case 'INITIALIZED-SUCCESS':
-      return { ...state, initialized: action.value };
+      return { ...state, isInitialized: action.value };
     case 'APP-ERROR':
-      return { ...state, error: action.value };
+      return { ...state, errorMessage: action.value };
     case 'PROGRESS':
-      return { ...state, progress: action.value };
+      return { ...state, isProgress: action.value };
     default:
       return state;
   }

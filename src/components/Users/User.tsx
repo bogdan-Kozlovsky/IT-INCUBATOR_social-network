@@ -11,6 +11,7 @@ import { followTC, unfollowTC, UserType } from 'redux/reducer/users-reducer';
 
 type propsType = {
   user: UserType
+  // followingInProgress: number[]
   followingInProgress: number[]
 }
 export const User = ({ ...props }: propsType) => {

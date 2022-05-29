@@ -1,19 +1,20 @@
 import { instance } from 'api/config';
-import { AuthMeResponseType, ResponseType } from 'api/type';
+import { AuthMeResponseType, ResponseType } from 'api/types';
 
 export const authApi = {
   me() {
-    // return instance.get<ResponseType<{ data: AuthMeResponseType }>>('auth/me')
-    return instance.get('auth/me');
+    return instance.get<ResponseType<AuthMeResponseType>>('auth/me');
   },
+
   login(email: string, password: string, rememberMe: boolean, captcha: string) {
-    return instance.post<ResponseType<{ data: AuthMeResponseType }>>(`auth/login`, {
+    return instance.post<ResponseType<AuthMeResponseType>>(`auth/login`, {
       email,
       password,
       rememberMe,
       captcha,
     });
   },
+
   logout() {
     return instance.delete<ResponseType>(`/auth/login`);
   },

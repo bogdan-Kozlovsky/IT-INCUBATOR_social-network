@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 
 import { usersAPI } from 'api/user/index';
-import { RESPONSEFIGURES } from 'enums/patch';
+import { RESPONSE_NUMBER } from 'enums/patch';
 import { progressAC } from 'redux/reducer/app-reducer';
 
 // type
@@ -97,7 +97,7 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
 const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
   dispatch(toggleIsFollowingProgressAC(true, userId));
   const response = await apiMethod(userId);
-  if (response.data.resultCode === RESPONSEFIGURES.zeroRequest) {
+  if (response.data.resultCode === RESPONSE_NUMBER.COMPLETED_SUCCESSFULLY_NUMBER) {
     dispatch(actionCreator(userId));
   }
   dispatch(toggleIsFollowingProgressAC(false, userId));

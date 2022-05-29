@@ -3,20 +3,22 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { selectIsAuth } from '../../redux/selectors/auth';
+import { selectProfile } from '../../redux/selectors/profile';
+
 import s from './Header.module.css';
 
 import logoutIcon from 'assets/images/logout.svg';
 import usersIcons from 'assets/images/users.png';
-import { useAppSelector } from 'common/hook/selectorHook';
 import { PATH } from 'enums/patch';
 import { logoutTC } from 'redux/reducer/auth-reducer';
-import { selectIsAuth, selectProfile } from 'redux/reducer/selectors';
+import { useAppSelector } from 'types/useAppSelector';
 
 export const Header = () => {
   const dispatch = useDispatch();
 
-  const { isAuth } = useAppSelector(selectIsAuth);
-  const { profile } = useAppSelector(selectProfile);
+  const isAuth = useAppSelector(selectIsAuth);
+  const profile = useAppSelector(selectProfile);
 
   const logoutHandler = () => {
     dispatch(logoutTC());
