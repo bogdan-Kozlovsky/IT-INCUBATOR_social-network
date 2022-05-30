@@ -18,7 +18,7 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const isAuth = useAppSelector(selectIsAuth);
-  const profile = useAppSelector(selectProfile);
+  const profileData = useAppSelector(selectProfile);
 
   const logoutHandler = () => {
     dispatch(logoutTC());
@@ -35,13 +35,14 @@ export const Header = () => {
 
             {isAuth
               ? <div className={s.headerNavigateBox}>
-                <img className={s.avatar} src={profile?.photos.small || usersIcons}
+                <img className={s.avatar} src={profileData?.photos.small || usersIcons}
                      alt='avatar' />
                 <button type='submit' className={s.btn} onClick={logoutHandler}>
                   <span className={s.text}>Log out</span>
                   <img className={s.logout} src={logoutIcon} alt='logoutIcon' />
                 </button>
               </div>
+
               : <NavLink className={s.login} to={PATH.LOGIN}>Login</NavLink>}
           </div>
         </div>

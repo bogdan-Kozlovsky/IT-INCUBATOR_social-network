@@ -6,7 +6,7 @@ import style from './error.module.css';
 
 import { useAppSelector } from 'types/useAppSelector';
 
-export const ErrorMessage = () => {
+export const ModalErrorMessage = () => {
 
   const errorMessage = useAppSelector(selectErrorMessage);
 

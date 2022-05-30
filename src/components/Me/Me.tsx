@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { selectIdAuth, selectIsAuth } from '../../redux/selectors/auth';
 import { selectProfile, selectStatus } from '../../redux/selectors/profile';
 
+import s from 'components/Me/Me.module.css';
 import { MyPosts } from 'components/Profile/MyPosts/MyPosts';
 import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
 import { PATH } from 'enums/patch';
@@ -19,9 +20,6 @@ export const Me = () => {
   const idAuth = useAppSelector(selectIdAuth);
   const status = useAppSelector(selectStatus);
   const profile = useAppSelector(selectProfile);
-  
-  // const photo = useAppSelector(selectProfile).profile?.photos.small;
-  // const foto = profile?.photos.large;
 
   useEffect(() => {
     if (idAuth) {
@@ -30,13 +28,10 @@ export const Me = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(getUserProfileTC(Number(id)));
-  // }, [photo]);
-
   if (!isAuth) return <Navigate to={PATH.LOGIN} />;
+
   return (
-    <div style={{ width: '100%' }}>
+    <div className={s.wrapper}>
       <ProfileInfo
         profile={profile}
         status={status}

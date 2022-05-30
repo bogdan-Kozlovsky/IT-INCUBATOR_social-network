@@ -22,6 +22,7 @@ export type ContactsPropsType = {
   mainLink: string
 }
 export type PhotosPropsType = { large: string, small: string }
+
 export type ProfileType = {
   aboutMe: string
   userId: number

@@ -1,6 +1,3 @@
-
-
-
 .wrapperUsers {
     position: relative;
     width: 100%;
@@ -60,7 +57,7 @@
     color: #ff8f00;
 }
 
-.loader{
+.loader {
     position: absolute;
     top: 0;
 }

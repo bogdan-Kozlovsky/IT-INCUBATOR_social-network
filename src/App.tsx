@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import { ErrorMessage } from './common/ErrorMessage/ErrorMessage';
+import { ModalErrorMessage } from './common/ModalErrorMessage/ModalErrorMessage';
 import { Preloader } from './common/preloader/Preloader';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import { Header } from './components/Header/Header';
@@ -38,15 +38,18 @@ export const App = () => {
   return (
     <>
       <Header />
-      {errorMessage && <ErrorMessage />}
+
+      {errorMessage && <ModalErrorMessage />}
 
       {!isProgress && <div className='nav'>
-
         <div className='statusBar' />
-      </div>}
+      </div>
+      }
+
       <div className='app-wrapper'>
+
         <Navigation />
-        
+
         <Routes>
           <Route path={PATH.ME} element={<Me />} />
           <Route path={`${PATH.PROFILE}/:userId`} element={<Profile />} />

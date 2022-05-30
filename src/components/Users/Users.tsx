@@ -12,15 +12,16 @@ import {
   selectUsers,
 } from '../../redux/selectors/users';
 
-import s from './users.module.css';
+import s from './Users.module.css';
 
-import Paginator from 'common/Paginator/Paginator';
-import { User } from 'components/Users/User';
+import { Paginator } from 'common/Paginator/Paginator';
+import { User } from 'components/Users/User/User';
 import { PATH } from 'enums/patch';
 import { getUsersTC } from 'redux/reducer/users-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 
 export const Users = () => {
+
   const dispatch = useDispatch();
 
   const currentPage = useAppSelector(selectCurrentPage);
