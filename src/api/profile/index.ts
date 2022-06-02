@@ -1,6 +1,7 @@
+import { PhotosPropsType, ProfileType } from '../../redux/reducer/profile/types';
+
 import { instance } from 'api/config';
 import { ResponseType } from 'api/types';
-import { PhotosPropsType, ProfileType } from 'redux/reducer/profile-reducer';
 
 export const profileApi = {
   getProfile(userId: number) {

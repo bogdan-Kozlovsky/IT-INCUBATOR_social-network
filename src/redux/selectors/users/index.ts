@@ -1,4 +1,4 @@
-import { UserType } from '../../reducer/users-reducer';
+import { UserType } from '../../reducer/user/types';
 import { AppStateType } from '../../store';
 
 export const selectUsers = (state: AppStateType): UserType[] => state.usersPage.users;

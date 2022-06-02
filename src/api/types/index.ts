@@ -1,4 +1,4 @@
-import { UserType } from 'redux/reducer/users-reducer';
+import { UserType } from '../../redux/reducer/user/types';
 
 export type GetUserType = {
   error: null

@@ -2,8 +2,9 @@ import { FC } from 'react';
 
 import { InjectedFormProps, reduxForm } from 'redux-form';
 
+import { InitialType, ProfileType } from '../../../redux/reducer/profile/types';
+
 import { createField, GetStringKeys, Input, Textarea } from 'common/FromControls/FormControls';
-import { initialType, ProfileType } from 'redux/reducer/profile-reducer';
 
 type PropsType = {
   profile: ProfileType
@@ -11,7 +12,7 @@ type PropsType = {
 
 type ProfileTypeKeys = GetStringKeys<ProfileType>
 
-const ProfileDataForm: FC<InjectedFormProps<initialType, PropsType> & PropsType> = (
+const ProfileDataForm: FC<InjectedFormProps<InitialType, PropsType> & PropsType> = (
   { handleSubmit, profile, error }) => (
   <form onSubmit={handleSubmit}>
     <div>

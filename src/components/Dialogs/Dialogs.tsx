@@ -4,19 +4,17 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { reset } from 'redux-form';
 
+import { sendMessageAC } from '../../redux/actionCreator/dialogs/actionCreator';
+import { DialogType, PostsType } from '../../redux/reducer/dialogs/types';
 import { selectIsAuth } from '../../redux/selectors/auth';
 import { selectDialogs, selectMessage } from '../../redux/selectors/dialogs';
 
 import s from './Dialogs.module.css';
+import { AddMessageFormType } from './types';
 
 import { AddMessageFormRedux } from 'components/AddMessageForm/AddMessageForm';
 import { PATH } from 'enums/patch';
-import { DialogType, PostsType, sendMessageAC } from 'redux/reducer/dialogs-reducer';
 import { useAppSelector } from 'types/useAppSelector';
-
-export type AddMessageFormType = {
-  newMessageBody: string
-}
 
 export const Dialogs = () => {
 

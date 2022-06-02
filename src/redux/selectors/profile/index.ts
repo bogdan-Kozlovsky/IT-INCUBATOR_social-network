@@ -1,4 +1,4 @@
-import { ProfileType, RouteType } from '../../reducer/profile-reducer';
+import { ProfileType, RouteType } from '../../reducer/profile/types';
 import { AppStateType } from '../../store';
 
 export const selectProfile = (state: AppStateType): ProfileType | null => state.profilePage.profile;

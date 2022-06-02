@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import pencil from '../../../../../assets/images/pencil.svg';
-import { updateStatusTC } from '../../../../../redux/reducer/profile-reducer';
+import { updateStatusTC } from '../../../../../redux/middlewares/profile/updateStatusTC';
 import s from '../../ProfileInfo.module.css';
 
 import { ProfileStatusEditModePropsType } from './types';

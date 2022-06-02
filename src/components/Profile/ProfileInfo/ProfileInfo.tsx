@@ -2,6 +2,9 @@ import { ChangeEvent, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { savePhotoTC } from '../../../redux/middlewares/profile/savePhotoTC';
+import { saveProfileTC } from '../../../redux/middlewares/profile/saveProfileTC';
+import { ProfileType } from '../../../redux/reducer/profile/types';
 import { selectIdAuth } from '../../../redux/selectors/auth';
 import { selectPhotoLarge } from '../../../redux/selectors/profile';
 import { ProfileData } from '../ProfileData/ProfileData';
@@ -13,7 +16,6 @@ import usersIcons from 'assets/images/users.png';
 import { Preloader } from 'common/preloader/Preloader';
 import { ProfileDataFormReduxForm } from 'components/Profile/ProfileInfo/ProfileDataForm';
 import { ProfileStatus } from 'components/Profile/ProfileInfo/ProfileStatus/ProfileStatus';
-import { ProfileType, savePhotoTC, saveProfileTC } from 'redux/reducer/profile-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 
 export const ProfileInfo = ({ profile, status, userId }: ProfileInfoPropsType) => {

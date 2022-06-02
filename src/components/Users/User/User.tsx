@@ -3,13 +3,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { followTC } from '../../../redux/middlewares/users/followTC';
+import { unfollowTC } from '../../../redux/middlewares/users/unfollowTC';
 import s from '../Users.module.css';
 
 import { UserPropsType } from './types';
 
 import usersIcons from 'assets/images/users.png';
 import { PATH } from 'enums/patch';
-import { followTC, unfollowTC } from 'redux/reducer/users-reducer';
 
 export const User = ({ ...props }: UserPropsType) => {
 

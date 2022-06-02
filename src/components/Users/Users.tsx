@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { getUsersTC } from '../../redux/middlewares/users/getUsersTC';
 import { selectIsAuth } from '../../redux/selectors/auth';
 import {
   selectCurrentPage,
@@ -17,7 +18,6 @@ import s from './Users.module.css';
 import { Paginator } from 'common/Paginator/Paginator';
 import { User } from 'components/Users/User/User';
 import { PATH } from 'enums/patch';
-import { getUsersTC } from 'redux/reducer/users-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 
 export const Users = () => {
@@ -29,8 +29,8 @@ export const Users = () => {
   const totalUsersCount = useAppSelector(selectTotalUsersCount);
   const followingInProgress = useAppSelector(selectFollowingInProgress);
   const users = useAppSelector(selectUsers);
-
   const isAuth = useAppSelector(selectIsAuth);
+
   const onPageChanged = (pageNumber: number) => {
     dispatch(getUsersTC(pageNumber, pageSize));
   };

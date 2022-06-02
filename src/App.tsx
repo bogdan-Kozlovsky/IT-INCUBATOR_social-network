@@ -13,7 +13,7 @@ import { Navigation } from './components/Navigation/Navigation';
 import { Profile } from './components/Profile/Profile';
 import { Users } from './components/Users/Users';
 import { PATH } from './enums/patch';
-import { getAuthUserDataThunk } from './redux/reducer/auth-reducer';
+import { getAuthUserDataTC } from './redux/middlewares/auth/getAuthUserDataTC';
 import { selectIsInitialized, selectIsProgress } from './redux/selectors/app';
 import { selectErrorMessage } from './redux/selectors/errorMessage';
 
@@ -28,7 +28,7 @@ export const App = () => {
   const isInitialized = useAppSelector(selectIsInitialized);
 
   useEffect(() => {
-    dispatch(getAuthUserDataThunk());
+    dispatch(getAuthUserDataTC());
   }, []);
 
   if (!isInitialized) {

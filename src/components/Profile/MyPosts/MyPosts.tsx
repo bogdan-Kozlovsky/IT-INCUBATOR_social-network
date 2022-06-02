@@ -3,13 +3,13 @@ import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Field, InjectedFormProps, reduxForm, reset } from 'redux-form';
 
+import { addPostAC } from '../../../redux/actionCreator/profile/actionCreator';
 import { selectPost } from '../../../redux/selectors/profile';
 
 import s from './MyPosts.module.css';
 
 import { Textarea } from 'common/FromControls/FormControls';
 import { Post } from 'components/Profile/MyPosts/Post/Post';
-import { addPostAC } from 'redux/reducer/profile-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 import { maxLengthValue, required } from 'utils/validators';
 

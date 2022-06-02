@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { getStatusTC } from '../../redux/middlewares/profile/getStatusTC';
+import { getUserProfileTC } from '../../redux/middlewares/profile/getUserProfileTC';
 import { selectIdAuth, selectIsAuth } from '../../redux/selectors/auth';
 import { selectProfile, selectStatus } from '../../redux/selectors/profile';
 
@@ -10,10 +12,10 @@ import s from 'components/Me/Me.module.css';
 import { MyPosts } from 'components/Profile/MyPosts/MyPosts';
 import { ProfileInfo } from 'components/Profile/ProfileInfo/ProfileInfo';
 import { PATH } from 'enums/patch';
-import { getStatusTC, getUserProfileTC } from 'redux/reducer/profile-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 
 export const Me = () => {
+
   const dispatch = useDispatch();
 
   const isAuth = useAppSelector(selectIsAuth);
@@ -37,7 +39,9 @@ export const Me = () => {
         status={status}
         userId={idAuth}
       />
+
       <MyPosts />
+
     </div>
   );
 };

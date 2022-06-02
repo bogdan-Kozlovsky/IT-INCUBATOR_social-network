@@ -1,20 +1,7 @@
-// type
-export type DialogType = {
-  message: string
-  id: number
-}
-export type PostsType = {
-  name: string
-  id: number
-}
-type GlobalReducerType = | ReturnType<typeof sendMessageAC>
+import { GlobalReducerType } from '../../actionCreator/dialogs/types';
 
-export type InitialStateType = {
-  dialogs: Array<PostsType>
-  messages: Array<DialogType>
-}
+import { InitialStateType } from './types';
 
-// initialState
 const initialState: InitialStateType = {
   dialogs: [
     { id: 1, name: 'Slava' },
@@ -30,7 +17,6 @@ const initialState: InitialStateType = {
   ],
 };
 
-// reducer
 export const dialogsReducer = (state: InitialStateType = initialState, action: GlobalReducerType): InitialStateType => {
   switch (action.type) {
     case  'SEND-MESSAGE':
@@ -40,5 +26,3 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: G
   }
 };
 
-// action Creator
-export const sendMessageAC = (newMessageBody: string) => ({ type: 'SEND-MESSAGE', newMessageBody } as const);

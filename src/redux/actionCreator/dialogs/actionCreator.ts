@@ -1,0 +1,1 @@
+export const sendMessageAC = (newMessageBody: string) => ({ type: 'SEND-MESSAGE', newMessageBody } as const);

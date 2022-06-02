@@ -4,20 +4,16 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
+import { loginTC } from '../../redux/middlewares/auth/loginTC';
 import { selectCaptchaUrl, selectIsAuth } from '../../redux/selectors/auth';
 
 import s from './style.module.css';
+import { LoginFormOwnProps } from './types';
 
 import { createField, GetStringKeys, Input } from 'common/FromControls/FormControls';
 import { PATH } from 'enums/patch';
-import { loginTC } from 'redux/reducer/auth-reducer';
 import { useAppSelector } from 'types/useAppSelector';
 import { required } from 'utils/validators';
-
-// type
-type LoginFormOwnProps = {
-  captchaUrl: string | null
-}
 
 export type LoginFormValuesType = {
   login: string,

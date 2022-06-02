@@ -2,12 +2,13 @@ import React, { FC } from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { counterAC } from '../../../../redux/actionCreator/profile/actionCreator';
+
 import s from './Post.module.css';
 
 import likesActive from 'assets/images/likeActive.svg';
 import likes from 'assets/images/likeNoActive.svg';
 import postIcons from 'assets/images/post.svg';
-import { counterAC } from 'redux/reducer/profile-reducer';
 
 // type
 type PostPropsType = {

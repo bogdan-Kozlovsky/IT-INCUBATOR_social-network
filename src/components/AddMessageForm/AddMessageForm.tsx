@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 
-import { AddMessageFormType } from '../Dialogs/Dialogs';
+import { AddMessageFormType } from '../Dialogs/types';
 
 const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormType>> = ({ handleSubmit }) => (
   <form onSubmit={handleSubmit}>

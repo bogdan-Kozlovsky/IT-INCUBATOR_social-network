@@ -1,4 +1,4 @@
-import { ProfileType } from '../../redux/reducer/profile-reducer';
+import { ProfileType } from '../../redux/reducer/profile/types';
 
 export type ProfileInfoPropsType = {
   profile: ProfileType | null

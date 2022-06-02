@@ -3,11 +3,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 
-import { appReducer } from './reducer/app-reducer';
-import { authReducer } from './reducer/auth-reducer';
-import { dialogsReducer } from './reducer/dialogs-reducer';
-import { profileReducer } from './reducer/profile-reducer';
-import { usersReducer } from './reducer/users-reducer';
+import { appReducer } from './reducer/app/app-reducer';
+import { authReducer } from './reducer/auth/auth-reducer';
+import { dialogsReducer } from './reducer/dialogs/dialogs-reducer';
+import { profileReducer } from './reducer/profile/profile-reducer';
+import { usersReducer } from './reducer/user/users-reducer';
 
 const reducers = combineReducers({
   profilePage: profileReducer,
