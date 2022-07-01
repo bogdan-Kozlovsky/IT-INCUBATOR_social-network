@@ -1,19 +1,56 @@
-# Social Network project
+# 😎 Social network on the minimum wage (there are no analogues in the world, who understands the topic :))))
 
-## Stack:
+🇺🇦
 
-* React
-* Redux, Redux-Thunk
-* Axios
-* TypeScript
-* Formik
-* HTML5, SASS
+## 💩 Apps to view friends and more...
 
-In the project directory:
+    More functionality will be worked out in the future, but this is not certain.
 
-### `npm install -g yarn`
+💀 If you wish, you can use the code for your own purposes :)
 
-### `yarn start`
+🦾️packages that were used in the implementation of the project:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+###
+
+🪣 To clone a project, copy the link https://github.com/bogdan-Kozlovsky/IT-INCUBATOR_social-network.git and write the
+command in the console yarn
+
+###
+
+🕶 Library : React
+
+👨‍👩‍👧‍👦 State manager : Redux
+
+🦺 Linter : Eslint
+
+☂ Сode formatting : Prettier
+
+⛑ Сode typing: Typescript
+
+🤸🏻‍♂ Server requests : Axios
+
+🤖 ️Preprocessors css : Scss
+
+👑 Form validation: Redux-form
+
+🙆 Middleware: Redux-thunk
+
+🧑‍🎓 Unique id: Uuid
+
+🧟‍♂ Page Routing: React-router-dom
+
+💅 Debug: Redux-devtools-extension
+
+###
+
+    🧙‍♂️ And many more packages
+
+###
+
+###
+
+    🇺🇦 All the peaceful sky above your head
+
+
+
+
